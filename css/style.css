@@ -1,10 +1,104 @@
+@font-face {
+  font-family: ITCAvantGarde;
+  src: url("../fonts/ITCAvantGardeStdMd.woff");
+}
+
+
+/* CSS RESET */
+
 *, *::before, *::after {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-body {
-	min-height: 100vh;
-	font-family: sans-serif;
+ul {
+	list-style-type: none;
+}
+
+
+/* STOCK MANAGEMENT */
+
+.stock-management {
+	font-family: ITCAvantGarde, sans-serif;
+	display: grid;
+	justify-items: center;
+}
+
+
+/* HEADER */
+
+.header {
+	display: grid;
+	grid-auto-flow: column;
+	align-items: center;
+}
+
+.header__title {
+	padding: 1em;
+}
+
+.header__search {
+	padding: 1em;
+}
+
+.header__search-input {
+	padding: 0.5em;
+}
+
+
+/* STOCK LIST */
+
+.stock-list {
+	max-width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.stock-list__items {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	max-width: 75%;
+}
+
+.item-preview {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.25em;
+
+	justify-items: center;
+	align-items: center;
+	text-align: center;
+	background-color: hsl(0, 0%, 90%);
+	margin: 1em;
+	border-radius: 15px;
+}
+
+.item-preview__image {
+	grid-column: span 2;
+	width: 200px;
+	height: auto;
+	margin: 1em;
+}
+
+.item-preview__name {
+	grid-column: span 2;
+	width: 100%;
+	padding: 0.5em;
+	background-color: hsl(0, 0%, 70%);
+}
+
+.item-preview__label {
+	justify-self: right;
+	padding: 0.5em;
+	font-size: 0.875rem;
+}
+
+.item-preview__value {
+	justify-self: left;
+	padding: 0.5em;
+	font-size: 0.875rem;
 }

@@ -5,10 +5,39 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Acme Atelier - Stock Management</title>
+	<link rel="shortcut icon" href="img/favicon.png" type="image/png">
 	<link rel="stylesheet" href="css/style.css">
 	<script type="module" src="src/main.js" defer></script>
 </head>
 <body>
-	
+	<main class="stock-management">
+		<header class="header">
+			<h1 class="header__title">Fabric Stock Management</h1>
+			<div class="header__search">
+				<label class="header__search-label" for="item-preview-search">Search:</label>
+				<input class="header__search-input" id="item-preview-search" type="search">
+			</div>
+		</header>
+		<section class="stock-list">
+			<ul class="stock-list__items">
+				<!-- populate from: item-preview-template -->
+			</ul>
+		</section>
+	</main>
+		
+	<!-- Template for Stock Item Preview -->
+	<template id="item-preview-template">
+		<li class="item-preview">
+			<img class="item-preview__image" src="img/aa-logo-stamp.png" alt="Acme Atelier Logo">
+			<h2 class="item-preview__name"></h2>
+			<p class="item-preview__label">Colour:</p>
+			<p class="item-preview__value"></p>
+			<p class="item-preview__label">Material:</p>
+			<p class="item-preview__value"></p>
+			<p class="item-preview__label">Quantity:</p>
+			<p class="item-preview__value"></p>
+		</li>
+	</template>
+
 </body>
 </html>
