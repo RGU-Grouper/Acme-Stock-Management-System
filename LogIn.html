@@ -9,8 +9,7 @@
 	<title>Acme Atelier - Stock Management</title>
 	<link rel="shortcut icon" href="img/favicon.png" type="image/png">
 	<link rel="stylesheet" href="css/style.css">
-	<script type="module" src="src/main.js" defer></script>
-	
+
 	<!--Google Platform Library for sign in & log in functions-->
 	<script src="src/Oauth.js" defer></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -25,30 +24,8 @@
 				<input class="header__search-input" id="item-preview-search" type="search">
 			</div>
 			<!--Sign In-->
-			<div class="g-signin2" id="g-singin2" data-onsuccess="onSignIn" style="display: none;"></div>
-			<!--Sign Out-->
-			<a href="#" onclick="signOut();">Sign out</a>
+			<div class="g-signin2" id="g-singin2" data-onsuccess="onSignIn"></div>
 		</header>
-		<section class="stock-list">
-			<ul class="stock-list__items">
-				<!-- populate from: item-preview-template -->
-			</ul>
-		</section>
 	</main>
-		
-	<!-- Template for Stock Item Preview -->
-	<template id="item-preview-template">
-		<li class="item-preview">
-			<img class="item-preview__image" src="img/aa-logo-stamp.png" alt="Acme Atelier Logo">
-			<h2 class="item-preview__name"></h2>
-			<p class="item-preview__label">Colour:</p>
-			<p class="item-preview__value"></p>
-			<p class="item-preview__label">Material:</p>
-			<p class="item-preview__value"></p>
-			<p class="item-preview__label">Quantity:</p>
-			<p class="item-preview__value"></p>
-		</li>
-	</template>
-
 </body>
 </html>
