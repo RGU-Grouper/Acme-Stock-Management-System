@@ -9,7 +9,8 @@ function onSignIn(googleUser) {
     if (profile.getEmail() == "patrickjohnmurchie@gmail.com" ||
         profile.getEmail() == "rmackenzie88@gmail.com" ||
         profile.getEmail() == "callummcintosh6675@gmail.com" ||
-        profile.getEmail() == "helloacmeatelier@gmail.com") {
+        profile.getEmail() == "helloacmeatelier@gmail.com" ||
+        profile.getEmail() == "ryancitomlinson@gmail.com") {
         window.location.href = "./index.html"
     } else {}
 }
