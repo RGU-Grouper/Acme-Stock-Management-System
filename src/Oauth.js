@@ -10,10 +10,12 @@ function onSignIn(googleUser) {
         profile.getEmail() == "rmackenzie88@gmail.com" ||
         profile.getEmail() == "callummcintosh6675@gmail.com" ||
         profile.getEmail() == "helloacmeatelier@gmail.com" ||
-        profile.getEmail() == "ryancitomlinson@gmail.com") {
+        profile.getEmail() == "ryancitomlinson@gmail.com"
+    ) {
         window.location.href = "./index.html"
-    } else {}
+    }
 }
+
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
