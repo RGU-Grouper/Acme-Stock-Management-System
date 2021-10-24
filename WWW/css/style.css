@@ -21,6 +21,7 @@ ul {
 
 .stock-management {
 	font-family: ITCAvantGarde, sans-serif;
+	letter-spacing: 1.25px;
 	display: grid;
 	justify-items: center;
 }
@@ -72,9 +73,9 @@ ul {
 	justify-items: center;
 	align-items: center;
 	text-align: center;
-	background-color: hsl(0, 0%, 90%);
+	background-color:#EEEEEE;
 	margin: 1em;
-	border-radius: 15px;
+	border-radius: 0px;
 }
 
 .item-preview__image {
@@ -88,7 +89,7 @@ ul {
 	grid-column: span 2;
 	width: 100%;
 	padding: 0.5em;
-	background-color: hsl(0, 0%, 70%);
+	background-color: #EEEEEE;
 }
 
 .item-preview__label {
