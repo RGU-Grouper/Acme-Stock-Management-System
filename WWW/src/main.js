@@ -1,6 +1,7 @@
+//
+//import { names } from './config.js';
 const stockListItems = document.querySelector(".stock-list__items");
 const itemPreviewTemplate = document.getElementById("item-preview-template");
-
 const addItemPreview = ({ image, name, colour, material, quantity }) => {
     const itemPreview = itemPreviewTemplate.content.cloneNode(true).firstElementChild;
 
@@ -14,13 +15,11 @@ const addItemPreview = ({ image, name, colour, material, quantity }) => {
     stockListItems.appendChild(itemPreview);
 };
 
-
-
 // Add Test Previews
 const numTestPreviews = 10;
 const testItem = {
     image: "aa-logo-stamp.png",
-    name: "Stripy Grey Pattern",
+    name: "Tartan",
     colour: "Grey",
     material: "Cotton",
     quantity: "8m",
