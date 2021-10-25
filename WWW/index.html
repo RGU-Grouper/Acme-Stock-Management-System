@@ -19,27 +19,62 @@
 <body>
 	<main class="stock-management">
 		<header class="header">
-			<h1 class="header__title">Fabric Stock Management</h1>
-			<div class="header__search">
-				<label class="header__search-label" for="item-preview-search">Search:</label>
-				<input class="header__search-input" id="item-preview-search" type="search">
+			<div class="header__brand">
+				<img class="header__logo" src="img/aa-logo-stamp.png" alt="Acme Atelier Logo">
+				<h1 class="header__title">Fabric Stock Management</h1>
 			</div>
-			<!--Sign In-->
-			<div class="g-signin2" id="g-singin2" data-onsuccess="onSignIn" style="display: none;"></div>
-			<!--Sign Out-->
-			<a href="#" onclick="signOut();">Sign out</a>
+			<div class="header__options">
+				<div class="header__search">
+					<label class="header__search-label" for="item-preview-search">Search:</label>
+					<input class="header__search-input" id="item-preview-search" type="search">
+				</div>
+
+				<button class="header__add-item">Add Item</button>
+
+				<!--Sign In-->
+				<div class="g-signin2" id="g-singin2" data-onsuccess="onSignIn" style="display: none;"></div>
+
+				<!--Sign Out-->
+				<!-- <a href="#" onclick="signOut();">Sign out</a> -->
+				<button class="header__sign-out" onclick="signOut();">Sign out</button>
+			</div>
 		</header>
+
 		<section class="stock-list">
 			<ul class="stock-list__items">
 				<!-- populate from: item-preview-template -->
 			</ul>
 		</section>
+
+		<section class="item-details__background">
+			<div class="item-details">
+				<div class="item-details__images">
+					<img class="item-details__image" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
+					<div class="item-details__image-previews">
+						<img class="item-details__image-preview item-details__image-preview--active" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
+						<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
+						<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
+					</div>
+				</div>
+				<div class="item-details__info">
+					<h2 class="item-details__name"></h2>
+					<p class="item-details__label">Colour:</p>
+					<p class="item-details__value"></p>
+					<p class="item-details__label">Material:</p>
+					<p class="item-details__value"></p>
+					<p class="item-details__label">Quantity:</p>
+					<p class="item-details__value"></p>
+				</div>
+				<div class="item-details__close">&#215;</div>
+			</div>
+		</section>
 	</main>
-		
+
+
 	<!-- Template for Stock Item Preview -->
 	<template id="item-preview-template">
 		<li class="item-preview">
-			<img class="item-preview__image" src="img/aa-logo-stamp.png" alt="Acme Atelier Logo">
+			<img class="item-preview__image" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 			<h2 class="item-preview__name"></h2>
 			<p class="item-preview__label">Colour:</p>
 			<p class="item-preview__value"></p>
