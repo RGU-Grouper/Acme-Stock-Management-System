@@ -1,12 +1,11 @@
-//import { names } from './config.js';
 import { addItemPreview } from "./ui.js";
 
 // Add Test Previews
-const numTestPreviews = 10;
+const numTestPreviews = 20;
 const testItem = {
     images: [
-			"tartan.jpg",
-		],
+        "tartan.jpg",
+    ],
     name: "Tartan",
     colour: "Green",
     material: "Wool (Light)",
