@@ -224,16 +224,16 @@ ul {
 }
 
 .item-details__image-preview {
-	min-width: 100px;
+	min-width: 50px;
 	max-width: 150px;
 	height: auto;
 	margin: 1em;
 	cursor: pointer;
-	border: 4px solid transparent;
+	/* border: 4px solid transparent; */
 }
 
 .item-details__image-preview--active {
-	border: 4px solid hsl(0 100% 50% / .75);
+	/* border: 4px solid hsl(0 100% 50% / .75); */
 }
 
 .item-details__info {
