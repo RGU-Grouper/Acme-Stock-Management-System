@@ -274,3 +274,57 @@ ul {
 	top: 0;
 	right: 10px;
 }
+
+
+/* ADD ITEM */
+
+.add-item {
+	display: grid;
+	justify-content: center;
+}
+
+.add-item__images {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-content: center;
+	align-items: center;
+}
+
+.add-item__image {
+	grid-column: span 2;
+	width: 200px;
+	margin: 2em auto 1em;
+}
+
+.add-item__upload {
+	cursor: pointer;
+	font-size: 1rem;
+	padding: 0.5em 1em;
+	margin: 1em;
+	width: max-content;
+}
+
+.add-item__camera {
+	cursor: pointer;
+	font-size: 1rem;
+	padding: 0.5em 1em;
+	margin: 1em;
+	width: max-content;
+}
+
+.add-item__label {
+	margin: 1em 0 0.25em;
+	text-transform: uppercase;
+}
+
+.add-item__input {
+	padding: 0.5em;
+}
+
+.add-item__submit {
+	cursor: pointer;
+	font-size: 1rem;
+	padding: 0.5em 1em;
+	margin: 2em auto;
+	width: max-content;
+}
