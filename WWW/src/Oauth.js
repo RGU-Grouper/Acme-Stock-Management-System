@@ -13,6 +13,15 @@ function onSignIn(googleUser) {
         profile.getEmail() == "ryancitomlinson@gmail.com"
     ) {
         window.location.href = "./index.html"
+    } else {
+        let done = confirm("You don't have permission to access this.")
+        if (done) {
+            window.location.href = "https://www.acmeatelier.co.uk/"
+        } else {
+            alert("Please try again.")
+        }
+
+
     }
 }
 
