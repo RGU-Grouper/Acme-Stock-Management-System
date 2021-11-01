@@ -39,7 +39,7 @@ const hideItemDetails = () => {
 };
 
 // Add a card containing item details and image
-export const addItemPreview = (itemData) => {
+const addItemPreview = (itemData) => {
 		const { images, name, colour, material, quantity } = itemData;
 
 		// Create copy of item preview template
@@ -65,3 +65,18 @@ $itemDetails.addEventListener('click', (event) => event.stopPropagation());
 
 // Hide item details when X is clicked
 $itemDetailsClose.addEventListener('click', hideItemDetails);
+
+
+// Add Test Previews
+const numTestPreviews = 20;
+const testItem = {
+    images: [
+        "tartan.jpg",
+    ],
+    name: "Tartan",
+    colour: "Green",
+    material: "Wool (Light)",
+    quantity: "8m",
+};
+
+for (let i = 0; i < numTestPreviews; i++) addItemPreview(testItem);
