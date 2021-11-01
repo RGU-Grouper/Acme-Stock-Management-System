@@ -16,12 +16,15 @@
 	<script src="src/Oauth.js" defer></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 
+
 </head>
-<body>
+<body onload="setup()">
 	<main class="add-item">
 		<section class="add-item__images">
 			<img class="add-item__image" src="img/tartan.jpg" alt="Item preview">
-			<button class="add-item__upload">Upload Files</button>
+			<input type="file" id="actual-btn" hidden/>
+            	<input class="add-item__upload" id='buttonid' type='file' value='Upload Files' /> 
+            
 			<button class="add-item__camera">Take Photo</button>
 		</section>
 
@@ -49,7 +52,7 @@
 		</section>
 
 		<section class="add-item__form-buttons">
-			<button class="add-item__cancel">Cancel</button>
+			<button class="add-item__cancel" onclick="window.location.href='./index.html'">Cancel</button>
 			<button class="add-item__submit">Create Material</button>
 		</section>
 	</main>

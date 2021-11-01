@@ -5,7 +5,7 @@ function onSignIn(googleUser) {
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
-    //replace this with a data base please at some point... Thank you fueture Patrick
+    //list the emails that can login to the website using Gmail OAuth
     if (profile.getEmail() == "patrickjohnmurchie@gmail.com" ||
         profile.getEmail() == "rmackenzie88@gmail.com" ||
         profile.getEmail() == "callummcintosh6675@gmail.com" ||
