@@ -101,6 +101,7 @@ export default class AddItemUI extends AddItem {
 		event.stopPropagation();
 		const tagName = event.target.innerText;
 		const tag = (tagName === "Add New...") ? this.$materialInput.value : tagName;
+		this.$materialInput.focus();
 		if (!tag) return;
 
 		super.addMaterialTag(tag);
@@ -109,8 +110,6 @@ export default class AddItemUI extends AddItem {
 		this.$materialDisplayList.appendChild($tagDisplay);
 		
 		this.$materialInput.value = "";
-		this.$materialInput.focus();
-
 		this.loadMaterialSelectTags();
 	}
 
@@ -158,6 +157,7 @@ export default class AddItemUI extends AddItem {
 		event.stopPropagation();
 		const tagName = event.target.innerText;
 		const tag = (tagName === "Add New...") ? this.$mainColourInput.value : tagName;
+		this.$mainColourInput.focus();
 		if (!tag) return;
 
 		super.addMainColourTag(tag);
@@ -166,8 +166,6 @@ export default class AddItemUI extends AddItem {
 		this.$mainColourDisplayList.appendChild($tagDisplay);
 
 		this.$mainColourInput.value = "";
-		this.$mainColourInput.focus();
-
 		this.loadMainColourSelectTags();
 	}
 
@@ -215,6 +213,7 @@ export default class AddItemUI extends AddItem {
 		event.stopPropagation();
 		const tagName = event.target.innerText;
 		const tag = (tagName === "Add New...") ? this.$highlightColourInput.value : tagName;
+		this.$highlightColourInput.focus();
 		if (!tag) return;
 
 		super.addHighlightColourTag(tag);
@@ -223,8 +222,6 @@ export default class AddItemUI extends AddItem {
 		this.$highlightColourDisplayList.appendChild($tagDisplay);
 
 		this.$highlightColourInput.value = "";
-		this.$highlightColourInput.focus();
-
 		this.loadHighlightColourSelectTags();
 	}
 
