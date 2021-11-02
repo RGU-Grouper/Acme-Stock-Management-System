@@ -15,14 +15,13 @@ const showItemDetails = (itemData) => {
 	$itemDetailsBackground.classList.add("item-details__background--active");
 
 	// Set Name
-	
+
 	// Set Images
 	$itemDetailsImage.src = "img/" + images[0];
 	for (let i = 0; i < $itemDetailsImagePreviews.length; i++) {
 		if (!images[i]) {
 			$itemDetailsImagePreviews[i].src = "img/aa-logo-stamp.png";
-		}
-		else {
+		} else {
 			$itemDetailsImagePreviews[i].src = "img/" + images[i];
 		}
 	}
@@ -40,43 +39,40 @@ const hideItemDetails = () => {
 
 // Add a card containing item details and image
 const addItemPreview = (itemData) => {
-		const { images, name, colour, material, quantity } = itemData;
+	const { images, name, colour, material, quantity } = itemData;
 
-		// Create copy of item preview template
-    const $itemPreview = $itemPreviewTemplate.content.cloneNode(true).firstElementChild;
+	// Create copy of item preview template
+	const $itemPreview = $itemPreviewTemplate.content.cloneNode(true).firstElementChild;
 
-    // Set item details
-    $itemPreview.children[0].src = "img/" + images[0];
-    $itemPreview.children[1].innerHTML = name;
-    $itemPreview.children[3].innerHTML = colour;
-    $itemPreview.children[5].innerHTML = material;
-    $itemPreview.children[7].innerHTML = quantity;
-		
-		// Set click handler
-		$itemPreview.addEventListener('click', (event) => showItemDetails(itemData));
+	// Set item details
+	$itemPreview.children[0].src = "img/" + images[0];
+	$itemPreview.children[1].innerHTML = name;
+	$itemPreview.children[3].innerHTML = colour;
+	$itemPreview.children[5].innerHTML = material;
+	$itemPreview.children[7].innerHTML = quantity;
 
-		// Add to DOM
-    $stockListItems.appendChild($itemPreview);
+	// Set click handler
+	$itemPreview.addEventListener("click", (event) => showItemDetails(itemData));
+
+	// Add to DOM
+	$stockListItems.appendChild($itemPreview);
 };
 
 // Hide item details when background is clicked
-$itemDetailsBackground.addEventListener('click', hideItemDetails);
-$itemDetails.addEventListener('click', (event) => event.stopPropagation());
+$itemDetailsBackground.addEventListener("click", hideItemDetails);
+$itemDetails.addEventListener("click", (event) => event.stopPropagation());
 
 // Hide item details when X is clicked
-$itemDetailsClose.addEventListener('click', hideItemDetails);
-
+$itemDetailsClose.addEventListener("click", hideItemDetails);
 
 // Add Test Previews
 const numTestPreviews = 20;
 const testItem = {
-    images: [
-        "tartan.jpg",
-    ],
-    name: "Tartan",
-    colour: "Green",
-    material: "Wool (Light)",
-    quantity: "8m",
+	images: ["tartan.jpg"],
+	name: "Tartan",
+	colour: "Green",
+	material: "Wool (Light)",
+	quantity: "8m",
 };
 
 for (let i = 0; i < numTestPreviews; i++) addItemPreview(testItem);

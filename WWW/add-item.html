@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--Google sign in Client ID-->
 	<meta name="google-signin-client_id" content="1073236140507-htliss3hmb98vv4dahhmvsvkcthpak3j.apps.googleusercontent.com">
-	<title>Acme Atelier - Stock Management</title>
+	<title>Acme Atelier - Add Stock Item</title>
 	<link rel="shortcut icon" href="img/favicon.png" type="image/png">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/add-item.css">
@@ -15,52 +15,49 @@
 	<!--Google Platform Library for sign in & log in functions-->
 	<script src="src/Oauth.js" defer></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
-
-
 </head>
 <body onload="setup()">
 	<main class="add-item">
 		<section class="add-item__images">
 			<img class="add-item__image" src="img/tartan.jpg" alt="Item preview">
-			<input type="file" id="actual-btn" hidden/>
-            	<input class="add-item__upload" id='buttonid' type='file' value='Upload Files' /> 
-            
-			<button class="add-item__camera">Take Photo</button>
+			<input type="file" id="actual-btn" hidden>
+			<input class="add-item__upload" id='buttonid' type='file' value='Upload Files'>
+			<!-- <button class="add-item__camera">Take Photo</button> -->
 		</section>
 
 		<section class="add-item__details">
 			<label class="add-item__label" for="item-name">Name</label>
-			<input class="add-item__input" id="item-name" type="text">
+			<input class="add-item__name-input" id="item-name" type="text">
 			
 			<label class="add-item__label" for="item-type">Material</label>
-			<ul class="add-item__tag-list"></ul>
-			<input class="add-item__input" id="item-type" type="text">
-			<ul class="add-item__tag-select-list"></ul>
+			<ul class="add-item__material-display"></ul>
+			<input class="add-item__material-input" id="item-type" type="text">
+			<ul class="add-item__material-select"></ul>
 			
 			<label class="add-item__label" for="item-colours-main">Main Colours</label>
-			<ul class="add-item__tag-list"></ul>
-			<input class="add-item__input" id="item-colours-main" type="text">
-			<ul class="add-item__tag-select-list"></ul>
+			<ul class="add-item__main-colour-display"></ul>
+			<input class="add-item__main-colour-input" id="item-colours-main" type="text">
+			<ul class="add-item__main-colour-select"></ul>
 			
 			<label class="add-item__label" for="item-colours-highlight">Highlight Colours</label>
-			<ul class="add-item__tag-list"></ul>
-			<input class="add-item__input" id="item-colours-highlight" type="text">
-			<ul class="add-item__tag-select-list"></ul>
+			<ul class="add-item__highlight-colour-display"></ul>
+			<input class="add-item__highlight-colour-input" id="item-colours-highlight" type="text">
+			<ul class="add-item__highlight-colour-select"></ul>
 			
 			<label class="add-item__label" for="item-quantity">Quantity (m)</label>
-			<input class="add-item__input" id="item-quantity" type="number">
+			<input class="add-item__quantity-input" id="item-quantity" type="number">
 		</section>
 
 		<section class="add-item__form-buttons">
-			<button class="add-item__cancel" onclick="window.location.href='./index.html'">Cancel</button>
-			<button class="add-item__submit">Create Material</button>
+			<a href="./index.html"><button class="add-item__cancel">Cancel</button></a>
+			<button class="add-item__submit">Add to Stock</button>
 		</section>
 	</main>
 
 	<template id="tag-template">
 		<li class="tag">
 			<p class="tag__name"></p>
-			<icon class="tag__remove">X</icon>
+			<icon class="tag__remove">x</icon>
 		</li>
 	</template>
 </body>

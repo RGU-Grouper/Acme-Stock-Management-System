@@ -5,35 +5,19 @@ export const getStockData = () => {
 	return data;
 };
 
-export const getStockItem = (id) => {
+export const getStockItem = (id) => {};
 
-};
+export const addStockItem = (data) => {};
 
-export const addStockItem = (data) => {
+export const updateStockItem = (id, data) => {};
 
-};
-
-export const updateStockItem = (id, data) => {
-
-};
-
-export const deleteStockItem = (id) => {
-
-};
+export const deleteStockItem = (id) => {};
 
 // Tags
-export const getColourTags = () => {
+export const getColourTags = () => {};
 
-};
+export const addColourTag = (tag) => {};
 
-export const addColourTag = (tag) => {
+export const getMaterialTags = () => {};
 
-};
-
-export const getMaterialTags = () => {
-
-};
-
-export const addMaterialTag = (tag) => {
-
-};
+export const addMaterialTag = (tag) => {};
