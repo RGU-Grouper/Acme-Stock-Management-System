@@ -10,7 +10,9 @@
 	<link rel="shortcut icon" href="img/favicon.png" type="image/png">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/stock-list.css">
-	<script type="module" src="src/stock-list.js" defer></script>
+	<link rel="stylesheet" href="css/item-details.css">
+	<link rel="stylesheet" href="css/edit-item.css">
+	<script type="module" src="src/main.js" defer></script>
 	
 	<!--Google Platform Library for sign in & log in functions-->
 	<script src="src/Oauth.js" defer></script>
@@ -32,7 +34,7 @@
 					<input class="header__search-input" id="item-preview-search" type="search">
 				</div>
 
-				<button class="header__add-item" onclick="window.location.href='./add-item.html'">Add Item</button>
+				<button class="header__add-item">Add Item</button>
 
 				<!--Sign In-->
 				<div class="g-signin2" id="g-singin2" data-onsuccess="onSignIn" style="display: none;"></div>
@@ -49,45 +51,93 @@
 			</ul>
 		</section>
 
-		<section class="item-details__background">
-			<div class="item-details">
-				<div class="item-details__images">
+		<popup class="item-details__background">
+			<section class="item-details">
+				<section class="item-details__images">
 					<img class="item-details__image" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 					<div class="item-details__image-previews">
 						<img class="item-details__image-preview item-details__image-preview--active" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 						<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 						<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 					</div>
-				</div>
-				<div class="item-details__info">
+				</section>
+				<section class="item-details__info">
 					<h2 class="item-details__name"></h2>
-					<p class="item-details__label">Colour:</p>
+					<p class="item-details__label">Materials:</p>
 					<p class="item-details__value"></p>
-					<p class="item-details__label">Material:</p>
+					<p class="item-details__label">Main Colours:</p>
+					<p class="item-details__value"></p>
+					<p class="item-details__label">Highlight Colours:</p>
 					<p class="item-details__value"></p>
 					<p class="item-details__label">Quantity:</p>
-					<p class="item-details__value"></p>
-				</div>
-				<div class="item-details__close">&#215;</div>
-			</div>
-		</section>
+					<p class="item-details__quantity item-details__value"></p>
+				</section>
+				<icon class="item-details__close">&#215;</icon>
+			</section>
+		</popup>
+
+		<!-- ADD/EDIT ITEM POP-UP -->
+		<popup class="edit-item__background">
+			<section class="edit-item">
+				<section class="edit-item__images">
+					<img class="edit-item__image-preview" src="img/tartan.jpg" alt="Item preview">
+					<p class="edit-item__image-file edit-item__image-file--active">Preview 1</p>
+					<p class="edit-item__image-file">Preview 2</p>
+					<p class="edit-item__image-file">Preview 3</p>
+					<input type="file" id="actual-btn" hidden>
+					<input class="edit-item__upload" id='buttonid' type='file' value='Upload Files'>
+					<!-- <button class="edit-item__camera">Take Photo</button> -->
+				</section>
+		
+				<section class="edit-item__details">
+					<label class="edit-item__label" for="item-name">Name</label>
+					<input class="edit-item__name-input" id="item-name" type="text">
+					
+					<label class="edit-item__label" for="item-type">Material</label>
+					<ul class="edit-item__material-display"></ul>
+					<input class="edit-item__material-input" id="item-type" type="text">
+					<ul class="edit-item__material-select"></ul>
+					
+					<label class="edit-item__label" for="item-colours-main">Main Colours</label>
+					<ul class="edit-item__main-colour-display"></ul>
+					<input class="edit-item__main-colour-input" id="item-colours-main" type="text">
+					<ul class="edit-item__main-colour-select"></ul>
+					
+					<label class="edit-item__label" for="item-colours-highlight">Highlight Colours</label>
+					<ul class="edit-item__highlight-colour-display"></ul>
+					<input class="edit-item__highlight-colour-input" id="item-colours-highlight" type="text">
+					<ul class="edit-item__highlight-colour-select"></ul>
+					
+					<label class="edit-item__label" for="item-quantity">Quantity (m)</label>
+					<input class="edit-item__quantity-input" id="item-quantity" type="number">
+				</section>
+		
+				<section class="edit-item__form-buttons">
+					<button class="edit-item__cancel">Cancel</button>
+					<button class="edit-item__submit">Submit</button>
+				</section>
+			</section>
+		</popup>
 	</main>
 
 
-	<!-- Template for Stock Item Preview -->
+	<!-- Template for Stock Item Preview (Stock List Page)-->
 	<template id="item-preview-template">
 		<li class="item-preview">
 			<img class="item-preview__image" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 			<h2 class="item-preview__name"></h2>
-			<p class="item-preview__label">Colour:</p>
-			<p class="item-preview__value"></p>
-			<p class="item-preview__label">Material:</p>
-			<p class="item-preview__value"></p>
 			<p class="item-preview__label">Quantity:</p>
-			<p class="item-preview__value"></p>
+			<p class="item-preview__quantity item-preview__value"></p>
 		</li>
 	</template>
 
+	<!-- Template for Display Tags (Add/Edit Item Pop-up) -->
+	<template id="tag-template">
+		<li class="tag">
+			<p class="tag__name"></p>
+			<icon class="tag__remove">x</icon>
+		</li>
+	</template>
 </body>
 
 </html>
