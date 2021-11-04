@@ -1,22 +1,18 @@
 /* EDIT ITEM */
 .edit-item {
-	max-width: 400px;
-	height: max-content;
-	display: grid;
+	grid-area: main;
+	display: none;
 	padding: 0 2em;
 	background-color: white;
-	
-	&__background {
-		grid-area: main;
-		background-color: hsl(0 0% 0% / .85);
-		display: none;
-		overflow-y: scroll;
+	overflow-y: scroll;
+
+	@media screen and (max-width: 1200px) {
+		max-width: 400px;
+		height: max-content;
+	}
 		
-		&--active {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
+	&--active {
+		display: grid;
 	}
 	
 	&__images {

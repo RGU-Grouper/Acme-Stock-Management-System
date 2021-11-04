@@ -56,28 +56,21 @@
 
 /* ITEM DETAILS */
 .item-details {
-  display: flex;
+  grid-area: main;
+  display: none;
   justify-content: center;
-  width: max-content;
-  margin: auto;
   background-color: white;
   position: relative;
+  grid-area: main;
+  overflow-y: scroll;
 }
 @media screen and (max-width: 1200px) {
   .item-details {
     flex-direction: column-reverse;
   }
 }
-.item-details__background {
-  grid-area: main;
-  background-color: rgba(0, 0, 0, 0.85);
-  display: none;
-  overflow-y: scroll;
-}
-.item-details__background--active {
+.item-details--active {
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .item-details__images {
   display: flex;
@@ -144,22 +137,20 @@
 
 /* EDIT ITEM */
 .edit-item {
-  max-width: 400px;
-  height: max-content;
-  display: grid;
+  grid-area: main;
+  display: none;
   padding: 0 2em;
   background-color: white;
-}
-.edit-item__background {
-  grid-area: main;
-  background-color: rgba(0, 0, 0, 0.85);
-  display: none;
   overflow-y: scroll;
 }
-.edit-item__background--active {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@media screen and (max-width: 1200px) {
+  .edit-item {
+    max-width: 400px;
+    height: max-content;
+  }
+}
+.edit-item--active {
+  display: grid;
 }
 .edit-item__images {
   display: grid;

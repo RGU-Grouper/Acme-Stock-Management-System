@@ -11,7 +11,6 @@ export default class EditItem extends StockItem {
 		this.$tagTemplate = document.getElementById("tag-template");
 		
 		this.$header = document.querySelector(".header");
-		this.$background = document.querySelector(".edit-item__background");
 		this.$editItem = document.querySelector(".edit-item");
 		this.$cancel = document.querySelector(".edit-item__cancel");
 
@@ -39,7 +38,6 @@ export default class EditItem extends StockItem {
 		this.loadMainColourSelectTags(colourTags);
 		this.loadHighlightColourSelectTags(colourTags);
 
-
 		// Image Preview Selector
 		this.$imageFiles.forEach($imageFile => {
 			$imageFile.addEventListener("click", this.selectImagePreview);
@@ -62,10 +60,6 @@ export default class EditItem extends StockItem {
 		// Submit the new item data
 		this.$submitButton.addEventListener("click", this.submitData.bind(this));
 
-
-		// Hide edit item when background is clicked
-		this.$background.addEventListener("click", this.hide.bind(this));
-
 		// Close all filter boxes when clicking outside of the box
 		this.$editItem.addEventListener("click", (event) => {
 			event.stopPropagation()
@@ -87,12 +81,12 @@ export default class EditItem extends StockItem {
 	}
 
 	show(itemData) {
-		this.$background.classList.add("edit-item__background--active");
+		this.$editItem.classList.add("edit-item--active");
 		this.$header.classList.add("header--hidden");
 	}
 
 	hide() {
-		this.$background.classList.remove("edit-item__background--active");
+		this.$editItem.classList.remove("edit-item--active");
 		this.$header.classList.remove("header--hidden");
 	}
 

@@ -1,27 +1,19 @@
 /* ITEM DETAILS */
 .item-details {
-	display: flex;
+	grid-area: main;
+	display: none;
 	justify-content: center;
-	width: max-content;
-	margin: auto;
 	background-color: white;
 	position: relative;
+	grid-area: main;
+	overflow-y: scroll;
 
 	@media screen and (max-width: 1200px) {
 		flex-direction: column-reverse;
 	}
-	
-	&__background {
-		grid-area: main;
-		background-color: hsl(0 0% 0% / .85);
-		display: none;
-		overflow-y: scroll;
-	}
-	
-	&__background--active {
+		
+	&--active {
 		display: flex;
-		justify-content: center;
-		align-items: center;
 	}
 	
 	&__images {

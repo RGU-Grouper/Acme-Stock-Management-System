@@ -2,15 +2,10 @@ export default class ItemDetails {
 	constructor() {
 		this.$header = document.querySelector(".header");
 		this.$itemDetails = document.querySelector(".item-details");
-		this.$background = document.querySelector(".item-details__background");
 		this.$close = document.querySelector(".item-details__close");
 		this.$image = document.querySelector(".item-details__image");
 		this.$imagePreviews = document.querySelectorAll(".item-details__image-preview");
 		this.$info = document.querySelector(".item-details__info");
-
-		// Hide item details when background is clicked
-		this.$background.addEventListener("click", this.hide.bind(this));
-		this.$itemDetails.addEventListener("click", (event) => event.stopPropagation());
 
 		// Hide item details when X is clicked
 		this.$close.addEventListener("click", this.hide.bind(this));
@@ -20,7 +15,7 @@ export default class ItemDetails {
 		const { images, name, quantity, tagLists } = itemData;
 	
 		// Show Item Details with transparent background
-		this.$background.classList.add("item-details__background--active");
+		this.$itemDetails.classList.add("item-details--active");
 		this.$header.classList.add("header--hidden");
 	
 		// Set Images
@@ -39,7 +34,7 @@ export default class ItemDetails {
 	}
 
 	hide() {
-		this.$background.classList.remove("item-details__background--active");
+		this.$itemDetails.classList.remove("item-details--active");
 		this.$header.classList.remove("header--hidden");
 	}
 }
