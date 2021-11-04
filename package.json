@@ -1,0 +1,28 @@
+{
+  "name": "acme-atelier-stock-management",
+  "version": "1.0.0",
+  "description": "Stock management system for Acme Atelier to manage fabric stocks.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+		"dev": "nodemon server.js",
+		"sass": "sass --watch WWW/sass/main.scss WWW/css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RGU-Grouper/Acme-Frontend.git"
+  },
+  "author": "Ruaidhri MacKenzie, Callum Mcintosh, Patrick Murchie, Ryan Tomlinson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RGU-Grouper/Acme-Frontend/issues"
+  },
+  "homepage": "https://github.com/RGU-Grouper/Acme-Frontend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.14",
+    "sass": "^1.43.4"
+  }
+}
