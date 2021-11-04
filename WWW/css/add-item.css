@@ -8,19 +8,26 @@
 
 .add-item__images {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
 	justify-content: center;
 	align-items: center;
 }
 
-.add-item__image {
-	grid-column: span 2;
+.add-item__image-preview {
 	width: 300px;
 	margin: 2em auto 1em;
 }
 
+.add-item__image-file {
+	cursor: pointer;
+	padding: 0.25em;
+	text-align: center;
+}
+
+.add-item__image-file--active {
+	color: red;
+}
+
 .add-item__upload {
-	grid-column: span 2;
 	cursor: pointer;
 	width: max-content;
 	padding: 0.25em 0.5em;

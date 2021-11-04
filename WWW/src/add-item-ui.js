@@ -10,6 +10,8 @@ export default class AddItemUI extends AddItem {
 		// Get references to DOM
 		this.$tagTemplate = document.getElementById("tag-template");
 		
+		this.$imageFiles = document.querySelectorAll(".add-item__image-file");
+
 		this.$nameInput = document.querySelector(".add-item__name-input");
 		this.$quantityInput = document.querySelector(".add-item__quantity-input");
 
@@ -32,40 +34,37 @@ export default class AddItemUI extends AddItem {
 		this.loadMainColourSelectTags(this.colourTags);
 		this.loadHighlightColourSelectTags(this.colourTags);
 
-		// Set event handlers
+		// Close all filter boxes when clicking outside of the box
 		document.addEventListener("click", (event) => {
 			this.$materialSelectList.classList.remove("add-item__material-select--active");
 			this.$mainColourSelectList.classList.remove("add-item__main-colour-select--active");
 			this.$highlightColourSelectList.classList.remove("add-item__highlight-colour-select--active");
 		});
 
+		// Image Preview Selector
+		this.$imageFiles.forEach($imageFile => {
+			$imageFile.addEventListener("click", (event) => {
+				const $selectedImageFile = document.querySelector(".add-item__image-file--active");
+				$selectedImageFile.classList.remove("add-item__image-file--active");
+				$imageFile.classList.add("add-item__image-file--active");
+			});
+		});
+
+		// Update data as user inputs
 		this.$nameInput.addEventListener("input", (event) => this.setName(this.$nameInput.value));
 		this.$quantityInput.addEventListener("input", (event) => this.setQuantity(+this.$quantityInput.value));
 
-		this.$materialInput.addEventListener("click", (event) => {
-			event.stopPropagation();
-			this.$mainColourSelectList.classList.remove("add-item__main-colour-select--active");
-			this.$highlightColourSelectList.classList.remove("add-item__highlight-colour-select--active");
-			this.$materialSelectList.classList.add("add-item__material-select--active");
-		});
-		this.$materialInput.addEventListener("input", this.loadMaterialSelectTags.bind(this));
-		
-		this.$mainColourInput.addEventListener("click", (event) => {
-			event.stopPropagation();
-			this.$materialSelectList.classList.remove("add-item__material-select--active");
-			this.$highlightColourSelectList.classList.remove("add-item__highlight-colour-select--active");
-			this.$mainColourSelectList.classList.add("add-item__main-colour-select--active");
-		});
-		this.$mainColourInput.addEventListener("input", this.loadMainColourSelectTags.bind(this));
-		
-		this.$highlightColourInput.addEventListener("click", (event) => {
-			event.stopPropagation();
-			this.$materialSelectList.classList.remove("add-item__material-select--active");
-			this.$mainColourSelectList.classList.remove("add-item__main-colour-select--active");
-			this.$highlightColourSelectList.classList.add("add-item__highlight-colour-select--active");
-		});
-		this.$highlightColourInput.addEventListener("input", this.loadHighlightColourSelectTags.bind(this));
+		// Show tag filter boxes when corresponding input box is clicked, hide others
+		this.$materialInput.addEventListener("click", this.showMaterialSelectList.bind(this));
+		this.$mainColourInput.addEventListener("click", this.showMainColourSelectList.bind(this));
+		this.$highlightColourInput.addEventListener("click", this.showHighlightColourSelectList.bind(this));
 
+		// Refresh the select tags list when one is selected
+		this.$materialInput.addEventListener("input", this.loadMaterialSelectTags.bind(this));
+		this.$mainColourInput.addEventListener("input", this.loadMainColourSelectTags.bind(this));
+		this.$highlightColourInput.addEventListener("input", this.loadHighlightColourSelectTags.bind(this));
+		
+		// Submit the new item data
 		this.$submitButton.addEventListener("click", this.submitData.bind(this));
 	}
 
@@ -152,6 +151,13 @@ export default class AddItemUI extends AddItem {
 		this.$materialSelectList.appendChild($addNewTag);
 	}
 
+	showMaterialSelectList(event) {
+		event.stopPropagation();
+		this.$mainColourSelectList.classList.remove("add-item__main-colour-select--active");
+		this.$highlightColourSelectList.classList.remove("add-item__highlight-colour-select--active");
+		this.$materialSelectList.classList.add("add-item__material-select--active");
+	}
+
 	// Main Colour Tags
 	addMainColourTag(event) {
 		event.stopPropagation();
@@ -208,6 +214,13 @@ export default class AddItemUI extends AddItem {
 		this.$mainColourSelectList.appendChild($addNewTag);
 	}
 
+	showMainColourSelectList(event) {
+		event.stopPropagation();
+		this.$materialSelectList.classList.remove("add-item__material-select--active");
+		this.$highlightColourSelectList.classList.remove("add-item__highlight-colour-select--active");
+		this.$mainColourSelectList.classList.add("add-item__main-colour-select--active");
+	}
+
 	// Highlight Colour Tags
 	addHighlightColourTag(event) {
 		event.stopPropagation();
@@ -261,6 +274,13 @@ export default class AddItemUI extends AddItem {
 		// Create add new tag select item and add to the list
 		const $addNewTag = this.createTagSelectItem("Add New...", this.addHighlightColourTag.bind(this));
 		this.$highlightColourSelectList.appendChild($addNewTag);
+	}
+
+	showHighlightColourSelectList(event) {
+		event.stopPropagation();
+		this.$materialSelectList.classList.remove("add-item__material-select--active");
+		this.$mainColourSelectList.classList.remove("add-item__main-colour-select--active");
+		this.$highlightColourSelectList.classList.add("add-item__highlight-colour-select--active");
 	}
 
 	// Submit New Item

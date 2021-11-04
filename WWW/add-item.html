@@ -16,10 +16,13 @@
 	<script src="src/Oauth.js" defer></script>
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
-<body onload="setup()">
+<body>
 	<main class="add-item">
 		<section class="add-item__images">
-			<img class="add-item__image" src="img/tartan.jpg" alt="Item preview">
+			<img class="add-item__image-preview" src="img/tartan.jpg" alt="Item preview">
+			<p class="add-item__image-file add-item__image-file--active">Preview 1</p>
+			<p class="add-item__image-file">Preview 2</p>
+			<p class="add-item__image-file">Preview 3</p>
 			<input type="file" id="actual-btn" hidden>
 			<input class="add-item__upload" id='buttonid' type='file' value='Upload Files'>
 			<!-- <button class="add-item__camera">Take Photo</button> -->
