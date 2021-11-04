@@ -19,17 +19,17 @@
 <body>
 	<main class="stock-management">
 		<header class="header">
-			<div class="header__brand">
-			    <a href="https://www.acmeatelier.co.uk/"> 
-				<img class="header__logo" src="img/aa-logo-stamp.png" alt="Acme Atelier Logo">
+			<div class="header__company">
+			  <a href="https://www.acmeatelier.co.uk/"> 
+					<img class="header__logo" src="img/aa-logo-stamp.png" alt="Acme Atelier Logo">
 				</a>
 				<h1 class="header__title">Fabric Stock Management</h1>
 			</div>
 			<div class="header__options">
-				<div class="header__search">
+				<search class="header__search">
 					<label class="header__search-label" for="item-preview-search">Search:</label>
 					<input class="header__search-input" id="item-preview-search" type="search">
-				</div>
+				</search>
 
 				<button class="header__add-item">Add Item</button>
 
@@ -50,15 +50,15 @@
 
 		<popup class="item-details__background">
 			<section class="item-details">
-				<section class="item-details__images">
+				<div class="item-details__images">
 					<img class="item-details__image" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 					<div class="item-details__image-previews">
 						<img class="item-details__image-preview item-details__image-preview--active" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 						<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 						<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 					</div>
-				</section>
-				<section class="item-details__info">
+				</div>
+				<div class="item-details__info">
 					<h2 class="item-details__name"></h2>
 					<p class="item-details__label">Materials:</p>
 					<p class="item-details__value"></p>
@@ -68,7 +68,7 @@
 					<p class="item-details__value"></p>
 					<p class="item-details__label">Quantity:</p>
 					<p class="item-details__quantity item-details__value"></p>
-				</section>
+				</div>
 				<icon class="item-details__close">&#215;</icon>
 			</section>
 		</popup>
@@ -76,7 +76,7 @@
 		<!-- ADD/EDIT ITEM POP-UP -->
 		<popup class="edit-item__background">
 			<section class="edit-item">
-				<section class="edit-item__images">
+				<div class="edit-item__images">
 					<img class="edit-item__image-preview" src="img/tartan.jpg" alt="Item preview">
 					<p class="edit-item__image-file edit-item__image-file--active">Preview 1</p>
 					<p class="edit-item__image-file">Preview 2</p>
@@ -84,9 +84,9 @@
 					<input type="file" id="actual-btn" hidden>
 					<input class="edit-item__upload" id='buttonid' type='file' value='Upload Files'>
 					<!-- <button class="edit-item__camera">Take Photo</button> -->
-				</section>
+				</div>
 		
-				<section class="edit-item__details">
+				<div class="edit-item__details">
 					<label class="edit-item__label" for="edit-item-name">Name</label>
 					<input class="edit-item__input" id="edit-item-name" type="text">
 					
@@ -107,12 +107,12 @@
 					
 					<label class="edit-item__label" for="edit-item-quantity">Quantity (m)</label>
 					<input class="edit-item__input" id="edit-item-quantity" type="number">
-				</section>
+				</div>
 		
-				<section class="edit-item__form-buttons">
+				<div class="edit-item__form-buttons">
 					<button class="edit-item__cancel">Cancel</button>
 					<button class="edit-item__submit">Submit</button>
-				</section>
+				</div>
 			</section>
 		</popup>
 	</main>

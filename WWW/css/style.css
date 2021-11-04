@@ -317,7 +317,7 @@ body {
 .header--hidden {
   display: none;
 }
-.header__brand {
+.header__company {
   display: flex;
   justify-content: center;
   align-items: center;
