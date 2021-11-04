@@ -11,12 +11,12 @@
 		background-color: hsl(0 0% 0% / .85);
 		display: none;
 		overflow-y: scroll;
-	}
-	
-	&__background--active {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		
+		&--active {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
 	}
 	
 	&__images {
@@ -34,10 +34,10 @@
 		cursor: pointer;
 		padding: 0.25em;
 		text-align: center;
-	}
 	
-	&__image-file--active {
-		color: red;
+		&--active {
+			color: red;
+		}	
 	}
 	
 	&__upload {
@@ -68,35 +68,25 @@
 		text-transform: uppercase;
 	}
 	
-	&__name-input,
-	&__quantity-input,
-	&__material-input,
-	&__main-colour-input,
-	&__highlight-colour-input {
+	&__input {
 		margin-top: 0.25em;
 		padding: 0.5em;
 	}
 	
-	&__material-display,
-	&__main-colour-display,
-	&__highlight-colour-display {
+	&__tag-display {
 		display: flex;
 		flex-wrap: wrap;
 		max-width: initial;
 	}
 	
-	&__material-select,
-	&__main-colour-select,
-	&__highlight-colour-select {
+	&__tag-select {
 		display: none;
 		border: 1px solid black;
 		border-top: none;
-	}
-	
-	&__material-select--active,
-	&__main-colour-select--active,
-	&__highlight-colour-select--active {
-		display: block;
+		
+		&--active {
+			display: block;
+		}
 	}
 	
 	&__form-buttons {
