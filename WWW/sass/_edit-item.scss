@@ -1,0 +1,155 @@
+/* EDIT ITEM */
+.edit-item {
+	max-width: 400px;
+	height: max-content;
+	display: grid;
+	padding: 0 2em;
+	background-color: white;
+	
+	&__background {
+		grid-area: main;
+		background-color: hsl(0 0% 0% / .85);
+		display: none;
+		overflow-y: scroll;
+	}
+	
+	&__background--active {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	&__images {
+		display: grid;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	&__image-preview {
+		width: 300px;
+		margin: 2em auto 1em;
+	}
+	
+	&__image-file {
+		cursor: pointer;
+		padding: 0.25em;
+		text-align: center;
+	}
+	
+	&__image-file--active {
+		color: red;
+	}
+	
+	&__upload {
+		cursor: pointer;
+		width: max-content;
+		padding: 0.25em 0.5em;
+		margin: 1em auto;
+		background-color: #e9e9ed;
+		color: black;
+		font-family: sans-serif;
+		border-radius: 0.3rem;
+		border: 1px solid #8f8f9d;
+	}
+	
+	&__camera {
+		cursor: pointer;
+		width: max-content;
+		padding: 0.25em 0.5em;
+		margin: 1em auto;
+	}
+	
+	&__details {
+		display: grid;
+	}
+	
+	&__label {
+		margin: 1em 0 0.25em;
+		text-transform: uppercase;
+	}
+	
+	&__name-input,
+	&__quantity-input,
+	&__material-input,
+	&__main-colour-input,
+	&__highlight-colour-input {
+		margin-top: 0.25em;
+		padding: 0.5em;
+	}
+	
+	&__material-display,
+	&__main-colour-display,
+	&__highlight-colour-display {
+		display: flex;
+		flex-wrap: wrap;
+		max-width: initial;
+	}
+	
+	&__material-select,
+	&__main-colour-select,
+	&__highlight-colour-select {
+		display: none;
+		border: 1px solid black;
+		border-top: none;
+	}
+	
+	&__material-select--active,
+	&__main-colour-select--active,
+	&__highlight-colour-select--active {
+		display: block;
+	}
+	
+	&__form-buttons {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+	
+	&__cancel {
+		cursor: pointer;
+		font-size: 1rem;
+		width: max-content;
+		padding: 0.5em 1em;
+		margin: 2em 0;
+	}
+	
+	&__submit {
+		cursor: pointer;
+		font-size: 1rem;
+		width: max-content;
+		padding: 0.5em 1em;
+		margin: 2em 0;
+	}
+}
+
+/* DISPLAY TAG */
+.tag {
+	display: flex;
+	justify-content: space-between;
+	width: max-content;
+	background-color: hsl(0, 0%, 90%);
+	padding: 0.25em;
+	margin: 0.25em;
+	border-radius: 10px;
+	
+	&__name {
+		margin: 0 0.5em;
+	}
+	
+	&__remove {
+		cursor: pointer;
+		margin: 0 0.5em;
+		color: red;
+	}
+}	
+
+/* SELECT TAG */
+.tag-select {
+	background-color: hsl(0, 0%, 90%);
+	padding: 0.5em;
+	cursor: pointer;
+	
+	&:nth-child(2n) {
+		background-color: hsl(0, 0%, 95%);
+	}
+}

@@ -1,0 +1,59 @@
+/* STOCK LIST */
+.stock-list {
+	grid-area: main;
+	max-width: 100vw;
+	display: flex;
+	justify-content: center;
+	overflow-y: scroll;
+	
+	&__items {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		max-width: 75%;
+		
+		@media screen and (max-width: 1200px) {
+			max-width: 100%;
+		}
+	}
+}
+
+/* ITEM PREVIEW */
+.item-preview {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0.25em;
+	justify-items: center;
+	align-items: center;
+	text-align: center;
+	background-color: #eeeeee;
+	margin: 1em;
+	cursor: pointer;
+	
+	&__image {
+		grid-column: span 2;
+		width: 200px;
+		height: auto;
+		margin: 1em;
+	}
+	
+	&__name {
+		grid-column: span 2;
+		width: 100%;
+		padding: 0.5em;
+		background-color: #eeeeee;
+	}
+	
+	&__label {
+		justify-self: right;
+		padding: 0.5em;
+		font-size: 0.875rem;
+	}
+	
+	&__value {
+		justify-self: left;
+		padding: 0.5em;
+		font-size: 0.875rem;
+	}
+}
