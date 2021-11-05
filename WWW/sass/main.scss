@@ -35,72 +35,57 @@ body {
 		"main";
 }
 
+@mixin header-button() {
+	font-size: 0.875rem;
+	letter-spacing: 1px;
+	width: max-content;
+	padding: 0.5em 1em;
+	margin: 0.5em;
+	cursor: pointer;
+	border-radius: 0;
+	border: 1px solid black;
+	background-color: white;
+	color: black;
+	text-transform: uppercase;
+	
+	&:active {
+		border: 1px solid white;
+		background-color: black;
+		color: white;
+	}
+}
+
 /* HEADER */
 .header {
 	grid-area: header;
 	display: grid;
-	grid-auto-flow: column;
+	grid-template-areas:
+	"add-item	sign-out"
+	"search 	search";
 	align-items: center;
-	background-color: hsl(0 0% 85% / 1);
-	width: 100%;
 	text-align: center;
-	padding: 1em;
-	
-	@media screen and (max-width: 1200px) {
-		grid-auto-flow: row;
-	}
+	background-color: hsl(0, 0%, 75%);
+	width: 100%;
+	padding: 0.5em;
 
 	&--hidden {
 		display: none;
 	}
 	
-	&__company {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	
-	&__logo {
-		width: 80px;
-		height: auto;
-		margin: 0 0.5em;
-		cursor: pointer;
-	}
-	
-	&__title {
-		padding: 0.5em;
-		cursor: default;
-		
-		@media screen and (max-width: 400px) {
-			font-size: 1.25rem;
-		}
-	}
-	
-	&__options {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 4em;
-		
-		@media screen and (max-width: 650px) {
-			flex-wrap: wrap;
-			gap: 0;
-		}
-	}
-	
 	&__search {
+		grid-area: search;
 		padding: 0.5em;
+		margin: 1em 2em;
 	}
 	
-	&__search-input {
-		padding: 0.5em;
+	&__add-item {
+		@include header-button();
+		grid-area: add-item;
 	}
-	
-	&__add-item,
+
 	&__sign-out {
-		font-size: 1rem;
-		padding: 0.5em 1em;
-		cursor: pointer;
-		margin: 0.5em;
+		@include header-button();
+		grid-area: sign-out;
+		justify-self: end;
 	}
 }

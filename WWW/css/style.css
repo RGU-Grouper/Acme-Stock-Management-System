@@ -11,45 +11,35 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  max-width: 75%;
-}
-@media screen and (max-width: 1200px) {
-  .stock-list__items {
-    max-width: 100%;
-  }
+  max-width: 100%;
 }
 
 /* ITEM PREVIEW */
 .item-preview {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.25em;
   justify-items: center;
   align-items: center;
-  text-align: center;
-  background-color: #eeeeee;
-  margin: 1em;
   cursor: pointer;
+  background-color: #d9d9d9;
+  margin: 1em;
 }
 .item-preview__image {
-  grid-column: span 2;
-  width: 200px;
+  width: 250px;
   height: auto;
   margin: 1em;
+  margin-bottom: 0.5em;
 }
 .item-preview__name {
-  grid-column: span 2;
+  font-size: 1.25rem;
   width: 100%;
-  padding: 0.5em;
-  background-color: #eeeeee;
+  text-align: center;
 }
-.item-preview__label {
-  justify-self: right;
-  padding: 0.5em;
-  font-size: 0.875rem;
+.item-preview__quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.item-preview__value {
-  justify-self: left;
+.item-preview__quantity-label, .item-preview__quantity-data {
   padding: 0.5em;
   font-size: 0.875rem;
 }
@@ -58,40 +48,16 @@
 .item-details {
   grid-area: main;
   display: none;
-  justify-content: center;
-  background-color: white;
-  position: relative;
-  grid-area: main;
   overflow-y: scroll;
-}
-@media screen and (max-width: 1200px) {
-  .item-details {
-    flex-direction: column-reverse;
-  }
+  position: relative;
+  background-color: white;
 }
 .item-details--active {
-  display: flex;
+  display: grid;
 }
 .item-details__images {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.item-details__image {
-  min-width: 200px;
-  max-width: calc(450px + 6em);
-  margin: 1em;
-  margin-top: 2em;
-}
-@media screen and (max-width: 1200px) {
-  .item-details__image {
-    margin-top: 0;
-  }
-}
-.item-details__image-previews {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 1em;
+  display: grid;
+  justify-content: center;
 }
 .item-details__image-preview {
   min-width: 50px;
@@ -100,28 +66,57 @@
   margin: 1em;
   cursor: pointer;
 }
-.item-details__info {
+.item-details__details {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-content: flex-start;
-  margin: 1em;
-  margin-left: 0;
+  justify-items: center;
+  align-items: center;
+  padding: 0 1.25em;
 }
 .item-details__name {
-  grid-column: span 2;
-  width: 100%;
-  padding: 0.5em;
-  text-align: center;
   cursor: default;
+  width: 100%;
+  text-align: center;
+  padding: 0.75em;
+  padding-bottom: 0.5em;
+}
+.item-details__info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+}
+.item-details__quantity-label, .item-details__quantity-data {
+  font-size: 1.125rem;
+  margin: 0 0.125em;
+}
+.item-details__tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100vh;
+  margin: 0.5em 0 1.5em;
+}
+.item-details__tag {
+  cursor: default;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 0.25em 0.5em;
+  margin: 0.25em;
 }
 .item-details__label {
-  justify-self: right;
   padding: 0.5em;
   font-size: 0.875rem;
   cursor: default;
+  text-align: center;
+  background-color: black;
+  color: white;
+  width: 100%;
 }
 .item-details__value {
-  justify-self: left;
   padding: 0.5em;
   font-size: 0.875rem;
   cursor: default;
@@ -142,12 +137,6 @@
   padding: 0 2em;
   background-color: white;
   overflow-y: scroll;
-}
-@media screen and (max-width: 1200px) {
-  .edit-item {
-    max-width: 400px;
-    height: max-content;
-  }
 }
 .edit-item--active {
   display: grid;
@@ -231,7 +220,7 @@
 }
 
 /* DISPLAY TAG */
-.tag {
+.tag-display {
   display: flex;
   justify-content: space-between;
   width: max-content;
@@ -240,10 +229,10 @@
   margin: 0.25em;
   border-radius: 10px;
 }
-.tag__name {
+.tag-display__name {
   margin: 0 0.5em;
 }
-.tag__remove {
+.tag-display__remove {
   cursor: pointer;
   margin: 0 0.5em;
   color: red;
@@ -293,64 +282,59 @@ body {
 .header {
   grid-area: header;
   display: grid;
-  grid-auto-flow: column;
+  grid-template-areas: "add-item	sign-out" "search 	search";
   align-items: center;
-  background-color: #d9d9d9;
-  width: 100%;
   text-align: center;
-  padding: 1em;
-}
-@media screen and (max-width: 1200px) {
-  .header {
-    grid-auto-flow: row;
-  }
+  background-color: #bfbfbf;
+  width: 100%;
+  padding: 0.5em;
 }
 .header--hidden {
   display: none;
 }
-.header__company {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.header__logo {
-  width: 80px;
-  height: auto;
-  margin: 0 0.5em;
-  cursor: pointer;
-}
-.header__title {
-  padding: 0.5em;
-  cursor: default;
-}
-@media screen and (max-width: 400px) {
-  .header__title {
-    font-size: 1.25rem;
-  }
-}
-.header__options {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4em;
-}
-@media screen and (max-width: 650px) {
-  .header__options {
-    flex-wrap: wrap;
-    gap: 0;
-  }
-}
 .header__search {
+  grid-area: search;
   padding: 0.5em;
+  margin: 1em 2em;
 }
-.header__search-input {
-  padding: 0.5em;
-}
-.header__add-item, .header__sign-out {
-  font-size: 1rem;
+.header__add-item {
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  width: max-content;
   padding: 0.5em 1em;
-  cursor: pointer;
   margin: 0.5em;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-transform: uppercase;
+  grid-area: add-item;
+}
+.header__add-item:active {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+}
+.header__sign-out {
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  width: max-content;
+  padding: 0.5em 1em;
+  margin: 0.5em;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-transform: uppercase;
+  grid-area: sign-out;
+  justify-self: end;
+}
+.header__sign-out:active {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
 }
 
 /*# sourceMappingURL=style.css.map */

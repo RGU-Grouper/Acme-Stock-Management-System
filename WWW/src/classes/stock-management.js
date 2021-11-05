@@ -27,7 +27,7 @@ export default class StockManagement {
 		// Set item details
 		$itemPreview.querySelector(".item-preview__image").src = "img/" + images[0];
 		$itemPreview.querySelector(".item-preview__name").innerHTML = name;
-		$itemPreview.querySelector(".item-preview__quantity").innerHTML = quantity;
+		$itemPreview.querySelector(".item-preview__quantity-data").innerHTML = quantity;
 
 		// Set click handler
 		$itemPreview.addEventListener("click", (event) => this.itemDetails.show(itemData));

@@ -5,7 +5,7 @@ export const getStockData = () => {
 			id: "0",
 			name: "Tartan 1",
 			quantity: 1,
-			images: ["tartan.jpg"],
+			images: ["tartan.jpg", "tartan.jpg", "tartan.jpg"],
 			tagLists: {
 				materials: ["Wool"],
 				mainColours: ["Red"],
@@ -69,7 +69,7 @@ export const getStockData = () => {
 		}
 	];
 
-	return data;
+	return data.concat(data.concat(data));
 };
 
 export const getStockItem = (id) => {};

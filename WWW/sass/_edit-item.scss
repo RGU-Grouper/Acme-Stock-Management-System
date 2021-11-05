@@ -6,11 +6,6 @@
 	background-color: white;
 	overflow-y: scroll;
 
-	@media screen and (max-width: 1200px) {
-		max-width: 400px;
-		height: max-content;
-	}
-		
 	&--active {
 		display: grid;
 	}
@@ -109,7 +104,7 @@
 }
 
 /* DISPLAY TAG */
-.tag {
+.tag-display {
 	display: flex;
 	justify-content: space-between;
 	width: max-content;

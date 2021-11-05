@@ -44,4 +44,8 @@ export default class TagList {
 	removeTag(tag) {
 		this.currentTags = this.currentTags.filter(t => t !== tag);
 	}
+
+	clearTags() {
+		this.currentTags = [];
+	}
 }

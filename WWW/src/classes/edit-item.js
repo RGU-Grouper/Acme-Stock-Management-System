@@ -8,7 +8,7 @@ export default class EditItem extends StockItem {
 		this.colourTags = colourTags;
 
 		// Get references to DOM
-		this.$tagTemplate = document.getElementById("tag-template");
+		this.$tagDisplayTemplate = document.getElementById("tag-display-template");
 		
 		this.$header = document.querySelector(".header");
 		this.$editItem = document.querySelector(".edit-item");
@@ -99,9 +99,9 @@ export default class EditItem extends StockItem {
 	}
 
 	createTagDisplayItem(tag, removeTagCallback) {
-		const $tagDisplay = this.$tagTemplate.content.cloneNode(true).firstElementChild;
-		const $tagName = $tagDisplay.querySelector(".tag__name");
-		const $tagRemove = $tagDisplay.querySelector(".tag__remove");
+		const $tagDisplay = this.$tagDisplayTemplate.content.cloneNode(true).firstElementChild;
+		const $tagName = $tagDisplay.querySelector(".tag-display__name");
+		const $tagRemove = $tagDisplay.querySelector(".tag-display__remove");
 		
 		$tagName.innerText = tag;
 		$tagRemove.addEventListener("click", removeTagCallback);
@@ -120,9 +120,9 @@ export default class EditItem extends StockItem {
 	}
 
 	hideAllTagSelectLists(event) {
-		this.$materialsSelectList.classList.remove("edit-item__material-select--active");
-		this.$mainColoursSelectList.classList.remove("edit-item__main-colour-select--active");
-		this.$highlightColoursSelectList.classList.remove("edit-item__highlight-colour-select--active");
+		this.$materialsSelectList.classList.remove("edit-item__tag-select--active");
+		this.$mainColoursSelectList.classList.remove("edit-item__tag-select--active");
+		this.$highlightColoursSelectList.classList.remove("edit-item__tag-select--active");
 	}
 
 	selectImagePreview(event) {
@@ -155,9 +155,9 @@ export default class EditItem extends StockItem {
 
 	showMaterialSelectList(event) {
 		event.stopPropagation();
-		this.$mainColoursSelectList.classList.remove("edit-item__main-colour-select--active");
-		this.$highlightColoursSelectList.classList.remove("edit-item__highlight-colour-select--active");
-		this.$materialsSelectList.classList.add("edit-item__material-select--active");
+		this.$mainColoursSelectList.classList.remove("edit-item__tag-select--active");
+		this.$highlightColoursSelectList.classList.remove("edit-item__tag-select--active");
+		this.$materialsSelectList.classList.add("edit-item__tag-select--active");
 	}
 
 	addMaterialTag(event) {
@@ -177,7 +177,7 @@ export default class EditItem extends StockItem {
 	}
 
 	removeMaterialTag(event) {
-		const $tagName = event.target.parentElement.querySelector(".tag__name");
+		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
 		const tag = $tagName.innerText;
 		this.tagLists.materials.removeTag(tag);
 
@@ -209,9 +209,9 @@ export default class EditItem extends StockItem {
 
 	showMainColourSelectList(event) {
 		event.stopPropagation();
-		this.$materialsSelectList.classList.remove("edit-item__material-select--active");
-		this.$highlightColoursSelectList.classList.remove("edit-item__highlight-colour-select--active");
-		this.$mainColoursSelectList.classList.add("edit-item__main-colour-select--active");
+		this.$materialsSelectList.classList.remove("edit-item__tag-select--active");
+		this.$highlightColoursSelectList.classList.remove("edit-item__tag-select--active");
+		this.$mainColoursSelectList.classList.add("edit-item__tag-select--active");
 	}
 
 	addMainColourTag(event) {
@@ -231,7 +231,7 @@ export default class EditItem extends StockItem {
 	}
 
 	removeMainColourTag(event) {
-		const $tagName = event.target.parentElement.querySelector(".tag__name");
+		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
 		const tag = $tagName.innerText;
 		this.tagLists.mainColours.removeTag(tag);
 
@@ -263,9 +263,9 @@ export default class EditItem extends StockItem {
 
 	showHighlightColourSelectList(event) {
 		event.stopPropagation();
-		this.$materialsSelectList.classList.remove("edit-item__material-select--active");
-		this.$mainColoursSelectList.classList.remove("edit-item__main-colour-select--active");
-		this.$highlightColoursSelectList.classList.add("edit-item__highlight-colour-select--active");
+		this.$materialsSelectList.classList.remove("edit-item__tag-select--active");
+		this.$mainColoursSelectList.classList.remove("edit-item__tag-select--active");
+		this.$highlightColoursSelectList.classList.add("edit-item__tag-select--active");
 	}
 
 	addHighlightColourTag(event) {
@@ -285,7 +285,7 @@ export default class EditItem extends StockItem {
 	}
 
 	removeHighlightColourTag(event) {
-		const $tagName = event.target.parentElement.querySelector(".tag__name");
+		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
 		const tag = $tagName.innerText;
 		this.tagLists.highlightColours.removeTag(tag);
 
