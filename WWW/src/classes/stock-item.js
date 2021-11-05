@@ -28,7 +28,7 @@ export default class StockItem {
 	}
 
 	setQuantity(quantity) {
-		this.quantity = quantity;
+		this.quantity = Number(quantity);
 	}
 
 	getData() {

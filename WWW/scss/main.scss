@@ -1,3 +1,4 @@
+@use "buttons";
 @import "_stock-list.scss";
 @import "_item-details.scss";
 @import "_edit-item.scss";
@@ -35,26 +36,6 @@ body {
 		"main";
 }
 
-@mixin header-button() {
-	font-size: 0.875rem;
-	letter-spacing: 1px;
-	width: max-content;
-	padding: 0.5em 1em;
-	margin: 0.5em;
-	cursor: pointer;
-	border-radius: 0;
-	border: 1px solid black;
-	background-color: white;
-	color: black;
-	text-transform: uppercase;
-	
-	&:active {
-		border: 1px solid white;
-		background-color: black;
-		color: white;
-	}
-}
-
 /* HEADER */
 .header {
 	grid-area: header;
@@ -79,13 +60,15 @@ body {
 	}
 	
 	&__add-item {
-		@include header-button();
+		@include buttons.nav;
 		grid-area: add-item;
+		margin: 0.5em;
 	}
 
 	&__sign-out {
-		@include header-button();
+		@include buttons.nav;
 		grid-area: sign-out;
 		justify-self: end;
+		margin: 0.5em;
 	}
 }

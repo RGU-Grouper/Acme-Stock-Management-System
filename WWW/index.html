@@ -18,6 +18,7 @@
 </head>
 <body>
 	<main class="stock-management">
+		<!-- HEADER WITH SEARCH AND NAV -->
 		<header class="header">
 			<button class="header__add-item">Add Item</button>
 
@@ -31,12 +32,14 @@
 			<button class="header__sign-out" onclick="signOut();">Sign out</button>
 		</header>
 
+		<!-- STOCK LIST - MAIN PAGE -->
 		<section class="stock-list">
 			<ul class="stock-list__items">
 				<!-- populate from: item-preview-template -->
 			</ul>
 		</section>
 
+		<!-- ITEM DETAILS POP-UP -->
 		<popup class="item-details">
 			<section class="item-details__details">
 				<h2 class="item-details__name"></h2>
@@ -58,7 +61,12 @@
 				<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 			</section>
 
-			<icon class="item-details__close">&#215;</icon>
+			<button class="item-details__close">Back</button>
+		</popup>
+
+		<!-- FULL SCREEN IMAGE VIEW -->
+		<popup class="image-view">
+			<img src="img/aa-logo-stamp.png" class="image-view__image" alt="Stock item preview">
 		</popup>
 
 		<!-- ADD/EDIT ITEM POP-UP -->

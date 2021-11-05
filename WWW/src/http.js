@@ -5,7 +5,7 @@ export const getStockData = () => {
 			id: "0",
 			name: "Tartan 1",
 			quantity: 1,
-			images: ["tartan.jpg", "tartan.jpg", "tartan.jpg"],
+			images: ["tartan.jpg", "red.jpg", "purple.jpg"],
 			tagLists: {
 				materials: ["Wool"],
 				mainColours: ["Red"],
@@ -27,7 +27,7 @@ export const getStockData = () => {
 			id: "2",
 			name: "Tartan 3",
 			quantity: 3,
-			images: ["tartan.jpg"],
+			images: ["red.jpg"],
 			tagLists: {
 				materials: ["Wool", "Cotton"],
 				mainColours: [],
@@ -38,7 +38,7 @@ export const getStockData = () => {
 			id: "3",
 			name: "Tartan 4",
 			quantity: 4,
-			images: ["tartan.jpg"],
+			images: ["purple.jpg"],
 			tagLists: {
 				materials: ["Nylon", "Linen", "Wool", "Cotton"],
 				mainColours: ["Yellow", "Purple", "Green"],

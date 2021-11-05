@@ -10,6 +10,21 @@ export default class ItemDetails {
 		this.$mainColoursTags = document.getElementById("item-details-main-colours");
 		this.$highlightColoursTags = document.getElementById("item-details-highlight-colours");
 
+		this.$imageView = document.querySelector(".image-view");
+		this.$imageViewImage = document.querySelector(".image-view__image");
+
+		// Show Full Screen Image View when preview is clicked
+		this.$imagePreviews.forEach($preview => {
+			$preview.addEventListener("click", (event) => {
+				this.showImageView($preview);
+			});
+		});
+
+		// Hide Full Screen Image View when it is clicked
+		this.$imageView.addEventListener("click", (event) => {
+			this.hideImageView();
+		});
+
 		// Hide item details when X is clicked
 		this.$close.addEventListener("click", this.hide.bind(this));
 	}
@@ -22,13 +37,9 @@ export default class ItemDetails {
 		this.$header.classList.add("header--hidden");
 	
 		// Set Images
-		// this.$image.src = "img/" + images[0];
 		for (let i = 0; i < this.$imagePreviews.length; i++) {
-			if (!images[i]) {
-				this.$imagePreviews[i].src = "img/aa-logo-stamp.png";
-			} else {
-				this.$imagePreviews[i].src = "img/" + images[i];
-			}
+			const fileName = images[i] || "aa-logo-stamp.png";
+			this.$imagePreviews[i].src = `img/${fileName}`;
 		}
 
 		// Set Tags
@@ -45,6 +56,15 @@ export default class ItemDetails {
 	hide() {
 		this.$itemDetails.classList.remove("item-details--active");
 		this.$header.classList.remove("header--hidden");
+	}
+
+	showImageView($preview) {
+		this.$imageView.classList.add("image-view--active");
+		this.$imageViewImage.src = $preview.src;
+	}
+
+	hideImageView() {
+		this.$imageView.classList.remove("image-view--active");
 	}
 
 	createTagElement(tag) {

@@ -47,6 +47,7 @@
 /* ITEM DETAILS */
 .item-details {
   grid-area: main;
+  z-index: 2;
   display: none;
   overflow-y: scroll;
   position: relative;
@@ -122,17 +123,45 @@
   cursor: default;
 }
 .item-details__close {
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  width: max-content;
+  padding: 0.5em 1em;
   cursor: pointer;
-  color: rgba(255, 0, 0, 0.75);
-  font-size: 2rem;
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-transform: uppercase;
   position: absolute;
-  top: 0;
-  right: 10px;
+  top: 8px;
+  right: 12px;
+}
+.item-details__close:focus-within, .item-details__close:hover, .item-details__close:active {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+}
+
+/* IMAGE VIEW */
+.image-view {
+  grid-area: main;
+  z-index: 4;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: black;
+  overflow: scroll;
+}
+.image-view--active {
+  display: grid;
 }
 
 /* EDIT ITEM */
 .edit-item {
   grid-area: main;
+  z-index: 3;
   display: none;
   padding: 0 2em;
   background-color: white;
@@ -205,18 +234,40 @@
   width: 100%;
 }
 .edit-item__cancel {
-  cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
   width: max-content;
   padding: 0.5em 1em;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-transform: uppercase;
   margin: 2em 0;
 }
+.edit-item__cancel:focus-within, .edit-item__cancel:hover, .edit-item__cancel:active {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+}
 .edit-item__submit {
-  cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
   width: max-content;
   padding: 0.5em 1em;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-transform: uppercase;
   margin: 2em 0;
+}
+.edit-item__submit:focus-within, .edit-item__submit:hover, .edit-item__submit:active {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
 }
 
 /* DISPLAY TAG */
@@ -302,7 +353,6 @@ body {
   letter-spacing: 1px;
   width: max-content;
   padding: 0.5em 1em;
-  margin: 0.5em;
   cursor: pointer;
   border-radius: 0;
   border: 1px solid black;
@@ -310,8 +360,9 @@ body {
   color: black;
   text-transform: uppercase;
   grid-area: add-item;
+  margin: 0.5em;
 }
-.header__add-item:active {
+.header__add-item:focus-within, .header__add-item:hover, .header__add-item:active {
   border: 1px solid white;
   background-color: black;
   color: white;
@@ -321,7 +372,6 @@ body {
   letter-spacing: 1px;
   width: max-content;
   padding: 0.5em 1em;
-  margin: 0.5em;
   cursor: pointer;
   border-radius: 0;
   border: 1px solid black;
@@ -330,8 +380,9 @@ body {
   text-transform: uppercase;
   grid-area: sign-out;
   justify-self: end;
+  margin: 0.5em;
 }
-.header__sign-out:active {
+.header__sign-out:focus-within, .header__sign-out:hover, .header__sign-out:active {
   border: 1px solid white;
   background-color: black;
   color: white;

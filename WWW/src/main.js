@@ -1,4 +1,4 @@
-import StockManagement from "./classes/stock-management.js";
+import StockList from "./classes/stock-list.js";
 import * as http from "./http.js";
 
 /* ON PAGE LOAD */
@@ -7,4 +7,4 @@ const colourTags = http.getColourTags();
 const stockData = http.getStockData();
 
 /* ON DATA RECEIVED */
-const stockList = new StockManagement(materialTags, colourTags, stockData);
+const stockList = new StockList(materialTags, colourTags, stockData);

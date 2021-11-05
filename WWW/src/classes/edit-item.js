@@ -44,8 +44,8 @@ export default class EditItem extends StockItem {
 		});
 
 		// Update data as user inputs
-		this.$nameInput.addEventListener("input", this.setName.bind(this));
-		this.$quantityInput.addEventListener("input", this.setQuantity.bind(this));
+		this.$nameInput.addEventListener("input", (event) => this.setName(this.$nameInput.value));
+		this.$quantityInput.addEventListener("input", (event) => this.setQuantity(this.$quantityInput.value));
 
 		// Show tag filter boxes when corresponding input box is clicked, hide others
 		this.$materialsInput.addEventListener("click", this.showMaterialSelectList.bind(this));

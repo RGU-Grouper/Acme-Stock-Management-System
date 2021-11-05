@@ -1,6 +1,9 @@
+@use "buttons";
+
 /* ITEM DETAILS */
 .item-details {
 	grid-area: main;
+	z-index: 2;
 	display: none;
 	overflow-y: scroll;
 	position: relative;
@@ -88,11 +91,25 @@
 	}
 	
 	&__close {
-		cursor: pointer;
-		color: hsl(0 100% 50% / .75);
-		font-size: 2rem;
+		@include buttons.nav;
 		position: absolute;
-		top: 0;
-		right: 10px;
+		top: 8px;
+		right: 12px;
+	}
+}
+
+/* IMAGE VIEW */
+.image-view {
+	grid-area: main;
+	z-index: 4;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	background-color: black;
+	overflow: scroll;
+
+	&--active {
+		display: grid;
 	}
 }
