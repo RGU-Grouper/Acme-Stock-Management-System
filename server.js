@@ -2,23 +2,9 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 2000;
 
-//requiring path and fs modules
-const path = require('path');
-const fs = require('fs');
+app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/login.html"));
 
-//app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/login.html"));
-
-//loading getting all files
-fs.readdir(
-    path.resolve(__dirname, 'WWW'),
-    (err, files) => {
-      if (err) throw err;
-      
-      for (let file of files) {
-        app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/" +file));
-      }
-    }
-  );
+app.use(express.static(__dirname + '/WWW')); //Serves resources from public folder
 
 //cmd node server.js to run
 //cmd ctrl c to stop server runing
