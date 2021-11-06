@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 
 //opening database conetion
-let db = new sqlite3.Database(__dirname + '/db/acmeAtelierInventory.db', sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database(__dirname + './db/acmeAtelierInventory.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) {
       return console.error(err.message);
     }
@@ -9,11 +9,11 @@ let db = new sqlite3.Database(__dirname + '/db/acmeAtelierInventory.db', sqlite3
     console.log('Connected to the in-memory SQlite database.');
 });
 
-//query data
+//query data example
 /*db.serialize(() => {
-    db.each(`SELECT PlaylistId as id,
+    db.each(`SELECT fabricID as id,
                     Name as name
-             FROM playlists`, (err, row) => {
+             FROM tblFabric`, (err, row) => {
       if (err) {
         console.error(err.message);
       }
@@ -23,4 +23,11 @@ let db = new sqlite3.Database(__dirname + '/db/acmeAtelierInventory.db', sqlite3
 */
 
 //close contection
-//db.close()
+/*
+db.close((err) => {
+  if (err) {
+    console.error(err.message);
+  }
+  console.log('Close the database connection.');
+});
+*/
