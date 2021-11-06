@@ -14,7 +14,9 @@ export default class EditItem extends StockItem {
 		this.$editItem = document.querySelector(".edit-item");
 		this.$cancel = document.querySelector(".edit-item__cancel");
 
-		this.$imageFiles = document.querySelectorAll(".edit-item__image-file");
+		this.$imagePreview = document.querySelector(".edit-item__image-preview");
+		this.$imageLabels = document.querySelectorAll(".edit-item__image-label");
+		this.$imageInputs = document.querySelectorAll(".edit-item__image-upload");
 
 		this.$nameInput = document.getElementById("edit-item-name");
 		this.$quantityInput = document.getElementById("edit-item-quantity");
@@ -39,10 +41,17 @@ export default class EditItem extends StockItem {
 		this.loadHighlightColourSelectTags(colourTags);
 
 		// Image Preview Selector
-		this.$imageFiles.forEach($imageFile => {
-			$imageFile.addEventListener("click", this.selectImagePreview);
-		});
+		for (let i = 0; i < this.$imageLabels.length; i++) {
+			this.$imageLabels[i].addEventListener("click", (event) => this.selectImagePreview(i));
+		}
 
+		// Image Input on change
+		for (let i = 0; i < this.$imageInputs.length; i++) {
+			this.$imageInputs[i].addEventListener("change", (event) => {
+				this.$imageLabels[i].dataset.filePath = URL.createObjectURL(this.$imageInputs[i].files[0]);
+			});
+		}
+		
 		// Update data as user inputs
 		this.$nameInput.addEventListener("input", (event) => this.setName(this.$nameInput.value));
 		this.$quantityInput.addEventListener("input", (event) => this.setQuantity(this.$quantityInput.value));
@@ -57,32 +66,65 @@ export default class EditItem extends StockItem {
 		this.$mainColoursInput.addEventListener("input", this.loadMainColourSelectTags.bind(this));
 		this.$highlightColoursInput.addEventListener("input", this.loadHighlightColourSelectTags.bind(this));
 		
-		// Submit the new item data
-		this.$submitButton.addEventListener("click", this.submitData.bind(this));
-
 		// Close all filter boxes when clicking outside of the box
 		this.$editItem.addEventListener("click", (event) => {
 			event.stopPropagation()
 			this.hideAllTagSelectLists();
 		});
 
-		this.$cancel.addEventListener("click", (event) => {
-			this.hide();
-		});
+		// Close the pop-up when the cancel button is clicked
+		this.$cancel.addEventListener("click", (event) => this.hide());
+
+		// Submit the new item data
+		this.$submitButton.addEventListener("click", this.submitData.bind(this));
+	}
+
+	clearForm() {
+		this.$imagePreview.src = "img/aa-logo-stamp.png";
+		this.$imageInputs.forEach($imageInput => $imageInput.value = null);
+		this.selectImagePreview(0);
 		
-		// Show existing data in UI
-		if (itemData) {
-			this.$nameInput.value = itemData.name;
-			this.$quantityInput.value = itemData.quantity;
-			itemData.tagLists.materials.forEach(tag => this.addMaterialTag(tag));
-			itemData.tagLists.mainColours.forEach(tag => this.addMainColourTag(tag));
-			itemData.tagLists.highlightColours.forEach(tag => this.addHighlightColourTag(tag));
+		this.$nameInput.value = "";
+		this.$quantityInput.value = 0;
+
+		while (this.$materialsDisplayList.firstChild) {
+			this.$materialsDisplayList.removeChild(this.$materialsDisplayList.lastChild);
+		}
+
+		while (this.$mainColoursDisplayList.firstChild) {
+			this.$mainColoursDisplayList.removeChild(this.$mainColoursDisplayList.lastChild);
+		}
+		
+		while (this.$highlightColoursDisplayList.firstChild) {
+			this.$highlightColoursDisplayList.removeChild(this.$highlightColoursDisplayList.lastChild);
 		}
 	}
 
-	show(itemData) {
-		this.$editItem.classList.add("edit-item--active");
+	show() {
+		window.scrollTo(0, 0);
+		this.clearForm();
 		this.$header.classList.add("header--hidden");
+		this.$editItem.classList.add("edit-item--active");
+
+		const itemData = this.getData();
+
+		// Set file inputs for images
+		for (let i = 0; i < 3; i++) {
+			const fileName = (itemData.images[i]) ? itemData.images[i] : "aa-logo-stamp.png";
+			this.$imageLabels[i].dataset.filePath = "img/" + fileName;
+		}
+
+		// Set image preview to the first image
+		this.$imagePreview.src = this.$imageLabels[0].dataset.filePath;
+
+		// Set name and quantity
+		this.$nameInput.value = itemData.name;
+		this.$quantityInput.value = itemData.quantity;
+		
+		// Set tags
+		itemData.tagLists.materials.forEach(tag => this.addMaterialTag(tag));
+		itemData.tagLists.mainColours.forEach(tag => this.addMainColourTag(tag));
+		itemData.tagLists.highlightColours.forEach(tag => this.addHighlightColourTag(tag));
 	}
 
 	hide() {
@@ -125,10 +167,13 @@ export default class EditItem extends StockItem {
 		this.$highlightColoursSelectList.classList.remove("edit-item__tag-select--active");
 	}
 
-	selectImagePreview(event) {
-		const $selectedImageFile = document.querySelector(".edit-item__image-file--active");
-		$selectedImageFile.classList.remove("edit-item__image-file--active");
-		this.classList.add("edit-item__image-file--active");
+	selectImagePreview(index) {
+		const $selectedImageLabel = document.querySelector(".edit-item__image-label--active");
+		$selectedImageLabel.classList.remove("edit-item__image-label--active");
+		this.$imageLabels[index].classList.add("edit-item__image-label--active");
+		
+		const filePath = this.$imageLabels[index].dataset.filePath || "img/aa-logo-stamp.png";
+		this.$imagePreview.src = filePath;
 	}
 
 	// Material Tags
@@ -144,12 +189,12 @@ export default class EditItem extends StockItem {
 
 		// Create tag select items and add to the list
 		for (let i = 0; i < filteredTags.length; i++) {
-			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.addMaterialTag.bind(this));
+			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddMaterialTag.bind(this));
 			this.$materialsSelectList.appendChild($tagSelect);
 		}
 
 		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.addMaterialTag.bind(this));
+		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddMaterialTag.bind(this));
 		this.$materialsSelectList.appendChild($addNewTag);
 	}
 
@@ -160,10 +205,14 @@ export default class EditItem extends StockItem {
 		this.$materialsSelectList.classList.add("edit-item__tag-select--active");
 	}
 
-	addMaterialTag(event) {
+	onClickAddMaterialTag(event) {
 		event.stopPropagation();
 		const tagName = event.target.innerText;
 		const tag = (tagName === "Add New...") ? this.$materialsInput.value : tagName;
+		this.addMaterialTag(tag);
+	}
+
+	addMaterialTag(tag) {
 		this.$materialsInput.focus();
 		if (!tag) return;
 
@@ -198,12 +247,12 @@ export default class EditItem extends StockItem {
 
 		// Create tag select items and add to the list
 		for (let i = 0; i < filteredTags.length; i++) {
-			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.addMainColourTag.bind(this));
+			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddMainColourTag.bind(this));
 			this.$mainColoursSelectList.appendChild($tagSelect);
 		}
 
 		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.addMainColourTag.bind(this));
+		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddMainColourTag.bind(this));
 		this.$mainColoursSelectList.appendChild($addNewTag);
 	}
 
@@ -214,10 +263,14 @@ export default class EditItem extends StockItem {
 		this.$mainColoursSelectList.classList.add("edit-item__tag-select--active");
 	}
 
-	addMainColourTag(event) {
+	onClickAddMainColourTag(event) {
 		event.stopPropagation();
 		const tagName = event.target.innerText;
 		const tag = (tagName === "Add New...") ? this.$mainColoursInput.value : tagName;
+		this.addMainColourTag(tag);
+	}
+
+	addMainColourTag(tag) {
 		this.$mainColoursInput.focus();
 		if (!tag) return;
 
@@ -252,12 +305,12 @@ export default class EditItem extends StockItem {
 
 		// Create tag select items and add to the list
 		for (let i = 0; i < filteredTags.length; i++) {
-			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.addHighlightColourTag.bind(this));
+			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddHighlightColourTag.bind(this));
 			this.$highlightColoursSelectList.appendChild($tagSelect);
 		}
 
 		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.addHighlightColourTag.bind(this));
+		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddHighlightColourTag.bind(this));
 		this.$highlightColoursSelectList.appendChild($addNewTag);
 	}
 
@@ -268,10 +321,14 @@ export default class EditItem extends StockItem {
 		this.$highlightColoursSelectList.classList.add("edit-item__tag-select--active");
 	}
 
-	addHighlightColourTag(event) {
+	onClickAddHighlightColourTag(event) {
 		event.stopPropagation();
 		const tagName = event.target.innerText;
 		const tag = (tagName === "Add New...") ? this.$highlightColoursInput.value : tagName;
+		this.addHighlightColourTag(tag);
+	}
+
+	addHighlightColourTag(tag) {
 		this.$highlightColoursInput.focus();
 		if (!tag) return;
 

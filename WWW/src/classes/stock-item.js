@@ -33,6 +33,7 @@ export default class StockItem {
 
 	getData() {
 		return {
+			id: this.id,
 			name: this.name,
 			quantity: this.quantity,
 			images: this.images,

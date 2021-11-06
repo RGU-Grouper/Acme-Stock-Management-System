@@ -1,35 +1,40 @@
+import EditItem from "./edit-item.js";
+
 export default class ItemDetails {
-	constructor() {
+	constructor(materialTags, colourTags) {
+		this.editItem = new EditItem(materialTags, colourTags);
+
 		this.$header = document.querySelector(".header");
 		this.$itemDetails = document.querySelector(".item-details");
-		this.$close = document.querySelector(".item-details__close");
 		this.$image = document.querySelector(".item-details__image");
 		this.$imagePreviews = document.querySelectorAll(".item-details__image-preview");
 		this.$details = document.querySelector(".item-details__details");
 		this.$materialsTags = document.getElementById("item-details-materials");
 		this.$mainColoursTags = document.getElementById("item-details-main-colours");
 		this.$highlightColoursTags = document.getElementById("item-details-highlight-colours");
+		this.$close = document.querySelector(".item-details__close");
+		this.$edit = document.querySelector(".item-details__edit");
 
 		this.$imageView = document.querySelector(".image-view");
 		this.$imageViewImage = document.querySelector(".image-view__image");
 
 		// Show Full Screen Image View when preview is clicked
 		this.$imagePreviews.forEach($preview => {
-			$preview.addEventListener("click", (event) => {
-				this.showImageView($preview);
-			});
+			$preview.addEventListener("click", (event) => this.showImageView($preview));
 		});
 
 		// Hide Full Screen Image View when it is clicked
-		this.$imageView.addEventListener("click", (event) => {
-			this.hideImageView();
-		});
+		this.$imageView.addEventListener("click", (event) => this.hideImageView());
 
-		// Hide item details when X is clicked
-		this.$close.addEventListener("click", this.hide.bind(this));
+		// Hide item details when close button is clicked
+		this.$close.addEventListener("click", (event) => this.hide());
+
+		// Show edit item pop-up when edit button is clicked
+		this.$edit.addEventListener("click", (event) => this.editItem.show());
 	}
 
 	show(itemData) {
+		this.editItem.setData(itemData);
 		const { images, name, quantity, tagLists } = itemData;
 	
 		// Show Item Details with transparent background

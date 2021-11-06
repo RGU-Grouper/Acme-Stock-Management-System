@@ -47,9 +47,9 @@ export const getStockData = () => {
 		},
 		{
 			id: "4",
-			name: "Tartan 5",
+			name: "Find Me",
 			quantity: 5,
-			images: ["tartan.jpg"],
+			images: ["tartan.jpg", "red.jpg", "purple.jpg"],
 			tagLists: {
 				materials: [],
 				mainColours: ["Brown"],

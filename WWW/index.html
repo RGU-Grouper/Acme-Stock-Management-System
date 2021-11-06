@@ -43,16 +43,10 @@
 		<popup class="item-details">
 			<section class="item-details__details">
 				<h2 class="item-details__name"></h2>
-				<div class="item-details__info">
+				<div class="item-details__quantity">
 					<p class="item-details__quantity-label">Quantity:</p>
 					<p class="item-details__quantity-data"></p>
 				</div>
-				<p class="item-details__label">Materials</p>
-				<ul class="item-details__tags" id="item-details-materials"></ul>
-				<p class="item-details__label">Main Colours</p>
-				<ul class="item-details__tags" id="item-details-main-colours"></ul>
-				<p class="item-details__label">Highlight Colours</p>
-				<ul class="item-details__tags" id="item-details-highlight-colours"></ul>
 			</section>
 
 			<section class="item-details__images">
@@ -61,7 +55,17 @@
 				<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
 			</section>
 
-			<button class="item-details__close">Back</button>
+			<section class="item-details__tags">
+				<p class="item-details__label">Materials</p>
+				<ul class="item-details__tags" id="item-details-materials"></ul>
+				<p class="item-details__label">Main Colours</p>
+				<ul class="item-details__tags" id="item-details-main-colours"></ul>
+				<p class="item-details__label">Highlight Colours</p>
+				<ul class="item-details__tags" id="item-details-highlight-colours"></ul>
+			</section>
+
+			<button class="item-details__close">Close</button>
+			<button class="item-details__edit">Edit</button>
 		</popup>
 
 		<!-- FULL SCREEN IMAGE VIEW -->
@@ -72,13 +76,15 @@
 		<!-- ADD/EDIT ITEM POP-UP -->
 		<popup class="edit-item">
 			<section class="edit-item__images">
-				<img class="edit-item__image-preview" src="img/tartan.jpg" alt="Item preview">
-				<p class="edit-item__image-file edit-item__image-file--active">Preview 1</p>
-				<p class="edit-item__image-file">Preview 2</p>
-				<p class="edit-item__image-file">Preview 3</p>
-				<input type="file" id="actual-btn" hidden>
-				<input class="edit-item__upload" id='buttonid' type='file' value='Upload Files'>
-				<!-- <button class="edit-item__camera">Take Photo</button> -->
+				<img class="edit-item__image-preview" src="img/aa-logo-stamp.png" alt="Item preview">
+				<div class="edit-item__image-select">
+					<p class="edit-item__image-label edit-item__image-label--active">Preview 1</p>
+					<input class="edit-item__image-upload" type="file" accept="image/*">
+					<p class="edit-item__image-label">Preview 2</p>
+					<input class="edit-item__image-upload" type="file" accept="image/*">
+					<p class="edit-item__image-label">Preview 3</p>
+					<input class="edit-item__image-upload" type="file" accept="image/*">
+				</div>
 			</section>
 	
 			<section class="edit-item__details">

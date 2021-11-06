@@ -9,10 +9,13 @@ export default class StockList {
 		this.colourTags = colourTags;
 		
 		this.editItem = new EditItem(materialTags, colourTags);
-		this.itemDetails = new ItemDetails();
-				
+		this.itemDetails = new ItemDetails(materialTags, colourTags);
+		
 		this.$stockListItems = document.querySelector(".stock-list__items");
 		this.$itemPreviewTemplate = document.getElementById("item-preview-template");
+
+		this.$searchInput = document.querySelector(".header__search");
+		this.$searchInput.addEventListener("input", (event) => this.loadStockList(this.$searchInput.value));
 
 		this.$addItemButton = document.querySelector(".header__add-item");
 		this.$addItemButton.addEventListener("click", (event) => this.editItem.show());
@@ -43,8 +46,28 @@ export default class StockList {
 		this.$stockListItems.appendChild($itemPreview);
 	}
 
-	loadStockList() {
-		this.stock.forEach(item => this.addItemPreview(item));
+	loadStockList(filterString) {
+		while (this.$stockListItems.firstChild) {
+			this.$stockListItems.removeChild(this.$stockListItems.lastChild);
+		}
+
+		if (filterString) {
+			const filteredStock = this.stock.filter(item => item.name.match(new RegExp(filterString, "i")));
+			const startItems = filteredStock.map(item => item.name.substring(0, filterString.length).toLowerCase() === filterString.toLowerCase() ? item : null).filter(item => item != null);
+			const endItems = filteredStock.filter(item => !startItems.includes(item));
+			const sortedStock = startItems.concat(endItems);
+			sortedStock.forEach(item => this.addItemPreview(item));
+		}
+		else {
+			this.stock.forEach(item => this.addItemPreview(item.getData()));
+		}
+
+		if (!this.$stockListItems.firstChild) {
+			const $noItems = document.createElement("li");
+			$noItems.classList.add("stock-list__no-items");
+			$noItems.innerText = "No stock found!";
+			this.$stockListItems.appendChild($noItems);
+		}
 	}
 
 	getStock() {
@@ -52,7 +75,9 @@ export default class StockList {
 	}
 
 	setStock(data) {
-		this.stock = data;
+		data.forEach(item => {
+			this.addStockItem(item);
+		});
 	}
 	
 	addStockItem(itemData) {

@@ -1,9 +1,23 @@
 @use "buttons";
 
+@mixin selector-dot($left: 0, $right: 0) {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: $left;
+	right: $right;
+	width: 8px;
+	height: 8px;
+	margin: auto;
+	background-color: currentColor;
+	border-radius: 50%;
+}
+
 /* EDIT ITEM */
 .edit-item {
 	grid-area: main;
-	z-index: 3;
+	z-index: 4;
 	display: none;
 	padding: 0 2em;
 	background-color: white;
@@ -18,23 +32,36 @@
 		justify-content: center;
 		align-items: center;
 	}
+
+	&__image-select {
+		display: grid;
+	}
 	
 	&__image-preview {
 		width: 300px;
 		margin: 2em auto 1em;
 	}
 	
-	&__image-file {
+	&__image-label {
 		cursor: pointer;
-		padding: 0.25em;
+		width: max-content;
+		justify-self: center;
 		text-align: center;
-	
+		position: relative;
+
 		&--active {
-			color: red;
-		}	
+			color: green;
+			
+			&::before {
+				@include selector-dot(-1em, none);
+			}
+			&::after {
+				@include selector-dot(none, -1em);
+			}
+		}
 	}
 	
-	&__upload {
+	&__image-upload {
 		cursor: pointer;
 		width: max-content;
 		padding: 0.25em 0.5em;
@@ -44,13 +71,6 @@
 		font-family: sans-serif;
 		border-radius: 0.3rem;
 		border: 1px solid #8f8f9d;
-	}
-	
-	&__camera {
-		cursor: pointer;
-		width: max-content;
-		padding: 0.25em 0.5em;
-		margin: 1em auto;
 	}
 	
 	&__details {

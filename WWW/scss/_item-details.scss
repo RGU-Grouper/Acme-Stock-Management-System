@@ -19,13 +19,14 @@
 	}
 	
 	&__image-preview {
-		min-width: 50px;
-		max-width: 150px;
+		min-width: 100px;
+		max-width: 250px;
 		height: auto;
 		margin: 1em;
 		cursor: pointer;
 	}
 	
+	&__tags,
 	&__details {
 		display: grid;
 		justify-items: center;
@@ -41,18 +42,18 @@
 		padding-bottom: 0.5em;
 	}
 	
-	&__info {
+	&__quantity {
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin-bottom: 1em;
+
+		&-label,
+		&-data {
+			font-size: 1.125rem;
+			margin: 0 0.125em;
+		}
 	}
 
-	&__quantity-label,
-	&__quantity-data {
-		font-size: 1.125rem;
-		margin: 0 0.125em;
-	}
 
 	&__tags {
 		display: flex;
@@ -96,12 +97,19 @@
 		top: 8px;
 		right: 12px;
 	}
+
+	&__edit {
+		@include buttons.nav;
+		position: absolute;
+		top: 8px;
+		left: 12px;
+	}
 }
 
 /* IMAGE VIEW */
 .image-view {
 	grid-area: main;
-	z-index: 4;
+	z-index: 3;
 	display: none;
 	justify-content: center;
 	align-items: center;
