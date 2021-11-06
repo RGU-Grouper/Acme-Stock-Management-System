@@ -21,5 +21,6 @@ let db = new sqlite3.Database(__dirname + '/db/acmeAtelierInventory.db', sqlite3
     });
   });
 */
-  //close contection
-  //db.close()
+
+//close contection
+//db.close()
