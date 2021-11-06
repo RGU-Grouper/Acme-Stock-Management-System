@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-		"dev": "nodemon server.js",
-		"sass": "sass --watch WWW/scss/main.scss WWW/css/style.css"
+    "dev": "nodemon server.js",
+    "sass": "sass --watch WWW/scss/main.scss WWW/css/style.css"
   },
   "repository": {
     "type": "git",

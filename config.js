@@ -1,10 +1,25 @@
-const mysql = require('mysql');
+const sqlite3 = require('sqlite3').verbose();
 
-const config = {
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "acmeAtelierInventory"
-}
+//opening database conetion
+let db = new sqlite3.Database('db/acmeAtelierInventory.db', sqlite3.OPEN_READWRITE, (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    //returns if conecteted
+    console.log('Connected to the in-memory SQlite database.');
+});
 
-module.exports = config;
+//query data
+/*db.serialize(() => {
+    db.each(`SELECT PlaylistId as id,
+                    Name as name
+             FROM playlists`, (err, row) => {
+      if (err) {
+        console.error(err.message);
+      }
+      console.log(row.id + "\t" + row.name);
+    });
+  });
+*/
+  //close contection
+  //db.close()
