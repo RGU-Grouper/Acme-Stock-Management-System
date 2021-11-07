@@ -34,6 +34,6 @@ function onSignIn(googleUser) {
 }
 //Function to signOut
 function signOut() {
-    window.location.href = "./logIn.html"
+    window.location.href = "./login.html"
 
 }
