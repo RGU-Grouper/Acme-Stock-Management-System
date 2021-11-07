@@ -84,19 +84,19 @@ const addStockItem = (req, res) => {
 };
 
 const getStockItem = (req, res) => {
-	const id = req.body.id;
+	const id = req.params.id;
 	const data = {}; // get data from database with id
 	res.status(200).json(data);
 };
 
 const updateStockItem = (req, res) => {
-	const id = req.body.id;
+	const id = req.params.id;
 	const data = req.body.data;
 	res.status(200);
 };
 
 const deleteStockItem = (req, res) => {
-	const id = req.body.id;
+	const id = req.params.id;
 	res.status(200);
 };
 
