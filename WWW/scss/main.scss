@@ -42,7 +42,6 @@ body {
 	grid-area: header;
 	display: grid;
 	grid-template-columns: auto auto auto;
-	align-items: center;
 	text-align: center;
 	background-color: hsl(0, 0%, 75%);
 	width: 100%;
@@ -53,14 +52,14 @@ body {
 
 	&__toggle-options {
 		cursor: pointer;
-		width: 0;
-		height: 0;
+		width: 1px;
+		height: 1px;
 		border-left: 20px solid transparent;
 		border-right: 20px solid transparent;
 		border-top: 20px solid black;
 		border-bottom: none;
 		justify-self: center;
-		margin: 0.5em;
+		align-self: center;
 
 		&--active {
 			border-top: none;
@@ -71,6 +70,7 @@ body {
 	&__stock-options {
 		grid-column: span 3;
 		display: none;
+		justify-content: center;
 
 		&--active {
 			display: grid;
@@ -78,8 +78,10 @@ body {
 	}
 
 	&__search {
+		font-size: 1rem;
 		padding: 0.5em;
 		margin: 1em;
+		margin-top: 0;
 	}
 	
 	&__add-item {
