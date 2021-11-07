@@ -116,7 +116,7 @@ export default class EditItem extends StockItem {
 		// Set file inputs for images
 		for (let i = 0; i < 3; i++) {
 			const fileName = (itemData.images[i]) ? itemData.images[i] : "aa-logo-stamp.png";
-			this.$imageLabels[i].dataset.filePath = "img/" + fileName;
+			this.$imageLabels[i].dataset.filePath = "images/" + fileName;
 		}
 
 		// Set image preview to the first image

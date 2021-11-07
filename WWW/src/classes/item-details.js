@@ -44,7 +44,7 @@ export default class ItemDetails {
 		// Set Images
 		for (let i = 0; i < this.$imagePreviews.length; i++) {
 			const fileName = images[i] || "aa-logo-stamp.png";
-			this.$imagePreviews[i].src = `img/${fileName}`;
+			this.$imagePreviews[i].src = `images/${fileName}`;
 		}
 
 		// Set Tags
