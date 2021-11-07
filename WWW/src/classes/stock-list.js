@@ -1,5 +1,5 @@
 import StockItem from "./stock-item.js";
-import EditItem from "./edit-item.js";
+import AddItem from "./add-item.js";
 import ItemDetails from "./item-details.js";
 
 export default class StockList {
@@ -8,7 +8,7 @@ export default class StockList {
 		this.materialTags = materialTags;
 		this.colourTags = colourTags;
 		
-		this.editItem = new EditItem(materialTags, colourTags);
+		this.addItem = new AddItem(materialTags, colourTags);
 		this.itemDetails = new ItemDetails(materialTags, colourTags);
 		
 		this.$stockListItems = document.querySelector(".stock-list__items");
@@ -18,7 +18,7 @@ export default class StockList {
 		this.$searchInput.addEventListener("input", (event) => this.loadStockList(this.$searchInput.value));
 
 		this.$addItemButton = document.querySelector(".header__add-item");
-		this.$addItemButton.addEventListener("click", (event) => this.editItem.show());
+		this.$addItemButton.addEventListener("click", (event) => this.addItem.show());
 
 		if (stockData) {
 			this.setStock(stockData);
