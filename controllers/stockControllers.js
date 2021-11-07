@@ -5,7 +5,11 @@ const getStockData = (req, res) => {
 };
 
 const addStockItem = (req, res) => {
-	// Add item to database
+	const data = req.body;
+
+	// Validate data and add to database
+
+	// Respond to client
 	res.status(201).json({
 		testing: "test",
 	});
