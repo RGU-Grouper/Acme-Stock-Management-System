@@ -20,6 +20,7 @@
   "homepage": "https://github.com/RGU-Grouper/Acme-Frontend#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "google-auth-library": "^7.10.2",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
