@@ -1,4 +1,6 @@
 const express = require("express");
+const stockRouter = require("./routes/stockRoutes.js");
+
 const app = express();
 const PORT = process.env.PORT || 2000;
 
@@ -8,7 +10,10 @@ app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/index.html"));
 //loads database
 app.use(express.static(__dirname + "/config.js"));
 
-app.use(express.static(__dirname + '/WWW')); //Serves resources from www folder
+//Serves resources from www folder
+app.use(express.static(__dirname + '/WWW'));
+
+app.use('/stock', stockRouter);
 
 //cmd node server.js to run
 //cmd ctrl c to stop server runing
