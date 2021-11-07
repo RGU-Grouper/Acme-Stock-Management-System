@@ -41,35 +41,55 @@ body {
 .header {
 	grid-area: header;
 	display: grid;
-	grid-template-areas:
-	"add-item	sign-out"
-	"search 	search";
+	grid-template-columns: auto auto auto;
 	align-items: center;
 	text-align: center;
 	background-color: hsl(0, 0%, 75%);
 	width: 100%;
-	padding: 0.5em;
 
 	&--hidden {
 		display: none;
 	}
+
+	&__toggle-options {
+		cursor: pointer;
+		width: 0;
+		height: 0;
+		border-left: 20px solid transparent;
+		border-right: 20px solid transparent;
+		border-top: 20px solid black;
+		border-bottom: none;
+		justify-self: center;
+		margin: 0.5em;
+
+		&--active {
+			border-top: none;
+			border-bottom: 20px solid black;
+		}
+	}
 	
+	&__stock-options {
+		grid-column: span 3;
+		display: none;
+
+		&--active {
+			display: grid;
+		}
+	}
+
 	&__search {
-		grid-area: search;
 		padding: 0.5em;
-		margin: 1em 2em;
+		margin: 1em;
 	}
 	
 	&__add-item {
 		@include buttons.nav;
-		grid-area: add-item;
-		margin: 0.5em;
+		margin: 1em;
 	}
 
 	&__sign-out {
 		@include buttons.nav;
-		grid-area: sign-out;
+		margin: 1em;
 		justify-self: end;
-		margin: 0.5em;
 	}
 }
