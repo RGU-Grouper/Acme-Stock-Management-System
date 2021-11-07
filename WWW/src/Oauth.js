@@ -14,26 +14,28 @@ function onSignIn(googleUser) {
         profile.getEmail() == "helloacmeatelier@gmail.com" ||
         profile.getEmail() == "ryancitomlinson@gmail.com"
     ) {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function() {
-            console.log('User signed out.');
+        var current = window.location.href;
 
-        });
-        window.location.href = "./index.html"
+        switch (current) {
+            case "http://localhost:2000/login.html":
+                window.location.href = "./index.html"
+                console.log("Note on page");
+                break;
+        }
 
     } else {
-        let done = confirm("You don't have permission to access this.")
-        if (done) {
-            window.location.href = "https://www.acmeatelier.co.uk/"
-            signOut();
-        } else {
-            alert("Please try again.");
 
-        }
+        confirm("You don't have permission to access this.")
+        signOut();
+
     }
 }
 //Function to signOut
 function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+
+    });
     window.location.href = "./login.html"
 
 }
