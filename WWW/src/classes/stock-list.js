@@ -42,7 +42,7 @@ export default class StockList {
 		const $itemPreview = this.$itemPreviewTemplate.content.cloneNode(true).firstElementChild;
 
 		// Set item details
-		$itemPreview.querySelector(".item-preview__image").src = "img/" + images[0];
+		$itemPreview.querySelector(".item-preview__image").src = "images/" + images[0];
 		$itemPreview.querySelector(".item-preview__name").innerHTML = name;
 		$itemPreview.querySelector(".item-preview__quantity-data").innerHTML = quantity;
 

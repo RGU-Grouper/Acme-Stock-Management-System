@@ -1,4 +1,5 @@
 import StockItem from "./stock-item.js";
+import * as http from "../http.js";
 
 export default class EditItem extends StockItem {
 	constructor(materialTags, colourTags, itemData) {
@@ -77,12 +78,7 @@ export default class EditItem extends StockItem {
 		this.$cancelButton.addEventListener("click", (event) => this.hide());
 
 		// Delete item from database
-		this.$deleteButton.addEventListener("click", (event) => {
-			const check = confirm("Are you sure you want to delete this item?");
-			if (check) {
-				// Delete Item request
-			}
-		});
+		this.$deleteButton.addEventListener("click", (event) => this.deleteItem());
 
 		// Submit the updated item data
 		this.$submitButton.addEventListener("click", (event) => this.submitData());
@@ -120,7 +116,7 @@ export default class EditItem extends StockItem {
 		// Set file inputs for images
 		for (let i = 0; i < 3; i++) {
 			const fileName = (itemData.images[i]) ? itemData.images[i] : "aa-logo-stamp.png";
-			this.$imageLabels[i].dataset.filePath = "img/" + fileName;
+			this.$imageLabels[i].dataset.filePath = "images/" + fileName;
 		}
 
 		// Set image preview to the first image
@@ -358,9 +354,24 @@ export default class EditItem extends StockItem {
 		this.loadHighlightColourSelectTags();
 	}
 
+	// Delete Item from Database
+	async deleteItem() {
+		const check = confirm("Are you sure you want to delete this item?");
+		if (!check) return;
+
+		const data = this.getData();
+		console.log("Delete Item");
+		console.log(data);
+		const response = await http.deleteStockItem(data.id);
+		console.log(response);
+	}
+
 	// Submit Updated Item
-	submitData(event) {
+	async submitData() {
+		const data = this.getData();
 		console.log("Edit Item");
-		console.log(this.getData());
+		console.log(data);
+		const response = await http.updateStockItem(data.id, data);
+		console.log(response);
 	}
 }

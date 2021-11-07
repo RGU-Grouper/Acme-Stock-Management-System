@@ -1,4 +1,5 @@
 import StockItem from "./stock-item.js";
+import * as http from "../http.js";
 
 export default class AddItem extends StockItem {
 	constructor(materialTags, colourTags, itemData) {
@@ -114,7 +115,7 @@ export default class AddItem extends StockItem {
 		// Set file inputs for images
 		for (let i = 0; i < 3; i++) {
 			const fileName = (itemData.images[i]) ? itemData.images[i] : "aa-logo-stamp.png";
-			this.$imageLabels[i].dataset.filePath = "img/" + fileName;
+			this.$imageLabels[i].dataset.filePath = "images/" + fileName;
 		}
 
 		// Set image preview to the first image
@@ -353,8 +354,11 @@ export default class AddItem extends StockItem {
 	}
 
 	// Submit New Item
-	submitData(event) {
+	async submitData(event) {
+		const data = this.getData();
 		console.log("Add Item");
-		console.log(this.getData());
+		console.log(data);
+		const response = await http.addStockItem(data);
+		console.log(response);
 	}
 }
