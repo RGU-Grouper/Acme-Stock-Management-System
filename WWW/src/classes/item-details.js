@@ -30,7 +30,7 @@ export default class ItemDetails {
 		this.$close.addEventListener("click", (event) => this.hide());
 
 		// Show edit item pop-up when edit button is clicked
-		this.$edit.addEventListener("click", (event) => this.editItem.show(false));
+		this.$edit.addEventListener("click", (event) => this.editItem.show());
 	}
 
 	show(itemData) {

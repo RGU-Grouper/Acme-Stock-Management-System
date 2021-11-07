@@ -1,6 +1,6 @@
 import StockItem from "./stock-item.js";
 
-export default class EditItem extends StockItem {
+export default class AddItem extends StockItem {
 	constructor(materialTags, colourTags, itemData) {
 		super(materialTags, colourTags, itemData);
 
@@ -11,14 +11,14 @@ export default class EditItem extends StockItem {
 		this.$tagDisplayTemplate = document.getElementById("tag-display-template");
 		
 		this.$header = document.querySelector(".header");
-		this.$editItem = document.querySelector(".edit-item");
+		this.$editItem = document.querySelector(".add-item");
 
-		this.$imagePreview = document.querySelector(".edit-item__image-preview");
-		this.$imageLabels = document.querySelectorAll(".edit-item__image-label");
-		this.$imageInputs = document.querySelectorAll(".edit-item__image-upload");
+		this.$imagePreview = document.querySelector(".add-item__image-preview");
+		this.$imageLabels = document.querySelectorAll(".add-item__image-label");
+		this.$imageInputs = document.querySelectorAll(".add-item__image-upload");
 
-		this.$nameInput = document.getElementById("edit-item-name");
-		this.$quantityInput = document.getElementById("edit-item-quantity");
+		this.$nameInput = document.getElementById("add-item-name");
+		this.$quantityInput = document.getElementById("add-item-quantity");
 
 		this.$materialsSelectList = document.getElementById("materials-select");
 		this.$materialsInput = document.getElementById("materials-input");
@@ -32,8 +32,8 @@ export default class EditItem extends StockItem {
 		this.$highlightColoursInput = document.getElementById("highlight-colours-input");
 		this.$highlightColoursDisplayList = document.getElementById("highlight-colours-display");
 
-		this.$cancelButton = document.querySelector(".edit-item__cancel");
-		this.$submitButton = document.querySelector(".edit-item__submit");
+		this.$cancelButton = document.querySelector(".add-item__cancel");
+		this.$submitButton = document.querySelector(".add-item__submit");
 
 		// Set up UI
 		this.loadMaterialSelectTags(materialTags);
@@ -73,9 +73,12 @@ export default class EditItem extends StockItem {
 		});
 
 		// Close the pop-up when the cancel button is clicked
-		this.$cancelButton.addEventListener("click", (event) => this.hide());
+		this.$cancelButton.addEventListener("click", (event) => {
+			this.$header.classList.remove("header--hidden");
+			this.hide();
+		});
 
-		// Submit the updated item data
+		// Submit the new item data
 		this.$submitButton.addEventListener("click", (event) => this.submitData());
 	}
 
@@ -104,7 +107,7 @@ export default class EditItem extends StockItem {
 		this.$editItem.scrollTo(0, 0);
 		this.clearForm();
 		this.$header.classList.add("header--hidden");
-		this.$editItem.classList.add("edit-item--active");
+		this.$editItem.classList.add("add-item--active");
 
 		const itemData = this.getData();
 
@@ -128,7 +131,7 @@ export default class EditItem extends StockItem {
 	}
 
 	hide() {
-		this.$editItem.classList.remove("edit-item--active");
+		this.$editItem.classList.remove("add-item--active");
 	}
 
 	createTagSelectItem(tag, addTagCallback) {
@@ -161,15 +164,15 @@ export default class EditItem extends StockItem {
 	}
 
 	hideAllTagSelectLists(event) {
-		this.$materialsSelectList.classList.remove("edit-item__tag-select--active");
-		this.$mainColoursSelectList.classList.remove("edit-item__tag-select--active");
-		this.$highlightColoursSelectList.classList.remove("edit-item__tag-select--active");
+		this.$materialsSelectList.classList.remove("add-item__tag-select--active");
+		this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
+		this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
 	}
 
 	selectImagePreview(index) {
-		const $selectedImageLabel = document.querySelector(".edit-item__image-label--active");
-		$selectedImageLabel.classList.remove("edit-item__image-label--active");
-		this.$imageLabels[index].classList.add("edit-item__image-label--active");
+		const $selectedImageLabel = document.querySelector(".add-item__image-label--active");
+		$selectedImageLabel.classList.remove("add-item__image-label--active");
+		this.$imageLabels[index].classList.add("add-item__image-label--active");
 		
 		const filePath = this.$imageLabels[index].dataset.filePath || "img/aa-logo-stamp.png";
 		this.$imagePreview.src = filePath;
@@ -199,9 +202,9 @@ export default class EditItem extends StockItem {
 
 	showMaterialSelectList(event) {
 		event.stopPropagation();
-		this.$mainColoursSelectList.classList.remove("edit-item__tag-select--active");
-		this.$highlightColoursSelectList.classList.remove("edit-item__tag-select--active");
-		this.$materialsSelectList.classList.add("edit-item__tag-select--active");
+		this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
+		this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
+		this.$materialsSelectList.classList.add("add-item__tag-select--active");
 	}
 
 	onClickAddMaterialTag(event) {
@@ -257,9 +260,9 @@ export default class EditItem extends StockItem {
 
 	showMainColourSelectList(event) {
 		event.stopPropagation();
-		this.$materialsSelectList.classList.remove("edit-item__tag-select--active");
-		this.$highlightColoursSelectList.classList.remove("edit-item__tag-select--active");
-		this.$mainColoursSelectList.classList.add("edit-item__tag-select--active");
+		this.$materialsSelectList.classList.remove("add-item__tag-select--active");
+		this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
+		this.$mainColoursSelectList.classList.add("add-item__tag-select--active");
 	}
 
 	onClickAddMainColourTag(event) {
@@ -315,9 +318,9 @@ export default class EditItem extends StockItem {
 
 	showHighlightColourSelectList(event) {
 		event.stopPropagation();
-		this.$materialsSelectList.classList.remove("edit-item__tag-select--active");
-		this.$mainColoursSelectList.classList.remove("edit-item__tag-select--active");
-		this.$highlightColoursSelectList.classList.add("edit-item__tag-select--active");
+		this.$materialsSelectList.classList.remove("add-item__tag-select--active");
+		this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
+		this.$highlightColoursSelectList.classList.add("add-item__tag-select--active");
 	}
 
 	onClickAddHighlightColourTag(event) {
@@ -349,9 +352,9 @@ export default class EditItem extends StockItem {
 		this.loadHighlightColourSelectTags();
 	}
 
-	// Submit Updated Item
+	// Submit New Item
 	submitData(event) {
-		console.log("Edit Item");
+		console.log("Add Item");
 		console.log(this.getData());
 	}
 }
