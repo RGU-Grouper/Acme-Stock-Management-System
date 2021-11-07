@@ -36,7 +36,7 @@ export const deleteStockItem = async (id) => {
 
 // Tags
 export const getMaterialTags = () => {
-	return ["Wool", "Cotton", "Linen", "Nylon"];
+	return ["Wool 13oz", "Wool 16oz", "Cotton", "Polyester", "Demin", "Stretch Twill", "Nylon"];
 	// const res = await fetch("/tags/materials");
 	// const data = await res.json();
 	// return data;
@@ -52,7 +52,7 @@ export const addMaterialTag = async (data) => {
 };
 
 export const getColourTags = () => {
-	return ["White", "Black", "Red", "Green", "Blue", "Yellow", "Orange", "Pink", "Purple", "Brown"];
+	return ["White", "Black", "Red", "Green", "Blue", "Light Blue", "Yellow", "Orange", "Pink", "Purple", "Brown", "Beige"];
 	// const res = await fetch("/tags/colours");
 	// const data = await res.json();
 	// return data;

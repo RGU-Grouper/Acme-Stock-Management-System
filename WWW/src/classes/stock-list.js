@@ -42,7 +42,8 @@ export default class StockList {
 		const $itemPreview = this.$itemPreviewTemplate.content.cloneNode(true).firstElementChild;
 
 		// Set item details
-		$itemPreview.querySelector(".item-preview__image").src = "images/" + images[0];
+		const filePath = (images[0]) ? `images/${images[0]}` : "img/aa-logo-stamp.png";
+		$itemPreview.querySelector(".item-preview__image").src = filePath;
 		$itemPreview.querySelector(".item-preview__name").innerHTML = name;
 		$itemPreview.querySelector(".item-preview__quantity-data").innerHTML = quantity;
 

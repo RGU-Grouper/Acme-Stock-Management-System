@@ -2,8 +2,8 @@ import EditItem from "./edit-item.js";
 
 export default class ItemDetails {
 	constructor(materialTags, colourTags) {
+		this.itemData = {};
 		this.editItem = new EditItem(materialTags, colourTags);
-
 		this.$header = document.querySelector(".header");
 		this.$itemDetails = document.querySelector(".item-details");
 		this.$image = document.querySelector(".item-details__image");
@@ -30,10 +30,11 @@ export default class ItemDetails {
 		this.$close.addEventListener("click", (event) => this.hide());
 
 		// Show edit item pop-up when edit button is clicked
-		this.$edit.addEventListener("click", (event) => this.editItem.show());
+		this.$edit.addEventListener("click", (event) => this.editItem.show(this.itemData));
 	}
 
 	show(itemData) {
+		this.itemData = itemData;
 		this.editItem.setData(itemData);
 		const { images, name, quantity, tagLists } = itemData;
 	
@@ -43,8 +44,8 @@ export default class ItemDetails {
 	
 		// Set Images
 		for (let i = 0; i < this.$imagePreviews.length; i++) {
-			const fileName = images[i] || "aa-logo-stamp.png";
-			this.$imagePreviews[i].src = `images/${fileName}`;
+			const filePath = (images[i]) ? `images/${images[i]}` : "img/aa-logo-stamp.png";
+			this.$imagePreviews[i].src = filePath;
 		}
 
 		// Set Tags

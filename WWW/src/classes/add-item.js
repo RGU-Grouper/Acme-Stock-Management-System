@@ -21,17 +21,17 @@ export default class AddItem extends StockItem {
 		this.$nameInput = document.getElementById("add-item-name");
 		this.$quantityInput = document.getElementById("add-item-quantity");
 
-		this.$materialsSelectList = document.getElementById("materials-select");
-		this.$materialsInput = document.getElementById("materials-input");
-		this.$materialsDisplayList = document.getElementById("materials-display");
+		this.$materialsSelectList = document.getElementById("add-materials-select");
+		this.$materialsInput = document.getElementById("add-materials-input");
+		this.$materialsDisplayList = document.getElementById("add-materials-display");
 		
-		this.$mainColoursSelectList = document.getElementById("main-colours-select");
-		this.$mainColoursInput = document.getElementById("main-colours-input");
-		this.$mainColoursDisplayList = document.getElementById("main-colours-display");
+		this.$mainColoursSelectList = document.getElementById("add-main-colours-select");
+		this.$mainColoursInput = document.getElementById("add-main-colours-input");
+		this.$mainColoursDisplayList = document.getElementById("add-main-colours-display");
 		
-		this.$highlightColoursSelectList = document.getElementById("highlight-colours-select");
-		this.$highlightColoursInput = document.getElementById("highlight-colours-input");
-		this.$highlightColoursDisplayList = document.getElementById("highlight-colours-display");
+		this.$highlightColoursSelectList = document.getElementById("add-highlight-colours-select");
+		this.$highlightColoursInput = document.getElementById("add-highlight-colours-input");
+		this.$highlightColoursDisplayList = document.getElementById("add-highlight-colours-display");
 
 		this.$cancelButton = document.querySelector(".add-item__cancel");
 		this.$submitButton = document.querySelector(".add-item__submit");
@@ -49,7 +49,9 @@ export default class AddItem extends StockItem {
 		// Image Input on change
 		for (let i = 0; i < this.$imageInputs.length; i++) {
 			this.$imageInputs[i].addEventListener("change", (event) => {
-				this.$imageLabels[i].dataset.filePath = URL.createObjectURL(this.$imageInputs[i].files[0]);
+				const filePath = URL.createObjectURL(this.$imageInputs[i].files[0]);
+				this.$imageLabels[i].dataset.filePath = filePath;
+				this.selectImagePreview(i);
 			});
 		}
 		
@@ -114,8 +116,8 @@ export default class AddItem extends StockItem {
 
 		// Set file inputs for images
 		for (let i = 0; i < 3; i++) {
-			const fileName = (itemData.images[i]) ? itemData.images[i] : "aa-logo-stamp.png";
-			this.$imageLabels[i].dataset.filePath = "images/" + fileName;
+			const filePath = (itemData.images[i]) ? `images/${itemData.images[i]}` : "img/aa-logo-stamp.png";
+			this.$imageLabels[i].dataset.filePath = filePath;
 		}
 
 		// Set image preview to the first image

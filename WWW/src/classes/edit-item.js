@@ -21,17 +21,17 @@ export default class EditItem extends StockItem {
 		this.$nameInput = document.getElementById("edit-item-name");
 		this.$quantityInput = document.getElementById("edit-item-quantity");
 
-		this.$materialsSelectList = document.getElementById("materials-select");
-		this.$materialsInput = document.getElementById("materials-input");
-		this.$materialsDisplayList = document.getElementById("materials-display");
+		this.$materialsSelectList = document.getElementById("edit-materials-select");
+		this.$materialsInput = document.getElementById("edit-materials-input");
+		this.$materialsDisplayList = document.getElementById("edit-materials-display");
 		
-		this.$mainColoursSelectList = document.getElementById("main-colours-select");
-		this.$mainColoursInput = document.getElementById("main-colours-input");
-		this.$mainColoursDisplayList = document.getElementById("main-colours-display");
+		this.$mainColoursSelectList = document.getElementById("edit-main-colours-select");
+		this.$mainColoursInput = document.getElementById("edit-main-colours-input");
+		this.$mainColoursDisplayList = document.getElementById("edit-main-colours-display");
 		
-		this.$highlightColoursSelectList = document.getElementById("highlight-colours-select");
-		this.$highlightColoursInput = document.getElementById("highlight-colours-input");
-		this.$highlightColoursDisplayList = document.getElementById("highlight-colours-display");
+		this.$highlightColoursSelectList = document.getElementById("edit-highlight-colours-select");
+		this.$highlightColoursInput = document.getElementById("edit-highlight-colours-input");
+		this.$highlightColoursDisplayList = document.getElementById("edit-highlight-colours-display");
 
 		this.$cancelButton = document.querySelector(".edit-item__cancel");
 		this.$deleteButton = document.querySelector(".edit-item__delete");
@@ -50,7 +50,9 @@ export default class EditItem extends StockItem {
 		// Image Input on change
 		for (let i = 0; i < this.$imageInputs.length; i++) {
 			this.$imageInputs[i].addEventListener("change", (event) => {
-				this.$imageLabels[i].dataset.filePath = URL.createObjectURL(this.$imageInputs[i].files[0]);
+				const filePath = URL.createObjectURL(this.$imageInputs[i].files[0]);
+				this.$imageLabels[i].dataset.filePath = filePath;
+				this.selectImagePreview(i);
 			});
 		}
 		
@@ -87,6 +89,9 @@ export default class EditItem extends StockItem {
 	clearForm() {
 		this.$imagePreview.src = "img/aa-logo-stamp.png";
 		this.$imageInputs.forEach($imageInput => $imageInput.value = null);
+		for (let i = 0; i < 3; i++) {
+			this.$imageLabels[i].dataset.filePath = "img/aa-logo-stamp.png";
+		}
 		this.selectImagePreview(0);
 		
 		this.$nameInput.value = "";
@@ -105,18 +110,15 @@ export default class EditItem extends StockItem {
 		}
 	}
 
-	show() {
-		this.$editItem.scrollTo(0, 0);
+	show(itemData) {
+		// this.$editItem.scrollTo(0, 0);
 		this.clearForm();
-		this.$header.classList.add("header--hidden");
 		this.$editItem.classList.add("edit-item--active");
-
-		const itemData = this.getData();
-
+		
 		// Set file inputs for images
 		for (let i = 0; i < 3; i++) {
-			const fileName = (itemData.images[i]) ? itemData.images[i] : "aa-logo-stamp.png";
-			this.$imageLabels[i].dataset.filePath = "images/" + fileName;
+			const filePath = (itemData.images[i]) ? `images/${itemData.images[i]}` : "img/aa-logo-stamp.png";
+			this.$imageLabels[i].dataset.filePath = filePath;
 		}
 
 		// Set image preview to the first image
@@ -176,7 +178,7 @@ export default class EditItem extends StockItem {
 		$selectedImageLabel.classList.remove("edit-item__image-label--active");
 		this.$imageLabels[index].classList.add("edit-item__image-label--active");
 		
-		const filePath = this.$imageLabels[index].dataset.filePath || "img/aa-logo-stamp.png";
+		const filePath = (this.$imageLabels[index].dataset.filePath) ? this.$imageLabels[index].dataset.filePath : "img/aa-logo-stamp.png";
 		this.$imagePreview.src = filePath;
 	}
 
