@@ -114,6 +114,11 @@
 		margin: 2em 0;
 	}
 	
+	&__delete {
+		@include buttons.nav;
+		margin: 2em 0;
+	}
+	
 	&__submit {
 		@include buttons.nav;
 		margin: 2em 0;

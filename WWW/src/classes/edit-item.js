@@ -33,6 +33,7 @@ export default class EditItem extends StockItem {
 		this.$highlightColoursDisplayList = document.getElementById("highlight-colours-display");
 
 		this.$cancelButton = document.querySelector(".edit-item__cancel");
+		this.$deleteButton = document.querySelector(".edit-item__delete");
 		this.$submitButton = document.querySelector(".edit-item__submit");
 
 		// Set up UI
@@ -74,6 +75,14 @@ export default class EditItem extends StockItem {
 
 		// Close the pop-up when the cancel button is clicked
 		this.$cancelButton.addEventListener("click", (event) => this.hide());
+
+		// Delete item from database
+		this.$deleteButton.addEventListener("click", (event) => {
+			const check = confirm("Are you sure you want to delete this item?");
+			if (check) {
+				// Delete Item request
+			}
+		});
 
 		// Submit the updated item data
 		this.$submitButton.addEventListener("click", (event) => this.submitData());
