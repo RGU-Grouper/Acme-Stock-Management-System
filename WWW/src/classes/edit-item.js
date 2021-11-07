@@ -12,7 +12,6 @@ export default class EditItem extends StockItem {
 		
 		this.$header = document.querySelector(".header");
 		this.$editItem = document.querySelector(".edit-item");
-		this.$cancel = document.querySelector(".edit-item__cancel");
 
 		this.$imagePreview = document.querySelector(".edit-item__image-preview");
 		this.$imageLabels = document.querySelectorAll(".edit-item__image-label");
@@ -33,6 +32,8 @@ export default class EditItem extends StockItem {
 		this.$highlightColoursInput = document.getElementById("highlight-colours-input");
 		this.$highlightColoursDisplayList = document.getElementById("highlight-colours-display");
 
+		this.$cancelButton = document.querySelector(".edit-item__cancel");
+		this.$deleteButton = document.querySelector(".edit-item__delete");
 		this.$submitButton = document.querySelector(".edit-item__submit");
 
 		// Set up UI
@@ -73,10 +74,18 @@ export default class EditItem extends StockItem {
 		});
 
 		// Close the pop-up when the cancel button is clicked
-		this.$cancel.addEventListener("click", (event) => this.hide());
+		this.$cancelButton.addEventListener("click", (event) => this.hide());
 
-		// Submit the new item data
-		this.$submitButton.addEventListener("click", this.submitData.bind(this));
+		// Delete item from database
+		this.$deleteButton.addEventListener("click", (event) => {
+			const check = confirm("Are you sure you want to delete this item?");
+			if (check) {
+				// Delete Item request
+			}
+		});
+
+		// Submit the updated item data
+		this.$submitButton.addEventListener("click", (event) => this.submitData());
 	}
 
 	clearForm() {
@@ -101,7 +110,7 @@ export default class EditItem extends StockItem {
 	}
 
 	show() {
-		window.scrollTo(0, 0);
+		this.$editItem.scrollTo(0, 0);
 		this.clearForm();
 		this.$header.classList.add("header--hidden");
 		this.$editItem.classList.add("edit-item--active");
@@ -349,8 +358,9 @@ export default class EditItem extends StockItem {
 		this.loadHighlightColourSelectTags();
 	}
 
-	// Submit New Item
+	// Submit Updated Item
 	submitData(event) {
+		console.log("Edit Item");
 		console.log(this.getData());
 	}
 }

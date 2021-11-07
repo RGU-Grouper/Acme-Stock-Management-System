@@ -1,4 +1,4 @@
-/* Stock List */
+/* STOCK LIST */
 .stock-list {
   grid-area: main;
   max-width: 100vw;
@@ -295,6 +295,24 @@
   background-color: black;
   color: white;
 }
+.edit-item__delete {
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  width: max-content;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-transform: uppercase;
+  margin: 2em 0;
+}
+.edit-item__delete:focus-within, .edit-item__delete:hover, .edit-item__delete:active {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+}
 .edit-item__submit {
   font-size: 0.875rem;
   letter-spacing: 1px;
@@ -343,6 +361,143 @@
   background-color: #f2f2f2;
 }
 
+/* ADD ITEM */
+.add-item {
+  grid-area: main;
+  z-index: 4;
+  display: none;
+  padding: 0 2em;
+  background-color: white;
+  overflow-y: scroll;
+}
+.add-item--active {
+  display: grid;
+}
+.add-item__images {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.add-item__image-select {
+  display: grid;
+}
+.add-item__image-preview {
+  width: 300px;
+  margin: 2em auto 1em;
+}
+.add-item__image-label {
+  cursor: pointer;
+  width: max-content;
+  justify-self: center;
+  text-align: center;
+  position: relative;
+}
+.add-item__image-label--active {
+  color: green;
+}
+.add-item__image-label--active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1em;
+  right: none;
+  width: 8px;
+  height: 8px;
+  margin: auto;
+  background-color: currentColor;
+  border-radius: 50%;
+}
+.add-item__image-label--active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: none;
+  right: -1em;
+  width: 8px;
+  height: 8px;
+  margin: auto;
+  background-color: currentColor;
+  border-radius: 50%;
+}
+.add-item__image-upload {
+  cursor: pointer;
+  width: max-content;
+  padding: 0.25em 0.5em;
+  margin: 1em auto;
+  background-color: #e9e9ed;
+  color: black;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  border: 1px solid #8f8f9d;
+}
+.add-item__details {
+  display: grid;
+}
+.add-item__label {
+  margin: 1em 0 0.25em;
+  text-transform: uppercase;
+}
+.add-item__input {
+  margin-top: 0.25em;
+  padding: 0.5em;
+}
+.add-item__tag-display {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: initial;
+}
+.add-item__tag-select {
+  display: none;
+  border: 1px solid black;
+  border-top: none;
+}
+.add-item__tag-select--active {
+  display: block;
+}
+.add-item__form-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.add-item__cancel {
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  width: max-content;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-transform: uppercase;
+  margin: 2em 0;
+}
+.add-item__cancel:focus-within, .add-item__cancel:hover, .add-item__cancel:active {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+}
+.add-item__submit {
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  width: max-content;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  text-transform: uppercase;
+  margin: 2em 0;
+}
+.add-item__submit:focus-within, .add-item__submit:hover, .add-item__submit:active {
+  border: 1px solid white;
+  background-color: black;
+  color: white;
+}
+
 @font-face {
   font-family: ITCAvantGarde;
   src: url("../fonts/ITCAvantGardeStdMd.woff");
@@ -377,20 +532,40 @@ body {
 .header {
   grid-area: header;
   display: grid;
-  grid-template-areas: "add-item	sign-out" "search 	search";
+  grid-template-columns: auto auto auto;
   align-items: center;
   text-align: center;
   background-color: #bfbfbf;
   width: 100%;
-  padding: 0.5em;
 }
 .header--hidden {
   display: none;
 }
+.header__toggle-options {
+  cursor: pointer;
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid black;
+  border-bottom: none;
+  justify-self: center;
+  margin: 0.5em;
+}
+.header__toggle-options--active {
+  border-top: none;
+  border-bottom: 20px solid black;
+}
+.header__stock-options {
+  grid-column: span 3;
+  display: none;
+}
+.header__stock-options--active {
+  display: grid;
+}
 .header__search {
-  grid-area: search;
   padding: 0.5em;
-  margin: 1em 2em;
+  margin: 1em;
 }
 .header__add-item {
   font-size: 0.875rem;
@@ -403,8 +578,7 @@ body {
   background-color: white;
   color: black;
   text-transform: uppercase;
-  grid-area: add-item;
-  margin: 0.5em;
+  margin: 1em;
 }
 .header__add-item:focus-within, .header__add-item:hover, .header__add-item:active {
   border: 1px solid white;
@@ -422,9 +596,8 @@ body {
   background-color: white;
   color: black;
   text-transform: uppercase;
-  grid-area: sign-out;
+  margin: 1em;
   justify-self: end;
-  margin: 0.5em;
 }
 .header__sign-out:focus-within, .header__sign-out:hover, .header__sign-out:active {
   border: 1px solid white;

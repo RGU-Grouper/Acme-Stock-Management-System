@@ -14,6 +14,13 @@ export default class StockList {
 		this.$stockListItems = document.querySelector(".stock-list__items");
 		this.$itemPreviewTemplate = document.getElementById("item-preview-template");
 
+		this.$toggleOptions = document.querySelector(".header__toggle-options");
+		this.$stockOptions = document.querySelector(".header__stock-options");
+		this.$toggleOptions.addEventListener("click", (event) => {
+			this.$toggleOptions.classList.toggle("header__toggle-options--active");
+			this.$stockOptions.classList.toggle("header__stock-options--active");
+		});
+
 		this.$searchInput = document.querySelector(".header__search");
 		this.$searchInput.addEventListener("input", (event) => this.loadStockList(this.$searchInput.value));
 

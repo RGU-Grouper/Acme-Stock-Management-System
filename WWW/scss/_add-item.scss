@@ -14,8 +14,8 @@
 	border-radius: 50%;
 }
 
-/* EDIT ITEM */
-.edit-item {
+/* ADD ITEM */
+.add-item {
 	grid-area: main;
 	z-index: 4;
 	display: none;
@@ -114,45 +114,8 @@
 		margin: 2em 0;
 	}
 	
-	&__delete {
-		@include buttons.nav;
-		margin: 2em 0;
-	}
-	
 	&__submit {
 		@include buttons.nav;
 		margin: 2em 0;
-	}
-}
-
-/* DISPLAY TAG */
-.tag-display {
-	display: flex;
-	justify-content: space-between;
-	width: max-content;
-	background-color: hsl(0, 0%, 90%);
-	padding: 0.25em;
-	margin: 0.25em;
-	border-radius: 10px;
-	
-	&__name {
-		margin: 0 0.5em;
-	}
-	
-	&__remove {
-		cursor: pointer;
-		margin: 0 0.5em;
-		color: red;
-	}
-}	
-
-/* SELECT TAG */
-.tag-select {
-	background-color: hsl(0, 0%, 90%);
-	padding: 0.5em;
-	cursor: pointer;
-	
-	&:nth-child(2n) {
-		background-color: hsl(0, 0%, 95%);
 	}
 }
