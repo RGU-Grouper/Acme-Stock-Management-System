@@ -4,21 +4,25 @@ const stockRouter = require("./routes/stockRoutes.js");
 const app = express();
 const PORT = process.env.PORT || 2000;
 
+// Connect to database
+app.use(express.static(__dirname + "/config.js"));
+
 // Make JSON sent in the request body available as req.body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//loads stock page
+// Serves static resources from www folder
+app.use(express.static(__dirname + '/WWW'));
+app.use('/images', express.static('images'));
+
+// Loads stock page
 app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/index.html"));
 
-//loads database
-app.use(express.static(__dirname + "/config.js"));
-
-//Serves resources from www folder
-app.use(express.static(__dirname + '/WWW'));
-
+// HTTP request routes
 app.use('/stock', stockRouter);
 
-//cmd node server.js to run
-//cmd ctrl c to stop server runing
+// Start server listening for HTTP requests
 app.listen(PORT, () => console.log(`Server is listening at http://localhost:${PORT}`));
+
+// cmd to run: node server.js
+// cmd to stop server running: ctrl + c

@@ -1,4 +1,5 @@
 import StockItem from "./stock-item.js";
+import * as http from "../http.js";
 
 export default class AddItem extends StockItem {
 	constructor(materialTags, colourTags, itemData) {
@@ -353,8 +354,11 @@ export default class AddItem extends StockItem {
 	}
 
 	// Submit New Item
-	submitData(event) {
+	async submitData(event) {
+		const data = this.getData();
 		console.log("Add Item");
-		console.log(this.getData());
+		console.log(data);
+		const response = await http.addStockItem(data);
+		console.log(response);
 	}
 }
