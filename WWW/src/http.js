@@ -1,5 +1,5 @@
 // Stock Data
-export const getStockData = async () => {
+export const getStockData = () => {
 	const data = [
 		{
 			id: "0",
@@ -105,7 +105,7 @@ export const deleteStockItem = async (id) => {
 };
 
 // Tags
-export const getMaterialTags = async () => {
+export const getMaterialTags = () => {
 	return ["Wool", "Cotton", "Linen", "Nylon"];
 	// const res = await fetch("/tags/materials");
 	// const data = await res.json();
@@ -121,7 +121,7 @@ export const addMaterialTag = async (data) => {
 	return res.ok;
 };
 
-export const getColourTags = async () => {
+export const getColourTags = () => {
 	return ["White", "Black", "Red", "Green", "Blue", "Yellow", "Orange", "Pink", "Purple", "Brown"];
 	// const res = await fetch("/tags/colours");
 	// const data = await res.json();

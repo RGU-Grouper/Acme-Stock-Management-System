@@ -129,7 +129,6 @@ export default class EditItem extends StockItem {
 
 	hide() {
 		this.$editItem.classList.remove("edit-item--active");
-		this.$header.classList.remove("header--hidden");
 	}
 
 	createTagSelectItem(tag, addTagCallback) {
