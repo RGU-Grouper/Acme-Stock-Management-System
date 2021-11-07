@@ -12,7 +12,7 @@
 
 	<!--Google Platform Library for sign in & log in functions-->
 	<script src="src/Oauth.js" defer></script>
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>0
 
 </head>
 <body>
@@ -23,6 +23,10 @@
 				<label class="header__search-label" for="item-preview-search">Search:</label>
 				<input class="header__search-input" id="item-preview-search" type="search">
 			</div>
+			<!--Sign Out-->
+			<!-- <a href="#" onclick="signOut();">Sign out</a> -->
+			<a class="header__sign-out" onclick="signOut();">Sign out</a>
+
 			<!--Sign In-->
 			<div class="g-signin2" id="g-singin2" data-onsuccess="onSignIn"></div>
 		</header>
