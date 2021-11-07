@@ -4,6 +4,10 @@ const stockRouter = require("./routes/stockRoutes.js");
 const app = express();
 const PORT = process.env.PORT || 2000;
 
+// Make JSON sent in the request body available as req.body
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //loads stock page
 app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/index.html"));
 

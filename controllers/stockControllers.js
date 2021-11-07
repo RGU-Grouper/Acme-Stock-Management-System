@@ -4,6 +4,14 @@ const getStockData = (req, res) => {
 	});
 };
 
+const addStockItem = (req, res) => {
+	// Add item to database
+	res.status(201).json({
+		testing: "test",
+	});
+};
+
 module.exports = {
 	getStockData,
+	addStockItem,
 };
