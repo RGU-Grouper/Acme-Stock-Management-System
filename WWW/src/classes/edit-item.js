@@ -12,7 +12,6 @@ export default class EditItem extends StockItem {
 		
 		this.$header = document.querySelector(".header");
 		this.$editItem = document.querySelector(".edit-item");
-		this.$cancel = document.querySelector(".edit-item__cancel");
 
 		this.$imagePreview = document.querySelector(".edit-item__image-preview");
 		this.$imageLabels = document.querySelectorAll(".edit-item__image-label");
@@ -33,7 +32,10 @@ export default class EditItem extends StockItem {
 		this.$highlightColoursInput = document.getElementById("highlight-colours-input");
 		this.$highlightColoursDisplayList = document.getElementById("highlight-colours-display");
 
-		this.$submitButton = document.querySelector(".edit-item__submit");
+		this.$cancelEdit = document.getElementById("cancel-edit");
+		this.$submitEdit = document.getElementById("submit-edit");
+		this.$cancelAdd = document.getElementById("cancel-add");
+		this.$submitAdd = document.getElementById("submit-add");
 
 		// Set up UI
 		this.loadMaterialSelectTags(materialTags);
@@ -73,10 +75,15 @@ export default class EditItem extends StockItem {
 		});
 
 		// Close the pop-up when the cancel button is clicked
-		this.$cancel.addEventListener("click", (event) => this.hide());
+		this.$cancelEdit.addEventListener("click", (event) => this.hide());
+		this.$cancelAdd.addEventListener("click", (event) => {
+		this.$header.classList.remove("header--hidden");
+		this.hide();
+		});
 
 		// Submit the new item data
-		this.$submitButton.addEventListener("click", this.submitData.bind(this));
+		this.$submitEdit.addEventListener("click", (event) => this.submitDataEdit());
+		this.$submitAdd.addEventListener("click", (event) => this.submitDataAdd());
 	}
 
 	clearForm() {
@@ -100,8 +107,21 @@ export default class EditItem extends StockItem {
 		}
 	}
 
-	show() {
-		window.scrollTo(0, 0);
+	show(isAddItem) {
+		if (isAddItem) {
+			this.$cancelEdit.classList.remove("edit-item__cancel--active");
+			this.$cancelAdd.classList.add("edit-item__cancel--active");
+			this.$submitEdit.classList.remove("edit-item__submit--active");
+			this.$submitAdd.classList.add("edit-item__submit--active");
+		}
+		else {
+			this.$cancelAdd.classList.remove("edit-item__cancel--active");
+			this.$cancelEdit.classList.add("edit-item__cancel--active");
+			this.$submitAdd.classList.remove("edit-item__submit--active");
+			this.$submitEdit.classList.add("edit-item__submit--active");
+		}
+		
+		this.$editItem.scrollTo(0, 0);
 		this.clearForm();
 		this.$header.classList.add("header--hidden");
 		this.$editItem.classList.add("edit-item--active");
@@ -349,8 +369,15 @@ export default class EditItem extends StockItem {
 		this.loadHighlightColourSelectTags();
 	}
 
+	// Submit Updated Item
+	submitDataEdit(event) {
+		console.log("Edit Item");
+		console.log(this.getData());
+	}
+	
 	// Submit New Item
-	submitData(event) {
+	submitDataAdd(event) {
+		console.log("Add Item");
 		console.log(this.getData());
 	}
 }

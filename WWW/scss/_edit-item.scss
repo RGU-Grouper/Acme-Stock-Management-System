@@ -111,12 +111,22 @@
 	
 	&__cancel {
 		@include buttons.nav;
+		display: none;
 		margin: 2em 0;
+		
+		&--active {
+			display: block;
+		}
 	}
 	
 	&__submit {
 		@include buttons.nav;
+		display: none;
 		margin: 2em 0;
+		
+		&--active {
+			display: block;
+		}
 	}
 }
 

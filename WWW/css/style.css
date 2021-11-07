@@ -1,4 +1,4 @@
-/* Stock List */
+/* STOCK LIST */
 .stock-list {
   grid-area: main;
   max-width: 100vw;
@@ -288,12 +288,16 @@
   background-color: white;
   color: black;
   text-transform: uppercase;
+  display: none;
   margin: 2em 0;
 }
 .edit-item__cancel:focus-within, .edit-item__cancel:hover, .edit-item__cancel:active {
   border: 1px solid white;
   background-color: black;
   color: white;
+}
+.edit-item__cancel--active {
+  display: block;
 }
 .edit-item__submit {
   font-size: 0.875rem;
@@ -306,12 +310,16 @@
   background-color: white;
   color: black;
   text-transform: uppercase;
+  display: none;
   margin: 2em 0;
 }
 .edit-item__submit:focus-within, .edit-item__submit:hover, .edit-item__submit:active {
   border: 1px solid white;
   background-color: black;
   color: white;
+}
+.edit-item__submit--active {
+  display: block;
 }
 
 /* DISPLAY TAG */
