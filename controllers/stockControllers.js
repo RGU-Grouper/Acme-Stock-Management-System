@@ -73,31 +73,28 @@ const getStockData = (req, res) => {
 
 const addStockItem = (req, res) => {
 	const data = req.body.data;
-	console.log(data);
 
 	// Validate data and add to database
 
 	// Respond to client
-	res.status(201).json({
-		testing: "test",
-	});
+	res.status(201).json(data);
 };
 
 const getStockItem = (req, res) => {
 	const id = req.params.id;
-	const data = {}; // get data from database with id
+	const data = { testing: id }; // get data from database with id
 	res.status(200).json(data);
 };
 
 const updateStockItem = (req, res) => {
 	const id = req.params.id;
 	const data = req.body.data;
-	res.status(200);
+	res.status(200).json({ message: `Stock item ${id} updated.` });
 };
 
 const deleteStockItem = (req, res) => {
 	const id = req.params.id;
-	res.status(200);
+	res.status(200).json({ message: `Stock item ${id} deleted.` });
 };
 
 module.exports = {
