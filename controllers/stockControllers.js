@@ -30,28 +30,6 @@ const getStockData = (req, res) => {
             : console.log(`No playlist found with the id ${playlistId}`);
     });
 
-   /* var row = 1;
-    //SELECT from tblFabric
-    db.each(`SELECT fabricID as id,
-                    Name as name,
-					Quanity as quantity,
-					Image1 as img1,
-					Image2 as img2,
-					Image3 as img3,
-             FROM tblFabric`, (err, row) => {
-
-    });
-
-    //SELECT from tblTags
-    db.each(`SELECT Category as cat,
-					name as Tag
-	 		FROM tblTags`, (err, row) => {
-
-    });
-
-    console.log(toString(row.id[1]));*/
-
-
     // const data = []; // get data from database
     const data = [{
 
