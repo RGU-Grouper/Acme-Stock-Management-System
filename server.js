@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 2000;
 
 // Connect to database
-app.use(express.static(__dirname + "/config.js"));
+app.use(express.static(__dirname + "/db"));
 
 // Make JSON sent in the request body available as req.body
 app.use(express.urlencoded({ extended: true }));
