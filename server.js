@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/WWW'));
 app.use('/images', express.static('images'));
 
 // Loads stock page
-app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/index.html"));
+app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/login.html"));
 
 // HTTP request routes
 app.use('/stock', stockRouter);

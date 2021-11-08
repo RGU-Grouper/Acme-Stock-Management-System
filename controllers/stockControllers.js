@@ -1,34 +1,67 @@
+//opening database
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const dbPath = path.resolve(__dirname, '../db/acmeAtelierInventory.db')
+
+//opening database conetion
+let db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+        return console.error(err.message);
+    }
+    //returns if conecteted
+    console.log('Connected to the in-memory SQlite database.');
+});
+
 const getStockData = (req, res) => {
 
-    //open data base
-    const sqlite3 = require('sqlite3').verbose();
-    const path = require('path');
-    const dbPath = path.resolve(__dirname, '../db/acmeAtelierInventory.db')
+    //get all data from fabric table
+    let sql = `SELECT fabricID fabric,
+                        Name name,
+                        Image1 img1,
+                        Image2 img2
+                    FROM tblFabric`;
 
-
-    //opening database conetion
-    let db = new sqlite3.Database(dbPath, (err) => {
+    db.all(sql, [], (err, rows) => {
         if (err) {
             return console.error(err.message);
         }
-        //returns if conecteted
-        console.log('Connected to the in-memory SQlite database.');
+        rows.forEach((row) => {
+            console.log(`${row.fabric} ${row.name} ${row.img1} ${row.img2}`);
+        });
     });
 
-    let sql = `SELECT fabricID id,
-                        Name name
-                    FROM tblFabric
-                    WHERE fabricID = ?`;
-    let fabricID = 1
+    //get all data from tag table
+    let tagsql = `SELECT TagID tag,
+                        Category cat,
+                        Name tagname
+                    FROM tblTags`;
 
-    db.get(sql, fabricID, (err, row) => {
+    db.all(tagsql, [], (err, tagrows) => {
         if (err) {
             return console.error(err.message);
         }
-        return row
-            ? console.log(row.id, row.name)
-            : console.log(`No playlist found with the id ${playlistId}`);
+        tagrows.forEach((tagrow) => {
+            console.log(`${tagrow.tag} ${tagrow.cat} ${tagrow.tagname}`);
+        });
     });
+
+    // get tag - fabric links from tblcatalogue
+    let catsql = `SELECT catalogueID id,
+                        fabricID fabric,
+                        tagID tag
+                    FROM tblCatalogue`;
+
+    db.all(catsql, [], (err, tagrows) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        tagrows.forEach((catrow) => {
+            console.log(`${catrow.id} ${catrow.fabric} ${catrow.tag}`);
+        });
+    });
+
+
+
 
     // const data = []; // get data from database
     const data = [{
@@ -100,15 +133,7 @@ const getStockData = (req, res) => {
         }
     ];
 
-    //close the database
     res.status(200).json(data);
-    db.close((err) => {
-        if (err) {
-            console.error(err.message);
-        }
-        console.log('Close the database connection.');
-    });
-    //
 };
 
 const addStockItem = (req, res) => {
