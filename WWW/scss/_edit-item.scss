@@ -18,17 +18,18 @@
 .edit-item {
 	grid-area: main;
 	z-index: 4;
+	overflow-y: scroll;
 	display: none;
 	padding: 0 2em;
 	background-color: white;
-	overflow-y: scroll;
 
 	&--active {
 		display: grid;
 	}
 	
 	&__images {
-		display: grid;
+		display: flex;
+		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
 	}

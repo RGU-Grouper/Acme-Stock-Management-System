@@ -6,8 +6,13 @@
 	z-index: 2;
 	display: none;
 	justify-content: center;
+	grid-template-areas:
+		"buttons"
+		"details"
+		"images"
+		"tags";
+	grid-template-rows: auto auto auto 1fr;
 	overflow-y: scroll;
-	position: relative;
 	background-color: white;
 
 	&--active {
@@ -15,7 +20,9 @@
 	}
 	
 	&__images {
-		display: grid;
+		grid-area: images;
+		display: flex;
+		flex-wrap: wrap;
 		justify-content: center;
 	}
 	
@@ -27,8 +34,8 @@
 		cursor: pointer;
 	}
 	
-	&__tags,
 	&__details {
+		grid-area: details;
 		display: grid;
 		justify-items: center;
 		align-items: center;
@@ -57,6 +64,7 @@
 
 
 	&__tags {
+		grid-area: tags;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
@@ -92,18 +100,20 @@
 		cursor: default;
 	}
 	
+	&__buttons {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	&__close {
 		@include buttons.nav;
-		position: absolute;
-		top: 8px;
-		right: 12px;
+		margin: 1em 1em 0;
 	}
 
 	&__edit {
 		@include buttons.nav;
-		position: absolute;
-		top: 8px;
-		left: 12px;
+		margin: 1em 1em 0;
 	}
 }
 

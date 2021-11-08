@@ -2,16 +2,15 @@
 .stock-list {
 	grid-area: main;
 	max-width: 100vw;
-	display: flex;
-	justify-content: center;
+	overflow-y: scroll;
 	
 	&__items {
-		overflow-y: scroll;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
 		align-items: center;
 		width: 100%;
+		min-height: 100%;
 		background-color: hsl(0, 0%, 90%);
 	}
 }
