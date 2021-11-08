@@ -7,7 +7,7 @@ const getStockData = (req, res) => {
 
 
     //opening database conetion
-    let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
+    let db = new sqlite3.Database(dbPath, (err) => {
         if (err) {
             return console.error(err.message);
         }
@@ -15,7 +15,22 @@ const getStockData = (req, res) => {
         console.log('Connected to the in-memory SQlite database.');
     });
 
-    var row = 1;
+    let sql = `SELECT fabricID id,
+                        Name name
+                    FROM tblFabric
+                    WHERE fabricID = ?`;
+    let fabricID = 1
+
+    db.get(sql, fabricID, (err, row) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        return row
+            ? console.log(row.id, row.name)
+            : console.log(`No playlist found with the id ${playlistId}`);
+    });
+
+   /* var row = 1;
     //SELECT from tblFabric
     db.each(`SELECT fabricID as id,
                     Name as name,
@@ -34,7 +49,7 @@ const getStockData = (req, res) => {
 
     });
 
-    console.log(toString(row.id));
+    console.log(toString(row.id[1]));*/
 
 
     // const data = []; // get data from database
