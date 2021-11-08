@@ -13,33 +13,52 @@
 		"tags";
 	grid-template-rows: auto auto auto 1fr;
 	overflow-y: scroll;
-	background-color: white;
+	background-color: hsl(0, 0%, 90%);
 
 	&--active {
 		display: grid;
 	}
-	
-	&__images {
-		grid-area: images;
+
+	&__buttons {
 		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
+		justify-content: space-between;
+		align-items: center;
+		background-color: white;
 	}
-	
-	&__image-preview {
-		min-width: 100px;
-		max-width: 250px;
-		height: auto;
-		margin: 1em;
-		cursor: pointer;
+
+	&__close {
+		@include buttons.nav;
+		margin: 1em 1em 0;
 	}
-	
+
+	&__edit {
+		@include buttons.nav;
+		margin: 1em 1em 0;
+	}
+
 	&__details {
 		grid-area: details;
 		display: grid;
 		justify-items: center;
 		align-items: center;
 		padding: 0 1.25em;
+		background-color: white;
+	}
+	
+	&__label {
+		padding: 0.5em;
+		font-size: 0.875rem;
+		cursor: default;
+		text-align: center;
+		background-color: black;
+		color: white;
+		width: 100%;
+	}
+	
+	&__value {
+		padding: 0.5em;
+		font-size: 0.875rem;
+		cursor: default;
 	}
 	
 	&__name {
@@ -62,7 +81,22 @@
 		}
 	}
 
-
+	&__images {
+		grid-area: images;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		background-color: white;
+	}
+	
+	&__image-preview {
+		min-width: 100px;
+		max-width: 250px;
+		height: auto;
+		margin: 1em;
+		cursor: pointer;
+	}
+	
 	&__tags {
 		grid-area: tags;
 		display: flex;
@@ -71,7 +105,7 @@
 		align-items: center;
 		width: 100%;
 		max-width: 100vh;
-		margin: 0.5em 0 1.5em;
+		background-color: white;
 	}
 
 	&__tag {
@@ -81,39 +115,7 @@
 		border: 1px solid black;
 		border-radius: 10px;
 		padding: 0.25em 0.5em;
-		margin: 0.25em;
-	}
-
-	&__label {
-		padding: 0.5em;
-		font-size: 0.875rem;
-		cursor: default;
-		text-align: center;
-		background-color: black;
-		color: white;
-		width: 100%;
-	}
-	
-	&__value {
-		padding: 0.5em;
-		font-size: 0.875rem;
-		cursor: default;
-	}
-	
-	&__buttons {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	&__close {
-		@include buttons.nav;
-		margin: 1em 1em 0;
-	}
-
-	&__edit {
-		@include buttons.nav;
-		margin: 1em 1em 0;
+		margin: 0.5em;
 	}
 }
 
