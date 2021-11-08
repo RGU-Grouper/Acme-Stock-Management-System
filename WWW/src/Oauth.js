@@ -16,6 +16,7 @@ function onSignIn(googleUser) {
     ) {
         var current = window.location.href;
 
+        //loads if page is login.html
         switch (current) {
             case "http://localhost:2000/login.html":
                 window.location.href = "./index.html"
@@ -25,6 +26,7 @@ function onSignIn(googleUser) {
 
     } else {
 
+        //
         confirm("You don't have permission to access this.")
         signOut();
 

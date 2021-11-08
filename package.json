@@ -1,32 +1,32 @@
 {
-  "name": "acme-atelier-stock-management",
-  "version": "1.0.0",
-  "description": "Stock management system for Acme Atelier to manage fabric stocks.",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-		"server": "nodemon server.js",
-    "sass": "sass --watch WWW/scss/main.scss WWW/css/style.css",
-    "dev": "concurrently \"npm run server\" \"npm run sass\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/RGU-Grouper/Acme-Frontend.git"
-  },
-  "author": "Ruaidhri MacKenzie, Callum Mcintosh, Patrick Murchie, Ryan Tomlinson",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/RGU-Grouper/Acme-Frontend/issues"
-  },
-  "homepage": "https://github.com/RGU-Grouper/Acme-Frontend#readme",
-  "dependencies": {
-    "express": "^4.17.1",
-    "google-auth-library": "^7.10.2",
-    "sqlite3": "^5.0.2"
-  },
-  "devDependencies": {
-    "concurrently": "^6.3.0",
-    "nodemon": "^2.0.14",
-    "sass": "^1.43.4"
-  }
+    "name": "acme-atelier-stock-management",
+    "version": "1.0.0",
+    "description": "Stock management system for Acme Atelier to manage fabric stocks.",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "server": "nodemon server.js",
+        "sass": "sass --watch WWW/scss/main.scss WWW/css/style.css",
+        "dev": "concurrently \"npm run server\" \"npm run sass\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RGU-Grouper/Acme-Frontend.git"
+    },
+    "author": "Ruaidhri MacKenzie, Callum Mcintosh, Patrick Murchie, Ryan Tomlinson",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/RGU-Grouper/Acme-Frontend/issues"
+    },
+    "homepage": "https://github.com/RGU-Grouper/Acme-Frontend#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "google-auth-library": "^7.10.2",
+        "sqlite3": "^5.0.2"
+    },
+    "devDependencies": {
+        "concurrently": "^6.3.0",
+        "nodemon": "^2.0.14",
+        "sass": "^1.43.4"
+    }
 }
