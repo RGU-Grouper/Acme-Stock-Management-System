@@ -1,15 +1,15 @@
 import TagList from "./tag-list.js";
 
 export default class StockItem {
-	constructor(materialTags, colourTags, data) {
+	constructor(materialTags, colourTags, generalTags, data) {
 		this.id = "";
 		this.name = "";
 		this.quantity = 0;
 		this.images = [];
 		this.tagLists = {
-			materials: new TagList("materials", materialTags),
-			mainColours: new TagList("mainColours", colourTags),
-			highlightColours: new TagList("highlightColours", colourTags),
+			material: new TagList("material", materialTags),
+			colour: new TagList("colour", colourTags),
+			general: new TagList("general", generalTags),
 		};
 
 		if (data) this.setData(data);
@@ -38,9 +38,9 @@ export default class StockItem {
 			quantity: this.quantity,
 			images: this.images,
 			tagLists: {
-				materials: this.tagLists.materials.getCurrentTags(),
-				mainColours: this.tagLists.mainColours.getCurrentTags(),
-				highlightColours: this.tagLists.highlightColours.getCurrentTags(),
+				material: this.tagLists.material.getCurrentTags(),
+				colour: this.tagLists.colour.getCurrentTags(),
+				general: this.tagLists.general.getCurrentTags(),
 			},
 		};
 	}
@@ -53,9 +53,7 @@ export default class StockItem {
 
 		Object.keys(data.tagLists).forEach(key => {
 			const tagList = data.tagLists[key];
-			tagList.forEach(tag => {
-				this.tagLists[key].addTag(tag);
-			});
+			tagList.forEach(tag => this.tagLists[key].addTag(tag));
 		});
 	}
 }

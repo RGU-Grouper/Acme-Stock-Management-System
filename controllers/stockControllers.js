@@ -71,9 +71,9 @@ const getStockData = (req, res) => {
             quantity: 8,
             images: ["CottonDenimHickoryStripe-GreenandWhite1.png", "CottonDenimHickoryStripe-GreenandWhite2.png", "CottonDenimHickoryStripe-GreenandWhite3.png"],
             tagLists: {
-                materials: ["Denim"],
-                mainColours: ["Green"],
-                highlightColours: ["White"],
+                material: ["Denim"],
+                colour: ["Green"],
+                general: ["White"],
             },
         },
         {
@@ -82,9 +82,9 @@ const getStockData = (req, res) => {
             quantity: 12,
             images: ["DressmakingStretchTwill-FallingBurgundyPetals1.png", "DressmakingStretchTwill-FallingBurgundyPetals2.png", "DressmakingStretchTwill-FallingBurgundyPetals3.png"],
             tagLists: {
-                materials: ["Stretch Twill"],
-                mainColours: ["Red", "Blue"],
-                highlightColours: [],
+                material: ["Stretch Twill"],
+                colour: ["Red", "Blue"],
+                general: [],
             },
         },
         {
@@ -93,9 +93,9 @@ const getStockData = (req, res) => {
             quantity: 10,
             images: ["LightweightBlackCotton-BigWhiteCheck1.png", "LightweightBlackCotton-BigWhiteCheck2.png", "LightweightBlackCotton-BigWhiteCheck3.png"],
             tagLists: {
-                materials: ["Cotton"],
-                mainColours: ["Black"],
-                highlightColours: ["White"],
+                material: ["Cotton"],
+                colour: ["Black"],
+                general: ["White"],
             },
         },
         {
@@ -104,9 +104,9 @@ const getStockData = (req, res) => {
             quantity: 104,
             images: ["NavyBlueCotton-BigWhiteSpot1.png", "NavyBlueCotton-BigWhiteSpot2.png", "NavyBlueCotton-BigWhiteSpot3.png"],
             tagLists: {
-                materials: ["Cotton"],
-                mainColours: ["Blue"],
-                highlightColours: ["White"],
+                material: ["Cotton"],
+                colour: ["Blue"],
+                general: ["White"],
             },
         },
         {
@@ -115,9 +115,9 @@ const getStockData = (req, res) => {
             quantity: 15,
             images: ["PolyCottonBagLining-BrownandBlueStripe1.png", "PolyCottonBagLining-BrownandBlueStripe2.png", "PolyCottonBagLining-BrownandBlueStripe3.png"],
             tagLists: {
-                materials: ["Cotton", "Polyester"],
-                mainColours: ["Brown", "Beige"],
-                highlightColours: ["Blue", "Light Blue"],
+                material: ["Cotton", "Polyester"],
+                colour: ["Brown", "Beige"],
+                general: ["Blue", "Light Blue"],
             },
         },
         {
@@ -126,9 +126,9 @@ const getStockData = (req, res) => {
             quantity: 6,
             images: ["tartan.jpg", "red.jpg"],
             tagLists: {
-                materials: ["Wool 13oz"],
-                mainColours: ["Green", "Blue"],
-                highlightColours: ["Yellow", "Red", "Black"],
+                material: ["Wool 13oz"],
+                colour: ["Green", "Blue"],
+                general: ["Yellow", "Red", "Black"],
             },
         }
     ];

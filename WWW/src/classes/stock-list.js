@@ -3,13 +3,14 @@ import AddItem from "./add-item.js";
 import ItemDetails from "./item-details.js";
 
 export default class StockList {
-	constructor(materialTags, colourTags, stockData) {
+	constructor(materialTags, colourTags, generalTags, stockData) {
 		this.stock = [];
 		this.materialTags = materialTags;
 		this.colourTags = colourTags;
+		this.generalTags = generalTags;
 		
-		this.addItem = new AddItem(materialTags, colourTags);
-		this.itemDetails = new ItemDetails(materialTags, colourTags);
+		this.addItem = new AddItem(materialTags, colourTags, generalTags);
+		this.itemDetails = new ItemDetails(materialTags, colourTags, generalTags);
 		
 		this.$stockListItems = document.querySelector(".stock-list__items");
 		this.$itemPreviewTemplate = document.getElementById("item-preview-template");
@@ -89,7 +90,7 @@ export default class StockList {
 	}
 	
 	addStockItem(itemData) {
-		const newItem = new StockItem(this.materialTags, this.colourTags, itemData);
+		const newItem = new StockItem(this.materialTags, this.colourTags, this.generalTags, itemData);
 		this.stock.push(newItem);
 	}
 

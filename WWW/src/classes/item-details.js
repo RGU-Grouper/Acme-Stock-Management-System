@@ -1,17 +1,17 @@
 import EditItem from "./edit-item.js";
 
 export default class ItemDetails {
-	constructor(materialTags, colourTags) {
+	constructor(materialTags, colourTags, generalTags) {
 		this.itemData = {};
-		this.editItem = new EditItem(materialTags, colourTags);
+		this.editItem = new EditItem(materialTags, colourTags, generalTags);
 		this.$header = document.querySelector(".header");
 		this.$itemDetails = document.querySelector(".item-details");
 		this.$image = document.querySelector(".item-details__image");
 		this.$imagePreviews = document.querySelectorAll(".item-details__image-preview");
 		this.$details = document.querySelector(".item-details__details");
-		this.$materialsTags = document.getElementById("item-details-materials");
-		this.$mainColoursTags = document.getElementById("item-details-main-colours");
-		this.$highlightColoursTags = document.getElementById("item-details-highlight-colours");
+		this.$materialTags = document.getElementById("item-details-material");
+		this.$colourTags = document.getElementById("item-details-colour");
+		this.$generalTags = document.getElementById("item-details-general");
 		this.$close = document.querySelector(".item-details__close");
 		this.$edit = document.querySelector(".item-details__edit");
 
@@ -50,9 +50,9 @@ export default class ItemDetails {
 
 		// Set Tags
 		this.clearTags();
-		tagLists.materials.forEach(tag => this.addMaterialsTag(tag));
-		tagLists.mainColours.forEach(tag => this.addMainColoursTag(tag));
-		tagLists.highlightColours.forEach(tag => this.addHighlightColoursTag(tag));
+		tagLists.material.forEach(tag => this.addMaterialsTag(tag));
+		tagLists.colour.forEach(tag => this.addColoursTag(tag));
+		tagLists.general.forEach(tag => this.addGeneralsTag(tag));
 		
 		// Set Info
 		this.$details.querySelector(".item-details__name").innerHTML = name;
@@ -81,29 +81,29 @@ export default class ItemDetails {
 	}
 
 	clearTags() {
-		while (this.$materialsTags.firstChild) {
-			this.$materialsTags.removeChild(this.$materialsTags.lastChild);
+		while (this.$materialTags.firstChild) {
+			this.$materialTags.removeChild(this.$materialTags.lastChild);
 		}
-		while (this.$mainColoursTags.firstChild) {
-			this.$mainColoursTags.removeChild(this.$mainColoursTags.lastChild);
+		while (this.$colourTags.firstChild) {
+			this.$colourTags.removeChild(this.$colourTags.lastChild);
 		}
-		while (this.$highlightColoursTags.firstChild) {
-			this.$highlightColoursTags.removeChild(this.$highlightColoursTags.lastChild);
+		while (this.$generalTags.firstChild) {
+			this.$generalTags.removeChild(this.$generalTags.lastChild);
 		}
 	}
 
 	addMaterialsTag(tag) {
 		const $tag = this.createTagElement(tag);
-		this.$materialsTags.appendChild($tag);
+		this.$materialTags.appendChild($tag);
 	}
 
-	addMainColoursTag(tag) {
+	addColoursTag(tag) {
 		const $tag = this.createTagElement(tag);
-		this.$mainColoursTags.appendChild($tag);
+		this.$colourTags.appendChild($tag);
 	}
 
-	addHighlightColoursTag(tag) {
+	addGeneralsTag(tag) {
 		const $tag = this.createTagElement(tag);
-		this.$highlightColoursTags.appendChild($tag);
+		this.$generalTags.appendChild($tag);
 	}
 }
