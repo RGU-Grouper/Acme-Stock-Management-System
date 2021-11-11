@@ -1,6 +1,6 @@
 export default class TagList {
 	constructor(key, tags) {
-		this.key = key;								// material, mainColour, highlightColour, etc.
+		this.key = key;								// material, colour, general, etc.
 		this.tags = tags;							// List of all applicable tags
 		this.currentTags = [];				// List of all applied tags
 	}
