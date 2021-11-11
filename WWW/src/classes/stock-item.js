@@ -31,6 +31,13 @@ export default class StockItem {
 		this.quantity = Number(quantity);
 	}
 
+	getAllCurrentTags() {
+		const materialTags = this.tagLists.material.getCurrentTags();
+		const colourTags = this.tagLists.colour.getCurrentTags();
+		const generalTags = this.tagLists.general.getCurrentTags();
+		return materialTags.concat(colourTags).concat(generalTags);
+	}
+
 	getData() {
 		return {
 			id: this.id,

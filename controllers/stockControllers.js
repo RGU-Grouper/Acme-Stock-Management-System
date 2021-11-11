@@ -70,9 +70,9 @@ const getStockData = (req, res) => {
             quantity: 8,
             images: ["CottonDenimHickoryStripe-GreenandWhite1.png", "CottonDenimHickoryStripe-GreenandWhite2.png", "CottonDenimHickoryStripe-GreenandWhite3.png"],
             tagLists: {
-                material: ["Denim"],
+                material: ["Denim", "Cotton", "Wool 13oz", "Wool 16oz", "Stretch Twill"],
                 colour: ["Green"],
-                general: ["White"],
+                general: ["Traditional", "Casual"],
             },
         },
         {
@@ -83,7 +83,7 @@ const getStockData = (req, res) => {
             tagLists: {
                 material: ["Stretch Twill"],
                 colour: ["Red", "Blue"],
-                general: [],
+                general: ["Casual"],
             },
         },
         {
@@ -94,7 +94,7 @@ const getStockData = (req, res) => {
             tagLists: {
                 material: ["Cotton"],
                 colour: ["Black"],
-                general: ["White"],
+                general: ["Modern"],
             },
         },
         {
@@ -105,7 +105,7 @@ const getStockData = (req, res) => {
             tagLists: {
                 material: ["Cotton"],
                 colour: ["Blue"],
-                general: ["White"],
+                general: ["Traditional", "Casual"],
             },
         },
         {
@@ -115,8 +115,8 @@ const getStockData = (req, res) => {
             images: ["PolyCottonBagLining-BrownandBlueStripe1.png", "PolyCottonBagLining-BrownandBlueStripe2.png", "PolyCottonBagLining-BrownandBlueStripe3.png"],
             tagLists: {
                 material: ["Cotton", "Polyester"],
-                colour: ["Brown", "Beige"],
-                general: ["Blue", "Light Blue"],
+                colour: ["Brown", "Blue"],
+                general: ["Modern"],
             },
         },
         {
@@ -126,8 +126,8 @@ const getStockData = (req, res) => {
             images: ["tartan.jpg", "red.jpg"],
             tagLists: {
                 material: ["Wool 13oz"],
-                colour: ["Green", "Blue"],
-                general: ["Yellow", "Red", "Black"],
+                colour: ["Green", "Blue", "Yellow", "Red", "Black"],
+                general: ["Traditional", "Formal"],
             },
         }
     ];

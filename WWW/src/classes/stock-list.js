@@ -34,10 +34,17 @@ export default class StockList {
 		}
 	}
 
+	createTagElement(tag) {
+		const $tag = document.createElement("li");
+		$tag.classList.add("item-preview__tag");
+		$tag.innerHTML = tag;
+		return $tag;
+	}
+
 	addItemPreview(itemData) {
 		// Add a card containing item details and image
 
-		const { name, quantity, images } = itemData;
+		const { name, images, tagLists } = itemData;
 
 		// Create copy of item preview template
 		const $itemPreview = this.$itemPreviewTemplate.content.cloneNode(true).firstElementChild;
@@ -46,7 +53,10 @@ export default class StockList {
 		const filePath = (images[0]) ? `images/${images[0]}` : "img/aa-logo-stamp.png";
 		$itemPreview.querySelector(".item-preview__image").src = filePath;
 		$itemPreview.querySelector(".item-preview__name").innerHTML = name;
-		$itemPreview.querySelector(".item-preview__quantity-data").innerHTML = quantity;
+		tagLists.material.forEach(tag => {
+			const $tag = this.createTagElement(tag);
+			$itemPreview.querySelector(".item-preview__tag-list").appendChild($tag);
+		});
 
 		// Set click handler
 		$itemPreview.addEventListener("click", (event) => this.itemDetails.show(itemData));
@@ -55,17 +65,17 @@ export default class StockList {
 		this.$stockListItems.appendChild($itemPreview);
 	}
 
+	filterStock(filterString) {
+		return this.stock.filter(item => item.getAllCurrentTags().join(".").match(new RegExp(filterString, "i")));
+	}
+
 	loadStockList(filterString) {
 		while (this.$stockListItems.firstChild) {
 			this.$stockListItems.removeChild(this.$stockListItems.lastChild);
 		}
 
 		if (filterString) {
-			const filteredStock = this.stock.filter(item => item.name.match(new RegExp(filterString, "i")));
-			const startItems = filteredStock.map(item => item.name.substring(0, filterString.length).toLowerCase() === filterString.toLowerCase() ? item : null).filter(item => item != null);
-			const endItems = filteredStock.filter(item => !startItems.includes(item));
-			const sortedStock = startItems.concat(endItems);
-			sortedStock.forEach(item => this.addItemPreview(item));
+			this.filterStock(filterString).forEach(item => this.addItemPreview(item.getData()));
 		}
 		else {
 			this.stock.forEach(item => this.addItemPreview(item.getData()));
