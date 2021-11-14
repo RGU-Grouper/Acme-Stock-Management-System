@@ -1,11 +1,12 @@
 const express = require("express");
 const stockRouter = require("./routes/stockRoutes.js");
+const sequelize = require("./database.js");
 
 const app = express();
 const PORT = process.env.PORT || 2000;
 
-// Connect to database
-app.use(express.static(__dirname + "/db"));
+// Connect to the database
+sequelize.sync().then(() => console.log("Database connected."));
 
 // Make JSON sent in the request body available as req.body
 app.use(express.urlencoded({ extended: true }));

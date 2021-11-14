@@ -1,269 +1,164 @@
-//opening database
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-const dbPath = path.resolve(__dirname, '../db/acmeAtelierInventory.db')
+const Fabric = require('../models/Fabric.js');
+const FabricTag = require('../models/FabricTag.js');
+const Tag = require('../models/Tag.js');
 
-//opening database conetion
-let db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE, (err) => {
-    if (err) {
-        return console.error(err.message);
-    }
-    //returns if conecteted
-    console.log('Connected to the in-memory SQlite database.');
-});
+const createTagList = (tagLists) => {
+	const tags = [];
+	
+	if (tagLists.material) {
+		for (let i = 0; i < data.tagLists.material.length; i++) {
+			const tag = data.tagLists.material[i];
+			tags.push({ id: tag.id, name: tag.name, category: "material" });
+		}
+	}
+	
+	if (tagLists.colour) {
+		for (let i = 0; i < data.tagLists.colour.length; i++) {
+			const tag = data.tagLists.colour[i];
+			tags.push({ id: tag.id, name: tag.name, category: "colour" });
+		}
+	}
+	
+	if (tagLists.general) {
+		for (let i = 0; i < data.tagLists.general.length; i++) {
+			const tag = data.tagLists.general[i];
+			tags.push({ id: tag.id, name: tag.name, category: "general" });
+		}
+	}
 
-const getStockData = (req, res) => {
-
-    //get all data from fabric table
-    let sql = `SELECT fabricID fabric,
-                        Name name,
-                        Image1 img1,
-                        Image2 img2
-                    FROM tblFabric`;
-
-    db.all(sql, [], (err, rows) => {
-        if (err) {
-            return console.error(err.message);
-        }
-        rows.forEach((row) => {
-            console.log(`${row.fabric} ${row.name} ${row.img1} ${row.img2}`);
-        });
-    });
-
-    //get all data from tag table
-    let tagsql = `SELECT TagID tag,
-                        Category cat,
-                        Name tagname
-                    FROM tblTags`;
-
-    db.all(tagsql, [], (err, tagrows) => {
-        if (err) {
-            return console.error(err.message);
-        }
-        tagrows.forEach((tagrow) => {
-            console.log(`${tagrow.tag} ${tagrow.cat} ${tagrow.tagname}`);
-        });
-    });
-
-    // get tag - fabric links from tblcatalogue
-    let catsql = `SELECT catalogueID id,
-                        fabricID fabric,
-                        tagID tag
-                    FROM tblCatalogue`;
-
-    db.all(catsql, [], (err, tagrows) => {
-        if (err) {
-            return console.error(err.message);
-        }
-        tagrows.forEach((catrow) => {
-            console.log(`${catrow.id} ${catrow.fabric} ${catrow.tag}`);
-        });
-    });
-
-
-
-    // const data = []; // get data from database
-    const data = [{
-
-            id: "0",
-            name: "Hickory Stripe",
-            quantity: 8,
-            images: ["CottonDenimHickoryStripe-GreenandWhite1.png", "CottonDenimHickoryStripe-GreenandWhite2.png", "CottonDenimHickoryStripe-GreenandWhite3.png"],
-            tagLists: {
-                material: ["Denim", "Cotton", "Wool 13oz", "Wool 16oz", "Stretch Twill"],
-                colour: ["Green"],
-                general: ["Traditional", "Casual"],
-            },
-        },
-        {
-            id: "1",
-            name: "Falling Petals",
-            quantity: 12,
-            images: ["DressmakingStretchTwill-FallingBurgundyPetals1.png", "DressmakingStretchTwill-FallingBurgundyPetals2.png", "DressmakingStretchTwill-FallingBurgundyPetals3.png"],
-            tagLists: {
-                material: ["Stretch Twill"],
-                colour: ["Red", "Blue"],
-                general: ["Casual"],
-            },
-        },
-        {
-            id: "2",
-            name: "Striped White Weave",
-            quantity: 10,
-            images: ["LightweightBlackCotton-BigWhiteCheck1.png", "LightweightBlackCotton-BigWhiteCheck2.png", "LightweightBlackCotton-BigWhiteCheck3.png"],
-            tagLists: {
-                material: ["Cotton"],
-                colour: ["Black"],
-                general: ["Modern"],
-            },
-        },
-        {
-            id: "3",
-            name: "Polka Dots",
-            quantity: 104,
-            images: ["NavyBlueCotton-BigWhiteSpot1.png", "NavyBlueCotton-BigWhiteSpot2.png", "NavyBlueCotton-BigWhiteSpot3.png"],
-            tagLists: {
-                material: ["Cotton"],
-                colour: ["Blue"],
-                general: ["Traditional", "Casual"],
-            },
-        },
-        {
-            id: "4",
-            name: "Thin Stripe",
-            quantity: 15,
-            images: ["PolyCottonBagLining-BrownandBlueStripe1.png", "PolyCottonBagLining-BrownandBlueStripe2.png", "PolyCottonBagLining-BrownandBlueStripe3.png"],
-            tagLists: {
-                material: ["Cotton", "Polyester"],
-                colour: ["Brown", "Blue"],
-                general: ["Modern"],
-            },
-        },
-        {
-            id: "5",
-            name: "Tartan",
-            quantity: 6,
-            images: ["tartan.jpg", "red.jpg"],
-            tagLists: {
-                material: ["Wool 13oz"],
-                colour: ["Green", "Blue", "Yellow", "Red", "Black"],
-                general: ["Traditional", "Formal"],
-            },
-        }
-    ];
-
-    res.status(200).json(data);
+	return tags;
 };
 
-const addStockItem = (req, res) => {
-    const data = req.body.data;
-
-    // Validate data and add to database
-    db.run(`INSERT INTO tblFabric(Name, Image1, Image2 ) VALUES(${n}, ${ione}, ${itwo}`), function(err) {
-        if (err) {
-          return console.log(err.message);
-        }
-        // get the last insert id
-        console.log(`A row has been inserted with rowid ${this.lastID}`);
-      };
-
-      db.run(`INSERT INTO tblCatalogue(fabricID, tagID) VALUES(${f}, ${t}`), function(err) {
-        if (err) {
-          return console.log(err.message);
-        }
-        // get the last insert id
-        console.log(`A row has been inserted with rowid ${this.lastID}`);
-      };
-
-    // Respond to client
-    res.status(201).json(data);
+const getStockData = async (req, res) => {
+	try {
+		const stock = await Fabric.findAll();
+		for (let i = 0; i < stock.length; i++) {
+			const fabric = stock[i];
+			const fabricTags = await FabricTag.findAll({ where: { fabricId: fabric.id } });
+			fabric.tagLists = {
+				material: fabricTags.filter(tag => tag.category === "material"),
+				colour: fabricTags.filter(tag => tag.category === "colour"),
+				general: fabricTags.filter(tag => tag.category === "general"),
+			};
+		}
+		res.status(200).json(stock);
+	}
+	catch(error) {
+		console.error(error.message);
+		res.sendStatus(500);
+	}
 };
 
-//add tag item
-/*
-db.run(`INSERT INTO tblTag(Name, Category) VALUES(${}, ${})`, ['C'], function(err) {
-        if (err) {
-          return console.log(err.message);
-        }
-        // get the last insert id
-        console.log(`A row has been inserted with rowid ${this.lastID}`);
-      });
-*/
+const addStockItem = async (req, res) => {
+	try {
+		const data = req.body;
+		const tags = (data.tagLists) ? createTagList(data.tagLists) : [];
 
-const getStockItem = (req, res) => {
-    const id = req.params.id;
-    const data = { testing: id }; // get data from database with id
+		// Fabric
+		const { name, quantity, image1, image2 } = data;
+		const fabric = await Fabric.create({ name, quantity, image1, image2 });
 
-    let sql = `SELECT fabricID fabric,
-                        Name name,
-                        Image1 img1,
-                        Image2 img2
-                    FROM tblFabric
-                    WHERE fabricID = ${id}`;
+		// Tags
+		for (let i = 0; i < tags.length; i++) {
+			const tag = tags[i];
+			
+			// if tag has no id then add to tag list
+			if (!tag.id) {
+				const newTag = await Tag.create({ name: tag.name, category: tag.category });
+				tag.id = newTag.id;
+			}
 
-    db.each(sql, (err, row) => {
-        if (err) {
-            throw err;
-        }
-        console.log(`${row.fabric} ${row.name} ${row.img1} ${row.img2}`);
-    });
+			await FabricTag.create({ fabricId: fabric.id, tagId: tag.id });
+		}
 
-    let catsql = `SELECT catalogueID id,
-                        fabricID fabric,
-                        tagID tag
-                    FROM tblCatalogue
-                    WHERE fabricID = ${id}`;
-
-    db.each(catsql, (err, catrow) => {
-        if (err) {
-            throw err;
-        }
-        console.log(`${tagrow.tag} ${tagrow.cat} ${tagrow.tagname}`);
-    });
-
-    res.status(200).json(data);
+		// Respond to client - 201 Resource Created
+		res.sendStatus(201);
+	}
+	catch(error) {
+		console.error(error.message);
+		res.sendStatus(500);	// 500 - Internal Server Error
+	}
 };
 
-const updateStockItem = (req, res) => {
-    const id = req.params.id;
-    const data = req.body.data;
+const getStockItem = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const fabric = await Fabric.findOne({ where: { id } });
+		const fabricTags = await FabricTag.findAll({ where: { fabricId: fabric.id } });
 
+		fabric.tagLists = {
+			material: fabricTags.filter(tag => tag.category === "material"),
+			colour: fabricTags.filter(tag => tag.category === "colour"),
+			general: fabricTags.filter(tag => tag.category === "general"),
+		};
 
-    const sql = `UPDATE tblFabric SET Name = ${n}, Image1 = ${ione}, Image2 =${itwo} WHERE = ${id}`
-
-    db.run(sql, function(err) {
-        if (err) {
-          return console.error(err.message);
-        }
-        console.log(`Row(s) updated: ${this.changes}`);
-    });
-
-    res.status(200).json({ message: `Stock item ${id} updated.` });
+		res.status(200).json(fabric);
+	}
+	catch(error) {
+		console.error(error.message);
+		res.sendStatus(500);
+	}
 };
 
-const deleteStockItem = (req, res) => {
-    const id = req.params.id;
+const updateStockItem = async (req, res) => {
+	const id = req.params.id;
+	const data = req.body;
+	const tags = (data.tagLists) ? createTagList(data.tagLists) : [];
 
-    db.run(`DELETE FROM tblFabric WHERE fabricID=${id}`, id, function(err) {
-        if (err) {
-          return console.error(err.message);
-        }
-        console.log(`Row(s) deleted ${this.changes}`);
-    });
+	const fabric = await Fabric.findOne({ where: { id } });
+	const fabricTags = await FabricTag.findAll({ where: { fabricId: fabric.id } });
 
-    db.run(`DELETE FROM tblCatalogue WHERE fabricID=${id}`, id, function(err) {
-        if (err) {
-          return console.error(err.message);
-        }
-        console.log(`Row(s) deleted ${this.changes}`);
-    });
+	// Update Details and Images
+	if (data.name) fabric.name = data.name;
+	if (data.quantity) fabric.quantity = data.quantity;
+	if (data.image1) fabric.image1 = data.image1;
+	if (data.image2) fabric.image2 = data.image2;
 
-    res.status(200).json({ message: `Stock item ${id} deleted.` });
+	// Existing Tags
+	for (let i = 0; i < fabricTags.length; i++) {
+		const tag = fabricTags[i];
+		// if tag is in fabric but not data then delete
+		if (!tags.find(t => t.id === tag.id)) {
+			await FabricTag.destroy({ where: { id: tag.id } });
+		}
+	}
+	
+	// Update Tags
+	for (let i = 0; i < tags.length; i++) {
+		const tag = tags[i];
+		if (!tag.id) {
+			// if tag has no id then add to tag list
+			const newTag = await Tag.create({ name: tag.name, category: "material" });
+			await FabricTag.create({ fabricId: fabric.id, tagId: newTag.id });
+		}
+		else {
+			// if tag is in data but not fabric then add
+			if (!fabricTags.find(t => t.id === tag.id)) {
+				await FabricTag.create({ fabricId: fabric.id, tagId: tag.id });
+			}
+		}
+	}
+
+	await fabric.save();
+	res.sendStatus(200);
 };
 
-//add delete tag item
-/*
-    db.run(`DELETE FROM tbltag WHERE tagID=${id}`, id, function(err) {
-        if (err) {
-          return console.error(err.message);
-        }
-        console.log(`Row(s) deleted ${this.changes}`);
-    });
-*/
-
+const deleteStockItem = async (req, res) => {
+	try {
+		const id = req.params.id;
+		await Fabric.destroy({ where: { id } });
+		res.sendStatus(200);
+	}
+	catch(error) {
+		console.error(error.message);
+		res.sendStatus(500);
+	}
+};
 
 module.exports = {
-    getStockData,
-    addStockItem,
-    getStockItem,
-    updateStockItem,
-    deleteStockItem,
+	getStockData,
+	addStockItem,
+	getStockItem,
+	updateStockItem,
+	deleteStockItem,
 };
-
-//close the database
-db.close((err) => {
-    if (err) {
-        console.error(err.message);
-    }
-    console.log('Close the database connection.');
-});
