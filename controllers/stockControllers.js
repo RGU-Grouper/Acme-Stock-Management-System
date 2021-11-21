@@ -182,9 +182,17 @@ const updateStockItem = async (req, res) => {
 	// Update Details and Images
 	if (data.name) fabric.name = data.name;
 	if (data.quantity) fabric.quantity = data.quantity;
-	if (data.image1) fabric.image1 = data.image1;
-	if (data.image2) fabric.image2 = data.image2;
 
+	// Remove images if no longer used
+	if (data.image1 && data.image1 !== fabric.image1) {
+		if (fs.existsSync(`images/${fabric.image1}`)) fs.unlinkSync(`images/${fabric.image1}`);
+		fabric.image1 = data.image1;
+	}
+	if (data.image2 && data.image2 !== fabric.image2) {
+		if (fs.existsSync(`images/${fabric.image2}`)) fs.unlinkSync(`images/${fabric.image2}`);
+		fabric.image2 = data.image2;
+	}
+	
 	// Existing Tags
 	for (let i = 0; i < fabricTags.length; i++) {
 		const tag = fabricTags[i];
