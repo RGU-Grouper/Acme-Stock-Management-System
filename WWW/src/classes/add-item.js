@@ -232,8 +232,12 @@ export default class AddItem extends StockItem {
 		if (!tagName) return;
 
 		const tag = this.tagLists.material.getTagByName(tagName);
-		this.tagLists.material.addTag(tag);
-
+		if (tag) {
+			this.tagLists.material.addTag(tag);
+		}
+		else {
+			this.tagLists.material.addTag({ name: tagName, category: "material" });
+		}
 		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeMaterialTag.bind(this));
 		this.$materialDisplayList.appendChild($tagDisplay);
 		
@@ -292,7 +296,12 @@ export default class AddItem extends StockItem {
 		if (!tagName) return;
 
 		const tag = this.tagLists.colour.getTagByName(tagName);
-		this.tagLists.colour.addTag(tag);
+		if (tag) {
+			this.tagLists.colour.addTag(tag);
+		}
+		else {
+			this.tagLists.colour.addTag({ name: tagName, category: "colour" });
+		}
 
 		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeColourTag.bind(this));
 		this.$colourDisplayList.appendChild($tagDisplay);
@@ -352,7 +361,12 @@ export default class AddItem extends StockItem {
 		if (!tagName) return;
 
 		const tag = this.tagLists.general.getTagByName(tagName);
-		this.tagLists.general.addTag(tag);
+		if (tag) {
+			this.tagLists.general.addTag(tag);
+		}
+		else {
+			this.tagLists.general.addTag({ name: tagName, category: "general" });
+		}
 
 		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeGeneralTag.bind(this));
 		this.$generalDisplayList.appendChild($tagDisplay);

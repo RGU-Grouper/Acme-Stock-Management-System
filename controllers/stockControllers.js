@@ -42,23 +42,39 @@ const createTagList = (tagLists) => {
 	const tags = [];
 	
 	if (tagLists.material) {
+		console.log(tagLists.material);
 		for (let i = 0; i < tagLists.material.length; i++) {
 			const tag = tagLists.material[i];
-			tags.push({ id: tag.id, name: tag.name, category: "material" });
+			if (tag) {
+				tags.push({ id: tag.id, name: tag.name, category: "material" });
+			}
+			else {
+				console.log(i);
+			}
 		}
 	}
 	
 	if (tagLists.colour) {
 		for (let i = 0; i < tagLists.colour.length; i++) {
 			const tag = tagLists.colour[i];
-			tags.push({ id: tag.id, name: tag.name, category: "colour" });
+			if (tag) {
+				tags.push({ id: tag.id, name: tag.name, category: "colour" });
+			}
+			else {
+				console.log(i);
+			}
 		}
 	}
 	
 	if (tagLists.general) {
 		for (let i = 0; i < tagLists.general.length; i++) {
 			const tag = tagLists.general[i];
-			tags.push({ id: tag.id, name: tag.name, category: "general" });
+			if (tag) {
+				tags.push({ id: tag.id, name: tag.name, category: "general" });
+			}
+			else {
+				console.log(i);
+			}
 		}
 	}
 
