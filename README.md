@@ -10,24 +10,11 @@ Sync files from GitHub, "npm install" in command prompt while in the ACME-FRONTE
 
 ### Command prompt commands:
 I want to run the server in production: npm start
+
 I want to run the server for development: npm run dev
+
 I want to write sass: npm run sass
 
 npm start runs "node server.js" which starts the web-server running on port 2000.
 npm run dev runs "nodemon server.js" which restarts the server automatically when a change is saved in the code, very handy for development.
 npm run sass runs "sass --watch WWW/scss/main.scss WWW/css/style.css", it turns .scss files into style.css. --watch means it does this every time a change is saved.
-
-## Things we need:
-### Design
-Design Doc: Mock-ups, explanation of key design decisions and client requirements
-
-### Frontend
-Full-screen image preview
-Display item info from database
-
-Upload image files
-Take photo with camera and upload
-Submit new item data
-
-### Backend
-HTTP server

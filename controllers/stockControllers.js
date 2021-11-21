@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 const Fabric = require('../models/Fabric.js');
 const FabricTag = require('../models/FabricTag.js');
 const Tag = require('../models/Tag.js');
@@ -200,6 +201,11 @@ const updateStockItem = async (req, res) => {
 const deleteStockItem = async (req, res) => {
 	try {
 		const id = req.params.id;
+		const fabric = await Fabric.findOne({ where: { id } });
+		const fileName1 = fabric.image1;
+		const fileName2 = fabric.image2;
+		if (fileName1) fs.unlinkSync(`images/${fileName1}`);
+		if (fileName2) fs.unlinkSync(`images/${fileName2}`);
 		await Fabric.destroy({ where: { id } });
 		res.sendStatus(200);
 	}
