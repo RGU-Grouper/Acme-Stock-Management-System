@@ -25,9 +25,9 @@ const getStockData = (req, res) => {
         if (err) {
             return console.error(err.message);
         }
-        return row
-            ? console.log(row.id, row.name)
-            : console.log(`No playlist found with the id ${playlistId}`);
+        return row ?
+            console.log(row.id, row.name) :
+            console.log(`No playlist found with the id ${playlistId}`);
     });
 
     // const data = []; // get data from database

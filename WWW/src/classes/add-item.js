@@ -2,365 +2,365 @@ import StockItem from "./stock-item.js";
 import * as http from "../http.js";
 
 export default class AddItem extends StockItem {
-	constructor(materialTags, colourTags, itemData) {
-		super(materialTags, colourTags, itemData);
+    constructor(materialTags, colourTags, itemData) {
+        super(materialTags, colourTags, itemData);
 
-		this.materialTags = materialTags;
-		this.colourTags = colourTags;
+        this.materialTags = materialTags;
+        this.colourTags = colourTags;
 
-		// Get references to DOM
-		this.$tagDisplayTemplate = document.getElementById("tag-display-template");
-		
-		this.$header = document.querySelector(".header");
-		this.$editItem = document.querySelector(".add-item");
+        // Get references to DOM
+        this.$tagDisplayTemplate = document.getElementById("tag-display-template");
 
-		this.$imagePreview = document.querySelector(".add-item__image-preview");
-		this.$imageLabels = document.querySelectorAll(".add-item__image-label");
-		this.$imageInputs = document.querySelectorAll(".add-item__image-upload");
+        this.$header = document.querySelector(".header");
+        this.$editItem = document.querySelector(".add-item");
 
-		this.$nameInput = document.getElementById("add-item-name");
-		this.$quantityInput = document.getElementById("add-item-quantity");
+        this.$imagePreview = document.querySelector(".add-item__image-preview");
+        this.$imageLabels = document.querySelectorAll(".add-item__image-label");
+        this.$imageInputs = document.querySelectorAll(".add-item__image-upload");
 
-		this.$materialsSelectList = document.getElementById("add-materials-select");
-		this.$materialsInput = document.getElementById("add-materials-input");
-		this.$materialsDisplayList = document.getElementById("add-materials-display");
-		
-		this.$mainColoursSelectList = document.getElementById("add-main-colours-select");
-		this.$mainColoursInput = document.getElementById("add-main-colours-input");
-		this.$mainColoursDisplayList = document.getElementById("add-main-colours-display");
-		
-		this.$highlightColoursSelectList = document.getElementById("add-highlight-colours-select");
-		this.$highlightColoursInput = document.getElementById("add-highlight-colours-input");
-		this.$highlightColoursDisplayList = document.getElementById("add-highlight-colours-display");
+        this.$nameInput = document.getElementById("add-item-name");
+        this.$quantityInput = document.getElementById("add-item-quantity");
 
-		this.$cancelButton = document.querySelector(".add-item__cancel");
-		this.$submitButton = document.querySelector(".add-item__submit");
+        this.$materialsSelectList = document.getElementById("add-materials-select");
+        this.$materialsInput = document.getElementById("add-materials-input");
+        this.$materialsDisplayList = document.getElementById("add-materials-display");
 
-		// Set up UI
-		this.loadMaterialSelectTags(materialTags);
-		this.loadMainColourSelectTags(colourTags);
-		this.loadHighlightColourSelectTags(colourTags);
+        this.$mainColoursSelectList = document.getElementById("add-main-colours-select");
+        this.$mainColoursInput = document.getElementById("add-main-colours-input");
+        this.$mainColoursDisplayList = document.getElementById("add-main-colours-display");
 
-		// Image Preview Selector
-		for (let i = 0; i < this.$imageLabels.length; i++) {
-			this.$imageLabels[i].addEventListener("click", (event) => this.selectImagePreview(i));
-		}
+        this.$highlightColoursSelectList = document.getElementById("add-highlight-colours-select");
+        this.$highlightColoursInput = document.getElementById("add-highlight-colours-input");
+        this.$highlightColoursDisplayList = document.getElementById("add-highlight-colours-display");
 
-		// Image Input on change
-		for (let i = 0; i < this.$imageInputs.length; i++) {
-			this.$imageInputs[i].addEventListener("change", (event) => {
-				const filePath = URL.createObjectURL(this.$imageInputs[i].files[0]);
-				this.$imageLabels[i].dataset.filePath = filePath;
-				this.selectImagePreview(i);
-			});
-		}
-		
-		// Update data as user inputs
-		this.$nameInput.addEventListener("input", (event) => this.setName(this.$nameInput.value));
-		this.$quantityInput.addEventListener("input", (event) => this.setQuantity(this.$quantityInput.value));
+        this.$cancelButton = document.querySelector(".add-item__cancel");
+        this.$submitButton = document.querySelector(".add-item__submit");
 
-		// Show tag filter boxes when corresponding input box is clicked, hide others
-		this.$materialsInput.addEventListener("click", this.showMaterialSelectList.bind(this));
-		this.$mainColoursInput.addEventListener("click", this.showMainColourSelectList.bind(this));
-		this.$highlightColoursInput.addEventListener("click", this.showHighlightColourSelectList.bind(this));
+        // Set up UI
+        this.loadMaterialSelectTags(materialTags);
+        this.loadMainColourSelectTags(colourTags);
+        this.loadHighlightColourSelectTags(colourTags);
 
-		// Refresh the select tags list when one is selected
-		this.$materialsInput.addEventListener("input", this.loadMaterialSelectTags.bind(this));
-		this.$mainColoursInput.addEventListener("input", this.loadMainColourSelectTags.bind(this));
-		this.$highlightColoursInput.addEventListener("input", this.loadHighlightColourSelectTags.bind(this));
-		
-		// Close all filter boxes when clicking outside of the box
-		this.$editItem.addEventListener("click", (event) => {
-			event.stopPropagation()
-			this.hideAllTagSelectLists();
-		});
+        // Image Preview Selector
+        for (let i = 0; i < this.$imageLabels.length; i++) {
+            this.$imageLabels[i].addEventListener("click", (event) => this.selectImagePreview(i));
+        }
 
-		// Close the pop-up when the cancel button is clicked
-		this.$cancelButton.addEventListener("click", (event) => {
-			this.$header.classList.remove("header--hidden");
-			this.hide();
-		});
+        // Image Input on change
+        for (let i = 0; i < this.$imageInputs.length; i++) {
+            this.$imageInputs[i].addEventListener("change", (event) => {
+                const filePath = URL.createObjectURL(this.$imageInputs[i].files[0]);
+                this.$imageLabels[i].dataset.filePath = filePath;
+                this.selectImagePreview(i);
+            });
+        }
 
-		// Submit the new item data
-		this.$submitButton.addEventListener("click", (event) => this.submitData());
-	}
+        // Update data as user inputs
+        this.$nameInput.addEventListener("input", (event) => this.setName(this.$nameInput.value));
+        this.$quantityInput.addEventListener("input", (event) => this.setQuantity(this.$quantityInput.value));
 
-	clearForm() {
-		this.$imagePreview.src = "img/aa-logo-stamp.png";
-		this.$imageInputs.forEach($imageInput => $imageInput.value = null);
-		this.selectImagePreview(0);
-		
-		this.$nameInput.value = "";
-		this.$quantityInput.value = 0;
+        // Show tag filter boxes when corresponding input box is clicked, hide others
+        this.$materialsInput.addEventListener("click", this.showMaterialSelectList.bind(this));
+        this.$mainColoursInput.addEventListener("click", this.showMainColourSelectList.bind(this));
+        this.$highlightColoursInput.addEventListener("click", this.showHighlightColourSelectList.bind(this));
 
-		while (this.$materialsDisplayList.firstChild) {
-			this.$materialsDisplayList.removeChild(this.$materialsDisplayList.lastChild);
-		}
+        // Refresh the select tags list when one is selected
+        this.$materialsInput.addEventListener("input", this.loadMaterialSelectTags.bind(this));
+        this.$mainColoursInput.addEventListener("input", this.loadMainColourSelectTags.bind(this));
+        this.$highlightColoursInput.addEventListener("input", this.loadHighlightColourSelectTags.bind(this));
 
-		while (this.$mainColoursDisplayList.firstChild) {
-			this.$mainColoursDisplayList.removeChild(this.$mainColoursDisplayList.lastChild);
-		}
-		
-		while (this.$highlightColoursDisplayList.firstChild) {
-			this.$highlightColoursDisplayList.removeChild(this.$highlightColoursDisplayList.lastChild);
-		}
-	}
+        // Close all filter boxes when clicking outside of the box
+        this.$editItem.addEventListener("click", (event) => {
+            event.stopPropagation()
+            this.hideAllTagSelectLists();
+        });
 
-	show() {
-		this.$editItem.scrollTo(0, 0);
-		this.clearForm();
-		this.$header.classList.add("header--hidden");
-		this.$editItem.classList.add("add-item--active");
+        // Close the pop-up when the cancel button is clicked
+        this.$cancelButton.addEventListener("click", (event) => {
+            this.$header.classList.remove("header--hidden");
+            this.hide();
+        });
 
-		const itemData = this.getData();
+        // Submit the new item data
+        this.$submitButton.addEventListener("click", (event) => this.submitData());
+    }
 
-		// Set file inputs for images
-		for (let i = 0; i < 3; i++) {
-			const filePath = (itemData.images[i]) ? `images/${itemData.images[i]}` : "img/aa-logo-stamp.png";
-			this.$imageLabels[i].dataset.filePath = filePath;
-		}
+    clearForm() {
+        this.$imagePreview.src = "img/aa-logo-stamp.png";
+        this.$imageInputs.forEach($imageInput => $imageInput.value = null);
+        this.selectImagePreview(0);
 
-		// Set image preview to the first image
-		this.$imagePreview.src = this.$imageLabels[0].dataset.filePath;
+        this.$nameInput.value = "";
+        this.$quantityInput.value = 0;
 
-		// Set name and quantity
-		this.$nameInput.value = itemData.name;
-		this.$quantityInput.value = itemData.quantity;
-		
-		// Set tags
-		itemData.tagLists.materials.forEach(tag => this.addMaterialTag(tag));
-		itemData.tagLists.mainColours.forEach(tag => this.addMainColourTag(tag));
-		itemData.tagLists.highlightColours.forEach(tag => this.addHighlightColourTag(tag));
-	}
+        while (this.$materialsDisplayList.firstChild) {
+            this.$materialsDisplayList.removeChild(this.$materialsDisplayList.lastChild);
+        }
 
-	hide() {
-		this.$editItem.classList.remove("add-item--active");
-	}
+        while (this.$mainColoursDisplayList.firstChild) {
+            this.$mainColoursDisplayList.removeChild(this.$mainColoursDisplayList.lastChild);
+        }
 
-	createTagSelectItem(tag, addTagCallback) {
-		const $tagSelect = document.createElement("li");
-		$tagSelect.classList.add("tag-select");
-		$tagSelect.innerText = tag;
-		$tagSelect.addEventListener("click", addTagCallback);
-		return $tagSelect;
-	}
+        while (this.$highlightColoursDisplayList.firstChild) {
+            this.$highlightColoursDisplayList.removeChild(this.$highlightColoursDisplayList.lastChild);
+        }
+    }
 
-	createTagDisplayItem(tag, removeTagCallback) {
-		const $tagDisplay = this.$tagDisplayTemplate.content.cloneNode(true).firstElementChild;
-		const $tagName = $tagDisplay.querySelector(".tag-display__name");
-		const $tagRemove = $tagDisplay.querySelector(".tag-display__remove");
-		
-		$tagName.innerText = tag;
-		$tagRemove.addEventListener("click", removeTagCallback);
-		
-		return $tagDisplay;
-	}
+    show() {
+        this.$editItem.scrollTo(0, 0);
+        this.clearForm();
+        this.$header.classList.add("header--hidden");
+        this.$editItem.classList.add("add-item--active");
 
-	setName(name) {
-		super.setName(name);
-		this.$nameInput.value = name;
-	}
-	
-	setQuantity(quantity) {
-		super.setQuantity(quantity);
-		this.$quantityInput.value = quantity;
-	}
+        const itemData = this.getData();
 
-	hideAllTagSelectLists(event) {
-		this.$materialsSelectList.classList.remove("add-item__tag-select--active");
-		this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
-		this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
-	}
+        // Set file inputs for images
+        for (let i = 0; i < 3; i++) {
+            const filePath = (itemData.images[i]) ? `images/${itemData.images[i]}` : "img/aa-logo-stamp.png";
+            this.$imageLabels[i].dataset.filePath = filePath;
+        }
 
-	selectImagePreview(index) {
-		const $selectedImageLabel = document.querySelector(".add-item__image-label--active");
-		$selectedImageLabel.classList.remove("add-item__image-label--active");
-		this.$imageLabels[index].classList.add("add-item__image-label--active");
-		
-		const filePath = this.$imageLabels[index].dataset.filePath || "img/aa-logo-stamp.png";
-		this.$imagePreview.src = filePath;
-	}
+        // Set image preview to the first image
+        this.$imagePreview.src = this.$imageLabels[0].dataset.filePath;
 
-	// Material Tags
-	loadMaterialSelectTags() {
-		// Remove all tags from the list
-		while (this.$materialsSelectList.firstChild) {
-			this.$materialsSelectList.removeChild(this.$materialsSelectList.lastChild);
-		}
+        // Set name and quantity
+        this.$nameInput.value = itemData.name;
+        this.$quantityInput.value = itemData.quantity;
 
-		// Get tags by filtering and sorting available tags with input box string
-		const filterString = this.$materialsInput.value;
-		const filteredTags = this.tagLists.materials.getFilteredTags(filterString);
+        // Set tags
+        itemData.tagLists.materials.forEach(tag => this.addMaterialTag(tag));
+        itemData.tagLists.mainColours.forEach(tag => this.addMainColourTag(tag));
+        itemData.tagLists.highlightColours.forEach(tag => this.addHighlightColourTag(tag));
+    }
 
-		// Create tag select items and add to the list
-		for (let i = 0; i < filteredTags.length; i++) {
-			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddMaterialTag.bind(this));
-			this.$materialsSelectList.appendChild($tagSelect);
-		}
+    hide() {
+        this.$editItem.classList.remove("add-item--active");
+    }
 
-		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddMaterialTag.bind(this));
-		this.$materialsSelectList.appendChild($addNewTag);
-	}
+    createTagSelectItem(tag, addTagCallback) {
+        const $tagSelect = document.createElement("li");
+        $tagSelect.classList.add("tag-select");
+        $tagSelect.innerText = tag;
+        $tagSelect.addEventListener("click", addTagCallback);
+        return $tagSelect;
+    }
 
-	showMaterialSelectList(event) {
-		event.stopPropagation();
-		this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
-		this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
-		this.$materialsSelectList.classList.add("add-item__tag-select--active");
-	}
+    createTagDisplayItem(tag, removeTagCallback) {
+        const $tagDisplay = this.$tagDisplayTemplate.content.cloneNode(true).firstElementChild;
+        const $tagName = $tagDisplay.querySelector(".tag-display__name");
+        const $tagRemove = $tagDisplay.querySelector(".tag-display__remove");
 
-	onClickAddMaterialTag(event) {
-		event.stopPropagation();
-		const tagName = event.target.innerText;
-		const tag = (tagName === "Add New...") ? this.$materialsInput.value : tagName;
-		this.addMaterialTag(tag);
-	}
+        $tagName.innerText = tag;
+        $tagRemove.addEventListener("click", removeTagCallback);
 
-	addMaterialTag(tag) {
-		this.$materialsInput.focus();
-		if (!tag) return;
+        return $tagDisplay;
+    }
 
-		this.tagLists.materials.addTag(tag);
+    setName(name) {
+        super.setName(name);
+        this.$nameInput.value = name;
+    }
 
-		const $tagDisplay = this.createTagDisplayItem(tag, this.removeMaterialTag.bind(this));
-		this.$materialsDisplayList.appendChild($tagDisplay);
-		
-		this.$materialsInput.value = "";
-		this.loadMaterialSelectTags();
-	}
+    setQuantity(quantity) {
+        super.setQuantity(quantity);
+        this.$quantityInput.value = quantity;
+    }
 
-	removeMaterialTag(event) {
-		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
-		const tag = $tagName.innerText;
-		this.tagLists.materials.removeTag(tag);
+    hideAllTagSelectLists(event) {
+        this.$materialsSelectList.classList.remove("add-item__tag-select--active");
+        this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
+        this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
+    }
 
-		this.$materialsDisplayList.removeChild(event.target.parentElement);
-		this.loadMaterialSelectTags();
-	}
+    selectImagePreview(index) {
+        const $selectedImageLabel = document.querySelector(".add-item__image-label--active");
+        $selectedImageLabel.classList.remove("add-item__image-label--active");
+        this.$imageLabels[index].classList.add("add-item__image-label--active");
 
-	// Main Colour Tags
-	loadMainColourSelectTags() {
-		// Remove all tags from the list
-		while (this.$mainColoursSelectList.firstChild != null) {
-			this.$mainColoursSelectList.removeChild(this.$mainColoursSelectList.lastChild);
-		}
+        const filePath = this.$imageLabels[index].dataset.filePath || "img/aa-logo-stamp.png";
+        this.$imagePreview.src = filePath;
+    }
 
-		// Get tags by filtering and sorting available tags with input box string
-		const filterString = this.$mainColoursInput.value;
-		const filteredTags = this.tagLists.mainColours.getFilteredTags(filterString);
+    // Material Tags
+    loadMaterialSelectTags() {
+        // Remove all tags from the list
+        while (this.$materialsSelectList.firstChild) {
+            this.$materialsSelectList.removeChild(this.$materialsSelectList.lastChild);
+        }
 
-		// Create tag select items and add to the list
-		for (let i = 0; i < filteredTags.length; i++) {
-			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddMainColourTag.bind(this));
-			this.$mainColoursSelectList.appendChild($tagSelect);
-		}
+        // Get tags by filtering and sorting available tags with input box string
+        const filterString = this.$materialsInput.value;
+        const filteredTags = this.tagLists.materials.getFilteredTags(filterString);
 
-		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddMainColourTag.bind(this));
-		this.$mainColoursSelectList.appendChild($addNewTag);
-	}
+        // Create tag select items and add to the list
+        for (let i = 0; i < filteredTags.length; i++) {
+            const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddMaterialTag.bind(this));
+            this.$materialsSelectList.appendChild($tagSelect);
+        }
 
-	showMainColourSelectList(event) {
-		event.stopPropagation();
-		this.$materialsSelectList.classList.remove("add-item__tag-select--active");
-		this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
-		this.$mainColoursSelectList.classList.add("add-item__tag-select--active");
-	}
+        // Create add new tag select item and add to the list
+        const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddMaterialTag.bind(this));
+        this.$materialsSelectList.appendChild($addNewTag);
+    }
 
-	onClickAddMainColourTag(event) {
-		event.stopPropagation();
-		const tagName = event.target.innerText;
-		const tag = (tagName === "Add New...") ? this.$mainColoursInput.value : tagName;
-		this.addMainColourTag(tag);
-	}
+    showMaterialSelectList(event) {
+        event.stopPropagation();
+        this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
+        this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
+        this.$materialsSelectList.classList.add("add-item__tag-select--active");
+    }
 
-	addMainColourTag(tag) {
-		this.$mainColoursInput.focus();
-		if (!tag) return;
+    onClickAddMaterialTag(event) {
+        event.stopPropagation();
+        const tagName = event.target.innerText;
+        const tag = (tagName === "Add New...") ? this.$materialsInput.value : tagName;
+        this.addMaterialTag(tag);
+    }
 
-		this.tagLists.mainColours.addTag(tag);
+    addMaterialTag(tag) {
+        this.$materialsInput.focus();
+        if (!tag) return;
 
-		const $tagDisplay = this.createTagDisplayItem(tag, this.removeMainColourTag.bind(this));
-		this.$mainColoursDisplayList.appendChild($tagDisplay);
+        this.tagLists.materials.addTag(tag);
 
-		this.$mainColoursInput.value = "";
-		this.loadMainColourSelectTags();
-	}
+        const $tagDisplay = this.createTagDisplayItem(tag, this.removeMaterialTag.bind(this));
+        this.$materialsDisplayList.appendChild($tagDisplay);
 
-	removeMainColourTag(event) {
-		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
-		const tag = $tagName.innerText;
-		this.tagLists.mainColours.removeTag(tag);
+        this.$materialsInput.value = "";
+        this.loadMaterialSelectTags();
+    }
 
-		this.$mainColoursDisplayList.removeChild(event.target.parentElement);
-		this.loadMainColourSelectTags();
-	}
+    removeMaterialTag(event) {
+        const $tagName = event.target.parentElement.querySelector(".tag-display__name");
+        const tag = $tagName.innerText;
+        this.tagLists.materials.removeTag(tag);
 
-	// Highlight Colour Tags
-	loadHighlightColourSelectTags() {
-		// Remove all tags from the list
-		while (this.$highlightColoursSelectList.firstChild != null) {
-			this.$highlightColoursSelectList.removeChild(this.$highlightColoursSelectList.lastChild);
-		}
+        this.$materialsDisplayList.removeChild(event.target.parentElement);
+        this.loadMaterialSelectTags();
+    }
 
-		// Get tags by filtering and sorting available tags with input box string
-		const filterString = this.$highlightColoursInput.value;
-		const filteredTags = this.tagLists.highlightColours.getFilteredTags(filterString);
+    // Main Colour Tags
+    loadMainColourSelectTags() {
+        // Remove all tags from the list
+        while (this.$mainColoursSelectList.firstChild != null) {
+            this.$mainColoursSelectList.removeChild(this.$mainColoursSelectList.lastChild);
+        }
 
-		// Create tag select items and add to the list
-		for (let i = 0; i < filteredTags.length; i++) {
-			const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddHighlightColourTag.bind(this));
-			this.$highlightColoursSelectList.appendChild($tagSelect);
-		}
+        // Get tags by filtering and sorting available tags with input box string
+        const filterString = this.$mainColoursInput.value;
+        const filteredTags = this.tagLists.mainColours.getFilteredTags(filterString);
 
-		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddHighlightColourTag.bind(this));
-		this.$highlightColoursSelectList.appendChild($addNewTag);
-	}
+        // Create tag select items and add to the list
+        for (let i = 0; i < filteredTags.length; i++) {
+            const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddMainColourTag.bind(this));
+            this.$mainColoursSelectList.appendChild($tagSelect);
+        }
 
-	showHighlightColourSelectList(event) {
-		event.stopPropagation();
-		this.$materialsSelectList.classList.remove("add-item__tag-select--active");
-		this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
-		this.$highlightColoursSelectList.classList.add("add-item__tag-select--active");
-	}
+        // Create add new tag select item and add to the list
+        const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddMainColourTag.bind(this));
+        this.$mainColoursSelectList.appendChild($addNewTag);
+    }
 
-	onClickAddHighlightColourTag(event) {
-		event.stopPropagation();
-		const tagName = event.target.innerText;
-		const tag = (tagName === "Add New...") ? this.$highlightColoursInput.value : tagName;
-		this.addHighlightColourTag(tag);
-	}
+    showMainColourSelectList(event) {
+        event.stopPropagation();
+        this.$materialsSelectList.classList.remove("add-item__tag-select--active");
+        this.$highlightColoursSelectList.classList.remove("add-item__tag-select--active");
+        this.$mainColoursSelectList.classList.add("add-item__tag-select--active");
+    }
 
-	addHighlightColourTag(tag) {
-		this.$highlightColoursInput.focus();
-		if (!tag) return;
+    onClickAddMainColourTag(event) {
+        event.stopPropagation();
+        const tagName = event.target.innerText;
+        const tag = (tagName === "Add New...") ? this.$mainColoursInput.value : tagName;
+        this.addMainColourTag(tag);
+    }
 
-		this.tagLists.highlightColours.addTag(tag);
+    addMainColourTag(tag) {
+        this.$mainColoursInput.focus();
+        if (!tag) return;
 
-		const $tagDisplay = this.createTagDisplayItem(tag, this.removeHighlightColourTag.bind(this));
-		this.$highlightColoursDisplayList.appendChild($tagDisplay);
+        this.tagLists.mainColours.addTag(tag);
 
-		this.$highlightColoursInput.value = "";
-		this.loadHighlightColourSelectTags();
-	}
+        const $tagDisplay = this.createTagDisplayItem(tag, this.removeMainColourTag.bind(this));
+        this.$mainColoursDisplayList.appendChild($tagDisplay);
 
-	removeHighlightColourTag(event) {
-		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
-		const tag = $tagName.innerText;
-		this.tagLists.highlightColours.removeTag(tag);
+        this.$mainColoursInput.value = "";
+        this.loadMainColourSelectTags();
+    }
 
-		this.$highlightColoursDisplayList.removeChild(event.target.parentElement);
-		this.loadHighlightColourSelectTags();
-	}
+    removeMainColourTag(event) {
+        const $tagName = event.target.parentElement.querySelector(".tag-display__name");
+        const tag = $tagName.innerText;
+        this.tagLists.mainColours.removeTag(tag);
 
-	// Submit New Item
-	async submitData(event) {
-		const data = this.getData();
-		console.log("Add Item");
-		console.log(data);
-		const response = await http.addStockItem(data);
-		console.log(response);
-	}
+        this.$mainColoursDisplayList.removeChild(event.target.parentElement);
+        this.loadMainColourSelectTags();
+    }
+
+    // Highlight Colour Tags
+    loadHighlightColourSelectTags() {
+        // Remove all tags from the list
+        while (this.$highlightColoursSelectList.firstChild != null) {
+            this.$highlightColoursSelectList.removeChild(this.$highlightColoursSelectList.lastChild);
+        }
+
+        // Get tags by filtering and sorting available tags with input box string
+        const filterString = this.$highlightColoursInput.value;
+        const filteredTags = this.tagLists.highlightColours.getFilteredTags(filterString);
+
+        // Create tag select items and add to the list
+        for (let i = 0; i < filteredTags.length; i++) {
+            const $tagSelect = this.createTagSelectItem(filteredTags[i], this.onClickAddHighlightColourTag.bind(this));
+            this.$highlightColoursSelectList.appendChild($tagSelect);
+        }
+
+        // Create add new tag select item and add to the list
+        const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddHighlightColourTag.bind(this));
+        this.$highlightColoursSelectList.appendChild($addNewTag);
+    }
+
+    showHighlightColourSelectList(event) {
+        event.stopPropagation();
+        this.$materialsSelectList.classList.remove("add-item__tag-select--active");
+        this.$mainColoursSelectList.classList.remove("add-item__tag-select--active");
+        this.$highlightColoursSelectList.classList.add("add-item__tag-select--active");
+    }
+
+    onClickAddHighlightColourTag(event) {
+        event.stopPropagation();
+        const tagName = event.target.innerText;
+        const tag = (tagName === "Add New...") ? this.$highlightColoursInput.value : tagName;
+        this.addHighlightColourTag(tag);
+    }
+
+    addHighlightColourTag(tag) {
+        this.$highlightColoursInput.focus();
+        if (!tag) return;
+
+        this.tagLists.highlightColours.addTag(tag);
+
+        const $tagDisplay = this.createTagDisplayItem(tag, this.removeHighlightColourTag.bind(this));
+        this.$highlightColoursDisplayList.appendChild($tagDisplay);
+
+        this.$highlightColoursInput.value = "";
+        this.loadHighlightColourSelectTags();
+    }
+
+    removeHighlightColourTag(event) {
+        const $tagName = event.target.parentElement.querySelector(".tag-display__name");
+        const tag = $tagName.innerText;
+        this.tagLists.highlightColours.removeTag(tag);
+
+        this.$highlightColoursDisplayList.removeChild(event.target.parentElement);
+        this.loadHighlightColourSelectTags();
+    }
+
+    // Submit New Item
+    async submitData(event) {
+        const data = this.getData();
+        console.log("Add Item");
+        console.log(data);
+        const response = await http.addStockItem(data);
+        console.log(response);
+    }
 }
