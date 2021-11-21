@@ -173,8 +173,10 @@ const updateStockItem = async (req, res) => {
 	for (let i = 0; i < fabricTags.length; i++) {
 		const tag = fabricTags[i];
 		// if tag is in fabric but not data then delete
-		if (!tags.find(t => t.id === tag.id)) {
-			await FabricTag.destroy({ where: { id: tag.id } });
+		if (tag.id) {
+			if (!tags.find(t => t.id === tag.dataValues.tagId)) {
+				await FabricTag.destroy({ where: { id: tag.dataValues.tagId } });
+			}
 		}
 	}
 	
@@ -183,12 +185,12 @@ const updateStockItem = async (req, res) => {
 		const tag = tags[i];
 		if (!tag.id) {
 			// if tag has no id then add to tag list
-			const newTag = await Tag.create({ name: tag.name, category: "material" });
+			const newTag = await Tag.create({ name: tag.name, category: tag.category });
 			await FabricTag.create({ fabricId: fabric.id, tagId: newTag.id });
 		}
 		else {
 			// if tag is in data but not fabric then add
-			if (!fabricTags.find(t => t.id === tag.id)) {
+			if (!fabricTags.find(t => t.dataValues.tagId === tag.id)) {
 				await FabricTag.create({ fabricId: fabric.id, tagId: tag.id });
 			}
 		}
@@ -204,8 +206,9 @@ const deleteStockItem = async (req, res) => {
 		const fabric = await Fabric.findOne({ where: { id } });
 		const fileName1 = fabric.image1;
 		const fileName2 = fabric.image2;
-		if (fileName1) fs.unlinkSync(`images/${fileName1}`);
-		if (fileName2) fs.unlinkSync(`images/${fileName2}`);
+		if (fs.existsSync(`images/${fileName1}`)) fs.unlinkSync(`images/${fileName1}`);
+		if (fs.existsSync(`images/${fileName2}`)) fs.unlinkSync(`images/${fileName2}`);
+		await FabricTag.destroy({ where: { fabricId: id }});
 		await Fabric.destroy({ where: { id } });
 		res.sendStatus(200);
 	}

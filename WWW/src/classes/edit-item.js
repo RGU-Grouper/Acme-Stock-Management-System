@@ -126,9 +126,9 @@ export default class EditItem extends StockItem {
 		this.$quantityInput.value = itemData.quantity;
 		
 		// Set tags
-		itemData.tagLists.material.forEach(tag => this.addMaterialTag(tag));
-		itemData.tagLists.colour.forEach(tag => this.addColourTag(tag));
-		itemData.tagLists.general.forEach(tag => this.addGeneralTag(tag));
+		itemData.tagLists.material.forEach(tag => this.addMaterialTag(this.tagLists.material.getTagByName(tag.name)));
+		itemData.tagLists.colour.forEach(tag => this.addColourTag(this.tagLists.colour.getTagByName(tag.name)));
+		itemData.tagLists.general.forEach(tag => this.addGeneralTag(this.tagLists.general.getTagByName(tag.name)));
 	}
 
 	hide() {
@@ -391,10 +391,9 @@ export default class EditItem extends StockItem {
 		
 		// Show Loading icon
 		
-		const success = await http.addStockItem(data, imageFiles);
+		const success = await http.updateStockItem(data.id, data, imageFiles);
 		// Hide Loading icon
 		if (success) {
-			// Hide Add Item popup
 			console.log("Item updated.");
 			location.reload();
 		}

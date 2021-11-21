@@ -47,7 +47,7 @@ body {
 	display: grid;
 	grid-template-columns: auto auto auto;
 	text-align: center;
-	background-color: hsl(0, 0%, 75%);
+	background-color: hsl(0, 0%, 15%);
 	width: 100%;
 
 	&--hidden {
@@ -55,19 +55,20 @@ body {
 	}
 
 	&__toggle-options {
+		$colour: white;
 		cursor: pointer;
 		width: 1px;
 		height: 1px;
 		border-left: 20px solid transparent;
 		border-right: 20px solid transparent;
-		border-top: 20px solid black;
+		border-top: 20px solid $colour;
 		border-bottom: none;
 		justify-self: center;
 		align-self: center;
 
 		&--active {
 			border-top: none;
-			border-bottom: 20px solid black;
+			border-bottom: 20px solid $colour;
 		}
 	}
 	

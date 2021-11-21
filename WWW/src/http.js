@@ -31,13 +31,24 @@ export const addStockItem = async (data, imageFiles) => {
 	return response2.ok;
 };
 
-export const updateStockItem = async (id, data) => {
-	const res = await fetch(`/stock/${id}`, {
-		method: "PATCH",
+export const updateStockItem = async (id, data, imageFiles) => {
+	// PUT data to server with item id
+	const response1 = await fetch(`/stock/${id}`, {
+		method: "PUT",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	});
-	return res.ok;
+
+	if (!response1.ok) return false;
+	if (!imageFiles) return true;
+
+	// POST image files to server
+	const response2 = await fetch(`/stock/image`, {
+		method: "POST",
+		body: imageFiles,
+	});
+
+	return response2.ok;
 };
 
 export const deleteStockItem = async (id) => {

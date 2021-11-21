@@ -11,7 +11,7 @@
   align-items: center;
   width: 100%;
   min-height: 100%;
-  background-color: #e6e6e6;
+  background-color: #fcfcfc;
 }
 
 /* ITEM PREVIEW */
@@ -557,7 +557,7 @@ body {
   display: grid;
   grid-template-columns: auto auto auto;
   text-align: center;
-  background-color: #bfbfbf;
+  background-color: #262626;
   width: 100%;
 }
 .header--hidden {
@@ -569,14 +569,14 @@ body {
   height: 1px;
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
-  border-top: 20px solid black;
+  border-top: 20px solid white;
   border-bottom: none;
   justify-self: center;
   align-self: center;
 }
 .header__toggle-options--active {
   border-top: none;
-  border-bottom: 20px solid black;
+  border-bottom: 20px solid white;
 }
 .header__stock-options {
   grid-column: span 3;
