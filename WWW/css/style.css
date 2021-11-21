@@ -539,6 +539,10 @@ body {
   letter-spacing: 1.25px;
 }
 
+.hidden {
+  display: none;
+}
+
 /* STOCK MANAGEMENT */
 .stock-management {
   height: 100vh;
