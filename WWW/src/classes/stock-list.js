@@ -37,20 +37,20 @@ export default class StockList {
 	createTagElement(tag) {
 		const $tag = document.createElement("li");
 		$tag.classList.add("item-preview__tag");
-		$tag.innerHTML = tag;
+		$tag.innerHTML = tag.name;
 		return $tag;
 	}
 
 	addItemPreview(itemData) {
 		// Add a card containing item details and image
 
-		const { name, images, tagLists } = itemData;
+		const { name, image1, tagLists } = itemData;
 
 		// Create copy of item preview template
 		const $itemPreview = this.$itemPreviewTemplate.content.cloneNode(true).firstElementChild;
 
 		// Set item details
-		const filePath = (images[0]) ? `images/${images[0]}` : "img/aa-logo-stamp.png";
+		const filePath = (image1) ? `images/${image1}` : "img/placeholder.png";
 		$itemPreview.querySelector(".item-preview__image").src = filePath;
 		$itemPreview.querySelector(".item-preview__name").innerHTML = name;
 		tagLists.material.forEach(tag => {
@@ -66,7 +66,7 @@ export default class StockList {
 	}
 
 	filterStock(filterString) {
-		return this.stock.filter(item => item.getAllCurrentTags().join(".").match(new RegExp(filterString, "i")));
+		return this.stock.filter(item => item.getAllCurrentTags().map(t => t.name).join(".").match(new RegExp(filterString, "i")));
 	}
 
 	loadStockList(filterString) {
@@ -94,9 +94,7 @@ export default class StockList {
 	}
 
 	setStock(data) {
-		data.forEach(item => {
-			this.addStockItem(item);
-		});
+		data.forEach(item => this.addStockItem(item));
 	}
 	
 	addStockItem(itemData) {

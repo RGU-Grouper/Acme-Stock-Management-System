@@ -2,7 +2,16 @@ import EditItem from "./edit-item.js";
 
 export default class ItemDetails {
 	constructor(materialTags, colourTags, generalTags) {
-		this.itemData = {};
+		this.itemData = {
+			name: "",
+			image1: "",
+			image2: "",
+			tagLists: {
+				material: [],
+				colour: [],
+				general: [],
+			},
+		};
 		this.editItem = new EditItem(materialTags, colourTags, generalTags);
 		this.$header = document.querySelector(".header");
 		this.$itemDetails = document.querySelector(".item-details");
@@ -36,23 +45,24 @@ export default class ItemDetails {
 	show(itemData) {
 		this.itemData = itemData;
 		this.editItem.setData(itemData);
-		const { images, name, quantity, tagLists } = itemData;
+		const { name, quantity, image1, image2, tagLists } = itemData;
 	
 		// Show Item Details with transparent background
 		this.$itemDetails.classList.add("item-details--active");
 		this.$header.classList.add("header--hidden");
 	
 		// Set Images
-		for (let i = 0; i < this.$imagePreviews.length; i++) {
-			const filePath = (images[i]) ? `images/${images[i]}` : "img/aa-logo-stamp.png";
-			this.$imagePreviews[i].src = filePath;
-		}
+		const filePath1 = (image1) ? `images/${image1}` : "img/placeholder.png";
+		this.$imagePreviews[0].src = filePath1;
+
+		const filePath2 = (image2) ? `images/${image2}` : "img/placeholder.png";
+		this.$imagePreviews[1].src = filePath2;
 
 		// Set Tags
 		this.clearTags();
-		tagLists.material.forEach(tag => this.addMaterialsTag(tag));
-		tagLists.colour.forEach(tag => this.addColoursTag(tag));
-		tagLists.general.forEach(tag => this.addGeneralsTag(tag));
+		tagLists.material.forEach(tag => this.addMaterialTag(tag));
+		tagLists.colour.forEach(tag => this.addColourTag(tag));
+		tagLists.general.forEach(tag => this.addGeneralTag(tag));
 		
 		// Set Info
 		this.$details.querySelector(".item-details__name").innerHTML = name;
@@ -76,7 +86,7 @@ export default class ItemDetails {
 	createTagElement(tag) {
 		const $tag = document.createElement("li");
 		$tag.classList.add("item-details__tag");
-		$tag.innerHTML = tag;
+		$tag.innerHTML = tag.name;
 		return $tag;
 	}
 
@@ -92,17 +102,17 @@ export default class ItemDetails {
 		}
 	}
 
-	addMaterialsTag(tag) {
+	addMaterialTag(tag) {
 		const $tag = this.createTagElement(tag);
 		this.$materialTags.appendChild($tag);
 	}
 
-	addColoursTag(tag) {
+	addColourTag(tag) {
 		const $tag = this.createTagElement(tag);
 		this.$colourTags.appendChild($tag);
 	}
 
-	addGeneralsTag(tag) {
+	addGeneralTag(tag) {
 		const $tag = this.createTagElement(tag);
 		this.$generalTags.appendChild($tag);
 	}

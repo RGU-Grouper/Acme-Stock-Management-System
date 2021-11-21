@@ -1,6 +1,7 @@
 const express = require("express");
 const stockRouter = require("./routes/stockRoutes.js");
-const sequelize = require("./database.js");
+const tagRouter = require("./routes/tagRoutes.js");
+const sequelize = require("./db/database.js");
 
 const app = express();
 const PORT = process.env.PORT || 2000;
@@ -21,6 +22,7 @@ app.get('/', (req, res) => res.sendFile(__dirname + "/WWW/login.html"));
 
 // HTTP request routes
 app.use('/stock', stockRouter);
+app.use('/tags', tagRouter);
 
 // Start server listening for HTTP requests
 app.listen(PORT, () => console.log(`Server is listening at http://localhost:${PORT}`));

@@ -83,7 +83,7 @@ export default class AddItem extends StockItem {
 	}
 
 	clearForm() {
-		this.$imagePreview.src = "img/aa-logo-stamp.png";
+		this.$imagePreview.src = "img/placeholder.png";
 		this.$imageInputs.forEach($imageInput => $imageInput.value = null);
 		this.selectImagePreview(0);
 		
@@ -104,7 +104,6 @@ export default class AddItem extends StockItem {
 	}
 
 	show() {
-		this.$editItem.scrollTo(0, 0);
 		this.clearForm();
 		this.$header.classList.add("header--hidden");
 		this.$editItem.classList.add("add-item--active");
@@ -112,10 +111,11 @@ export default class AddItem extends StockItem {
 		const itemData = this.getData();
 
 		// Set file inputs for images
-		for (let i = 0; i < 3; i++) {
-			const filePath = (itemData.images[i]) ? `images/${itemData.images[i]}` : "img/aa-logo-stamp.png";
-			this.$imageLabels[i].dataset.filePath = filePath;
-		}
+		const filePath1 = (itemData.image1) ? `images/${itemData.image1}` : "img/placeholder.png";
+		this.$imageLabels[0].dataset.filePath = filePath1;
+		
+		const filePath2 = (itemData.image2) ? `images/${itemData.image2}` : "img/placeholder.png";
+		this.$imageLabels[1].dataset.filePath = filePath2;
 
 		// Set image preview to the first image
 		this.$imagePreview.src = this.$imageLabels[0].dataset.filePath;
@@ -137,17 +137,17 @@ export default class AddItem extends StockItem {
 	createTagSelectItem(tag, addTagCallback) {
 		const $tagSelect = document.createElement("li");
 		$tagSelect.classList.add("tag-select");
-		$tagSelect.innerText = tag;
+		$tagSelect.innerText = tag.name;
 		$tagSelect.addEventListener("click", addTagCallback);
 		return $tagSelect;
 	}
 
-	createTagDisplayItem(tag, removeTagCallback) {
+	createTagDisplayItem(tagName, removeTagCallback) {
 		const $tagDisplay = this.$tagDisplayTemplate.content.cloneNode(true).firstElementChild;
 		const $tagName = $tagDisplay.querySelector(".tag-display__name");
 		const $tagRemove = $tagDisplay.querySelector(".tag-display__remove");
 		
-		$tagName.innerText = tag;
+		$tagName.innerText = tagName;
 		$tagRemove.addEventListener("click", removeTagCallback);
 		
 		return $tagDisplay;
@@ -174,7 +174,7 @@ export default class AddItem extends StockItem {
 		$selectedImageLabel.classList.remove("add-item__image-label--active");
 		this.$imageLabels[index].classList.add("add-item__image-label--active");
 		
-		const filePath = this.$imageLabels[index].dataset.filePath || "img/aa-logo-stamp.png";
+		const filePath = this.$imageLabels[index].dataset.filePath || "image/placeholder.png";
 		this.$imagePreview.src = filePath;
 	}
 
@@ -196,7 +196,7 @@ export default class AddItem extends StockItem {
 		}
 
 		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddMaterialTag.bind(this));
+		const $addNewTag = this.createTagSelectItem({ name: "Add New..." }, this.onClickAddMaterialTag.bind(this));
 		this.$materialSelectList.appendChild($addNewTag);
 	}
 
@@ -214,13 +214,14 @@ export default class AddItem extends StockItem {
 		this.addMaterialTag(tag);
 	}
 
-	addMaterialTag(tag) {
+	addMaterialTag(tagName) {
 		this.$materialInput.focus();
-		if (!tag) return;
+		if (!tagName) return;
 
+		const tag = this.tagLists.material.getTagByName(tagName);
 		this.tagLists.material.addTag(tag);
 
-		const $tagDisplay = this.createTagDisplayItem(tag, this.removeMaterialTag.bind(this));
+		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeMaterialTag.bind(this));
 		this.$materialDisplayList.appendChild($tagDisplay);
 		
 		this.$materialInput.value = "";
@@ -229,8 +230,9 @@ export default class AddItem extends StockItem {
 
 	removeMaterialTag(event) {
 		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
-		const tag = $tagName.innerText;
-		this.tagLists.material.removeTag(tag);
+		const tagName = $tagName.innerText;
+		const tag = this.tagLists.material.getTags().find(tag => tag.name === tagName);
+		if (tag) this.tagLists.material.removeTag(tag);
 
 		this.$materialDisplayList.removeChild(event.target.parentElement);
 		this.loadMaterialSelectTags();
@@ -254,7 +256,7 @@ export default class AddItem extends StockItem {
 		}
 
 		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddColourTag.bind(this));
+		const $addNewTag = this.createTagSelectItem({ name: "Add New..." }, this.onClickAddColourTag.bind(this));
 		this.$colourSelectList.appendChild($addNewTag);
 	}
 
@@ -272,13 +274,14 @@ export default class AddItem extends StockItem {
 		this.addColourTag(tag);
 	}
 
-	addColourTag(tag) {
+	addColourTag(tagName) {
 		this.$colourInput.focus();
-		if (!tag) return;
+		if (!tagName) return;
 
+		const tag = this.tagLists.colour.getTagByName(tagName);
 		this.tagLists.colour.addTag(tag);
 
-		const $tagDisplay = this.createTagDisplayItem(tag, this.removeColourTag.bind(this));
+		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeColourTag.bind(this));
 		this.$colourDisplayList.appendChild($tagDisplay);
 
 		this.$colourInput.value = "";
@@ -287,8 +290,9 @@ export default class AddItem extends StockItem {
 
 	removeColourTag(event) {
 		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
-		const tag = $tagName.innerText;
-		this.tagLists.colour.removeTag(tag);
+		const tagName = $tagName.innerText;
+		const tag = this.tagLists.colour.getTags().find(tag => tag.name === tagName);
+		if (tag) this.tagLists.colour.removeTag(tag);
 
 		this.$colourDisplayList.removeChild(event.target.parentElement);
 		this.loadColourSelectTags();
@@ -312,7 +316,7 @@ export default class AddItem extends StockItem {
 		}
 
 		// Create add new tag select item and add to the list
-		const $addNewTag = this.createTagSelectItem("Add New...", this.onClickAddGeneralTag.bind(this));
+		const $addNewTag = this.createTagSelectItem({ name: "Add New..." }, this.onClickAddGeneralTag.bind(this));
 		this.$generalSelectList.appendChild($addNewTag);
 	}
 
@@ -330,13 +334,14 @@ export default class AddItem extends StockItem {
 		this.addGeneralTag(tag);
 	}
 
-	addGeneralTag(tag) {
+	addGeneralTag(tagName) {
 		this.$generalInput.focus();
-		if (!tag) return;
+		if (!tagName) return;
 
+		const tag = this.tagLists.general.getTagByName(tagName);
 		this.tagLists.general.addTag(tag);
 
-		const $tagDisplay = this.createTagDisplayItem(tag, this.removeGeneralTag.bind(this));
+		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeGeneralTag.bind(this));
 		this.$generalDisplayList.appendChild($tagDisplay);
 
 		this.$generalInput.value = "";
@@ -345,8 +350,9 @@ export default class AddItem extends StockItem {
 
 	removeGeneralTag(event) {
 		const $tagName = event.target.parentElement.querySelector(".tag-display__name");
-		const tag = $tagName.innerText;
-		this.tagLists.general.removeTag(tag);
+		const tagName = $tagName.innerText;
+		const tag = this.tagLists.general.getTags().find(tag => tag.name === tagName);
+		if (tag) this.tagLists.general.removeTag(tag);
 
 		this.$generalDisplayList.removeChild(event.target.parentElement);
 		this.loadGeneralSelectTags();
@@ -355,9 +361,30 @@ export default class AddItem extends StockItem {
 	// Submit New Item
 	async submitData(event) {
 		const data = this.getData();
-		console.log("Add Item");
-		console.log(data);
-		const response = await http.addStockItem(data);
-		console.log(response);
+		const imageFiles = new FormData();
+
+		const file1 = this.$imageInputs[0].files[0];
+		if (file1) {
+			imageFiles.append("image1", file1);
+			data.image1 = file1.name;
+		}
+		const file2 = this.$imageInputs[1].files[0];
+		if (file2) {
+			imageFiles.append("image2", file2);
+			data.image2 = file2.name;
+		}
+		
+		// Show Loading icon
+		
+		const success = await http.addStockItem(data, imageFiles);
+		// Hide Loading icon
+		if (success) {
+			// Hide Add Item popup
+			console.log("Item added.");
+		}
+		else {
+			// Show error message
+			console.log("Error adding item.");
+		}
 	}
 }

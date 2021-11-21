@@ -1,7 +1,7 @@
 export default class TagList {
 	constructor(key, tags) {
 		this.key = key;								// material, colour, general, etc.
-		this.tags = tags;							// List of all applicable tags
+		this.tags = tags || [];				// List of all applicable tags
 		this.currentTags = [];				// List of all applied tags
 	}
 
@@ -20,6 +20,10 @@ export default class TagList {
 		return this.tags;
 	}
 
+	getTagByName(name) {
+		return this.getTags().find(tag => tag.name === name);
+	}
+
 	getCurrentTags() {
 		return this.currentTags;
 	}
@@ -29,8 +33,8 @@ export default class TagList {
 	}
 
 	getFilteredTags(filterString) {
-		const tags = this.getAvailableTags().filter(tag => tag.match(new RegExp(filterString, "i")));
-		const startTags = tags.map(tag => tag.substring(0, filterString.length).toLowerCase() === filterString.toLowerCase() ? tag : null).filter(tag => tag != null);
+		const tags = this.getAvailableTags().filter(tag => tag.name.match(new RegExp(filterString, "i")));
+		const startTags = tags.map(tag => tag.name.substring(0, filterString.length).toLowerCase() === filterString.toLowerCase() ? tag : null).filter(tag => tag != null);
 		const endTags = tags.filter(tag => !startTags.includes(tag));
 		return startTags.concat(endTags);
 	}
@@ -42,7 +46,7 @@ export default class TagList {
 	}
 
 	removeTag(tag) {
-		this.currentTags = this.currentTags.filter(t => t !== tag);
+		this.currentTags = this.currentTags.filter(t => t.name !== tag.name);
 	}
 
 	clearTags() {

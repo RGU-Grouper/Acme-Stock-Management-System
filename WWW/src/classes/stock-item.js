@@ -5,7 +5,8 @@ export default class StockItem {
 		this.id = "";
 		this.name = "";
 		this.quantity = 0;
-		this.images = [];
+		this.image1 = "",
+		this.image2 = "",
 		this.tagLists = {
 			material: new TagList("material", materialTags),
 			colour: new TagList("colour", colourTags),
@@ -43,7 +44,8 @@ export default class StockItem {
 			id: this.id,
 			name: this.name,
 			quantity: this.quantity,
-			images: this.images,
+			image1: this.image1,
+			image2: this.image2,
 			tagLists: {
 				material: this.tagLists.material.getCurrentTags(),
 				colour: this.tagLists.colour.getCurrentTags(),
@@ -56,11 +58,14 @@ export default class StockItem {
 		this.id = data.id;
 		this.name = data.name;
 		this.quantity = data.quantity;
-		data.images.forEach(image => this.images.push(image));
-
-		Object.keys(data.tagLists).forEach(key => {
-			const tagList = data.tagLists[key];
-			tagList.forEach(tag => this.tagLists[key].addTag(tag));
-		});
+		this.image1 = data.image1;
+		this.image2 = data.image2;
+		
+		if (data.tagLists) {
+			Object.keys(data.tagLists).forEach(key => {
+				const tagList = data.tagLists[key];
+				tagList.forEach(tag => this.tagLists[key].addTag(tag));
+			});
+		}
 	}
 }
