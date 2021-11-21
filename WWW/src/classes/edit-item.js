@@ -126,9 +126,9 @@ export default class EditItem extends StockItem {
 		this.$quantityInput.value = itemData.quantity;
 		
 		// Set tags
-		itemData.tagLists.material.forEach(tag => this.addMaterialTag(this.tagLists.material.getTagByName(tag.name)));
-		itemData.tagLists.colour.forEach(tag => this.addColourTag(this.tagLists.colour.getTagByName(tag.name)));
-		itemData.tagLists.general.forEach(tag => this.addGeneralTag(this.tagLists.general.getTagByName(tag.name)));
+		itemData.tagLists.material.forEach(tag => this.addMaterialTag(tag.name));
+		itemData.tagLists.colour.forEach(tag => this.addColourTag(tag.name));
+		itemData.tagLists.general.forEach(tag => this.addGeneralTag(tag.name));
 	}
 
 	hide() {
@@ -215,13 +215,19 @@ export default class EditItem extends StockItem {
 		this.addMaterialTag(tag);
 	}
 
-	addMaterialTag(tag) {
+	addMaterialTag(tagName) {
 		this.$materialInput.focus();
-		if (!tag) return;
+		if (!tagName) return;
 
-		this.tagLists.material.addTag(tag);
+		const tag = this.tagLists.material.getTagByName(tagName);
+		if (tag) {
+			this.tagLists.material.addTag(tag);
+		}
+		else {
+			this.tagLists.material.addTag({ name: tagName, category: "material" });
+		}
 
-		const $tagDisplay = this.createTagDisplayItem(tag.name, this.removeMaterialTag.bind(this));
+		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeMaterialTag.bind(this));
 		this.$materialDisplayList.appendChild($tagDisplay);
 		
 		this.$materialInput.value = "";
@@ -274,13 +280,19 @@ export default class EditItem extends StockItem {
 		this.addColourTag(tag);
 	}
 
-	addColourTag(tag) {
+	addColourTag(tagName) {
 		this.$colourInput.focus();
-		if (!tag) return;
+		if (!tagName) return;
 
-		this.tagLists.colour.addTag(tag);
+		const tag = this.tagLists.colour.getTagByName(tagName);
+		if (tag) {
+			this.tagLists.colour.addTag(tag);
+		}
+		else {
+			this.tagLists.colour.addTag({ name: tagName, category: "colour" });
+		}
 
-		const $tagDisplay = this.createTagDisplayItem(tag.name, this.removeColourTag.bind(this));
+		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeColourTag.bind(this));
 		this.$colourDisplayList.appendChild($tagDisplay);
 
 		this.$colourInput.value = "";
@@ -333,13 +345,19 @@ export default class EditItem extends StockItem {
 		this.addGeneralTag(tag);
 	}
 
-	addGeneralTag(tag) {
+	addGeneralTag(tagName) {
 		this.$generalInput.focus();
-		if (!tag) return;
+		if (!tagName) return;
 
-		this.tagLists.general.addTag(tag);
+		const tag = this.tagLists.general.getTagByName(tagName);
+		if (tag) {
+			this.tagLists.general.addTag(tag);
+		}
+		else {
+			this.tagLists.general.addTag({ name: tagName, category: "general" });
+		}
 
-		const $tagDisplay = this.createTagDisplayItem(tag.name, this.removeGeneralTag.bind(this));
+		const $tagDisplay = this.createTagDisplayItem(tagName, this.removeGeneralTag.bind(this));
 		this.$generalDisplayList.appendChild($tagDisplay);
 
 		this.$generalInput.value = "";
