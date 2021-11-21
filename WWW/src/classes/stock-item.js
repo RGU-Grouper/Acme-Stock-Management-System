@@ -1,15 +1,16 @@
 import TagList from "./tag-list.js";
 
 export default class StockItem {
-	constructor(materialTags, colourTags, data) {
+	constructor(materialTags, colourTags, generalTags, data) {
 		this.id = "";
 		this.name = "";
 		this.quantity = 0;
-		this.images = [];
+		this.image1 = "",
+		this.image2 = "",
 		this.tagLists = {
-			materials: new TagList("materials", materialTags),
-			mainColours: new TagList("mainColours", colourTags),
-			highlightColours: new TagList("highlightColours", colourTags),
+			material: new TagList("material", materialTags),
+			colour: new TagList("colour", colourTags),
+			general: new TagList("general", generalTags),
 		};
 
 		if (data) this.setData(data);
@@ -31,16 +32,24 @@ export default class StockItem {
 		this.quantity = Number(quantity);
 	}
 
+	getAllCurrentTags() {
+		const materialTags = this.tagLists.material.getCurrentTags();
+		const colourTags = this.tagLists.colour.getCurrentTags();
+		const generalTags = this.tagLists.general.getCurrentTags();
+		return materialTags.concat(colourTags).concat(generalTags);
+	}
+
 	getData() {
 		return {
 			id: this.id,
 			name: this.name,
 			quantity: this.quantity,
-			images: this.images,
+			image1: this.image1,
+			image2: this.image2,
 			tagLists: {
-				materials: this.tagLists.materials.getCurrentTags(),
-				mainColours: this.tagLists.mainColours.getCurrentTags(),
-				highlightColours: this.tagLists.highlightColours.getCurrentTags(),
+				material: this.tagLists.material.getCurrentTags(),
+				colour: this.tagLists.colour.getCurrentTags(),
+				general: this.tagLists.general.getCurrentTags(),
 			},
 		};
 	}
@@ -49,13 +58,14 @@ export default class StockItem {
 		this.id = data.id;
 		this.name = data.name;
 		this.quantity = data.quantity;
-		data.images.forEach(image => this.images.push(image));
-
-		Object.keys(data.tagLists).forEach(key => {
-			const tagList = data.tagLists[key];
-			tagList.forEach(tag => {
-				this.tagLists[key].addTag(tag);
+		this.image1 = data.image1;
+		this.image2 = data.image2;
+		
+		if (data.tagLists) {
+			Object.keys(data.tagLists).forEach(key => {
+				const tagList = data.tagLists[key];
+				tagList.forEach(tag => this.tagLists[key].addTag(tag));
 			});
-		});
+		}
 	}
 }

@@ -3,13 +3,14 @@ import AddItem from "./add-item.js";
 import ItemDetails from "./item-details.js";
 
 export default class StockList {
-	constructor(materialTags, colourTags, stockData) {
+	constructor(materialTags, colourTags, generalTags, stockData) {
 		this.stock = [];
 		this.materialTags = materialTags;
 		this.colourTags = colourTags;
+		this.generalTags = generalTags;
 		
-		this.addItem = new AddItem(materialTags, colourTags);
-		this.itemDetails = new ItemDetails(materialTags, colourTags);
+		this.addItem = new AddItem(materialTags, colourTags, generalTags);
+		this.itemDetails = new ItemDetails(materialTags, colourTags, generalTags);
 		
 		this.$stockListItems = document.querySelector(".stock-list__items");
 		this.$itemPreviewTemplate = document.getElementById("item-preview-template");
@@ -33,19 +34,29 @@ export default class StockList {
 		}
 	}
 
+	createTagElement(tag) {
+		const $tag = document.createElement("li");
+		$tag.classList.add("item-preview__tag");
+		$tag.innerHTML = tag.name;
+		return $tag;
+	}
+
 	addItemPreview(itemData) {
 		// Add a card containing item details and image
 
-		const { name, quantity, images } = itemData;
+		const { name, image1, tagLists } = itemData;
 
 		// Create copy of item preview template
 		const $itemPreview = this.$itemPreviewTemplate.content.cloneNode(true).firstElementChild;
 
 		// Set item details
-		const filePath = (images[0]) ? `images/${images[0]}` : "img/aa-logo-stamp.png";
+		const filePath = (image1) ? `images/${image1}` : "img/placeholder.png";
 		$itemPreview.querySelector(".item-preview__image").src = filePath;
 		$itemPreview.querySelector(".item-preview__name").innerHTML = name;
-		$itemPreview.querySelector(".item-preview__quantity-data").innerHTML = quantity;
+		tagLists.material.forEach(tag => {
+			const $tag = this.createTagElement(tag);
+			$itemPreview.querySelector(".item-preview__tag-list").appendChild($tag);
+		});
 
 		// Set click handler
 		$itemPreview.addEventListener("click", (event) => this.itemDetails.show(itemData));
@@ -54,17 +65,17 @@ export default class StockList {
 		this.$stockListItems.appendChild($itemPreview);
 	}
 
+	filterStock(filterString) {
+		return this.stock.filter(item => item.getAllCurrentTags().map(t => t.name).join(".").match(new RegExp(filterString, "i")));
+	}
+
 	loadStockList(filterString) {
 		while (this.$stockListItems.firstChild) {
 			this.$stockListItems.removeChild(this.$stockListItems.lastChild);
 		}
 
 		if (filterString) {
-			const filteredStock = this.stock.filter(item => item.name.match(new RegExp(filterString, "i")));
-			const startItems = filteredStock.map(item => item.name.substring(0, filterString.length).toLowerCase() === filterString.toLowerCase() ? item : null).filter(item => item != null);
-			const endItems = filteredStock.filter(item => !startItems.includes(item));
-			const sortedStock = startItems.concat(endItems);
-			sortedStock.forEach(item => this.addItemPreview(item));
+			this.filterStock(filterString).forEach(item => this.addItemPreview(item.getData()));
 		}
 		else {
 			this.stock.forEach(item => this.addItemPreview(item.getData()));
@@ -83,13 +94,11 @@ export default class StockList {
 	}
 
 	setStock(data) {
-		data.forEach(item => {
-			this.addStockItem(item);
-		});
+		data.forEach(item => this.addStockItem(item));
 	}
 	
 	addStockItem(itemData) {
-		const newItem = new StockItem(this.materialTags, this.colourTags, itemData);
+		const newItem = new StockItem(this.materialTags, this.colourTags, this.generalTags, itemData);
 		this.stock.push(newItem);
 	}
 

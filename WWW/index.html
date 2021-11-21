@@ -50,44 +50,41 @@
 			
 			<section class="item-details__details">
 				<h2 class="item-details__name"></h2>
-				<div class="item-details__quantity">
+				<div class="item-details__quantity hidden">
 					<p class="item-details__quantity-label">Quantity:</p>
 					<p class="item-details__quantity-data"></p>
 				</div>
 			</section>
 
 			<section class="item-details__images">
-				<img class="item-details__image-preview item-details__image-preview--active" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
-				<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
-				<img class="item-details__image-preview" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
+				<img class="item-details__image-preview item-details__image-preview--active" src="img/placeholder.png" alt="Stock Item Preview">
+				<img class="item-details__image-preview" src="img/placeholder.png" alt="Stock Item Preview">
 			</section>
 
 			<section class="item-details__tags">
-				<p class="item-details__label">Materials</p>
-				<ul class="item-details__tags" id="item-details-materials"></ul>
-				<p class="item-details__label">Main Colours</p>
-				<ul class="item-details__tags" id="item-details-main-colours"></ul>
-				<p class="item-details__label">Highlight Colours</p>
-				<ul class="item-details__tags" id="item-details-highlight-colours"></ul>
+				<p class="item-details__label">Material</p>
+				<ul class="item-details__tags" id="item-details-material"></ul>
+				<p class="item-details__label">Colour</p>
+				<ul class="item-details__tags" id="item-details-colour"></ul>
+				<p class="item-details__label">General</p>
+				<ul class="item-details__tags" id="item-details-general"></ul>
 			</section>
 		</popup>
 
 		<!-- FULL SCREEN IMAGE VIEW -->
 		<popup class="image-view">
-			<img src="img/aa-logo-stamp.png" class="image-view__image" alt="Stock item preview">
+			<img src="img/placeholder.png" class="image-view__image" alt="Stock item preview">
 		</popup>
 
 		<!-- EDIT ITEM POP-UP -->
 		<popup class="edit-item">
 			<section class="edit-item__images">
-				<img class="edit-item__image-preview" src="img/aa-logo-stamp.png" alt="Item preview">
+				<img class="edit-item__image-preview" src="img/placeholder.png" alt="Item preview">
 				<div class="edit-item__image-select">
 					<p class="edit-item__image-label edit-item__image-label--active">Preview 1</p>
-					<input class="edit-item__image-upload" type="file" accept="image/*">
+					<input class="edit-item__image-upload" type="file" accept="image/*" name="image1">
 					<p class="edit-item__image-label">Preview 2</p>
-					<input class="edit-item__image-upload" type="file" accept="image/*">
-					<p class="edit-item__image-label">Preview 3</p>
-					<input class="edit-item__image-upload" type="file" accept="image/*">
+					<input class="edit-item__image-upload" type="file" accept="image/*" name="image2">
 				</div>
 			</section>
 	
@@ -95,23 +92,23 @@
 				<label class="edit-item__label" for="edit-item-name">Name</label>
 				<input class="edit-item__input" id="edit-item-name" type="text">
 				
-				<label class="edit-item__label" for="edit-materials-input">Material</label>
-				<ul class="edit-item__tag-display" id="edit-materials-display"></ul>
-				<input class="edit-item__input" id="edit-materials-input" type="text">
-				<ul class="edit-item__tag-select" id="edit-materials-select"></ul>
+				<label class="edit-item__label" for="edit-material-input">Material</label>
+				<ul class="edit-item__tag-display" id="edit-material-display"></ul>
+				<input class="edit-item__input" id="edit-material-input" type="text">
+				<ul class="edit-item__tag-select" id="edit-material-select"></ul>
 				
-				<label class="edit-item__label" for="edit-main-colours-input">Main Colours</label>
-				<ul class="edit-item__tag-display" id="edit-main-colours-display"></ul>
-				<input class="edit-item__input" id="edit-main-colours-input" type="text">
-				<ul class="edit-item__tag-select" id="edit-main-colours-select"></ul>
+				<label class="edit-item__label" for="edit-colour-input">Colour</label>
+				<ul class="edit-item__tag-display" id="edit-colour-display"></ul>
+				<input class="edit-item__input" id="edit-colour-input" type="text">
+				<ul class="edit-item__tag-select" id="edit-colour-select"></ul>
 				
-				<label class="edit-item__label" for="edit-highlight-colours-input">Highlight Colours</label>
-				<ul class="edit-item__tag-display" id="edit-highlight-colours-display"></ul>
-				<input class="edit-item__input" id="edit-highlight-colours-input" type="text">
-				<ul class="edit-item__tag-select" id="edit-highlight-colours-select"></ul>
+				<label class="edit-item__label" for="edit-general-input">General</label>
+				<ul class="edit-item__tag-display" id="edit-general-display"></ul>
+				<input class="edit-item__input" id="edit-general-input" type="text">
+				<ul class="edit-item__tag-select" id="edit-general-select"></ul>
 				
-				<label class="edit-item__label" for="edit-item-quantity">Quantity (m)</label>
-				<input class="edit-item__input" id="edit-item-quantity" type="number">
+				<label class="edit-item__label hidden" for="edit-item-quantity">Quantity (m)</label>
+				<input class="edit-item__input hidden" id="edit-item-quantity" type="number">
 			</section>
 	
 			<section class="edit-item__form-buttons">
@@ -124,14 +121,12 @@
 		<!-- ADD ITEM POP-UP -->
 		<popup class="add-item">
 			<section class="add-item__images">
-				<img class="add-item__image-preview" src="img/aa-logo-stamp.png" alt="Item preview">
+				<img class="add-item__image-preview" src="img/placeholder.png" alt="Item preview">
 				<div class="add-item__image-select">
 					<p class="add-item__image-label add-item__image-label--active">Preview 1</p>
-					<input class="add-item__image-upload" type="file" accept="image/*">
+					<input class="add-item__image-upload" type="file" accept="image/*" name="image1">
 					<p class="add-item__image-label">Preview 2</p>
-					<input class="add-item__image-upload" type="file" accept="image/*">
-					<p class="add-item__image-label">Preview 3</p>
-					<input class="add-item__image-upload" type="file" accept="image/*">
+					<input class="add-item__image-upload" type="file" accept="image/*" name="image2">
 				</div>
 			</section>
 	
@@ -139,23 +134,23 @@
 				<label class="add-item__label" for="add-item-name">Name</label>
 				<input class="add-item__input" id="add-item-name" type="text">
 				
-				<label class="add-item__label" for="add-materials-input">Material</label>
-				<ul class="add-item__tag-display" id="add-materials-display"></ul>
-				<input class="add-item__input" id="add-materials-input" type="text">
-				<ul class="add-item__tag-select" id="add-materials-select"></ul>
+				<label class="add-item__label" for="add-material-input">Material</label>
+				<ul class="add-item__tag-display" id="add-material-display"></ul>
+				<input class="add-item__input" id="add-material-input" type="text">
+				<ul class="add-item__tag-select" id="add-material-select"></ul>
 				
-				<label class="add-item__label" for="add-main-colours-input">Main Colours</label>
-				<ul class="add-item__tag-display" id="add-main-colours-display"></ul>
-				<input class="add-item__input" id="add-main-colours-input" type="text">
-				<ul class="add-item__tag-select" id="add-main-colours-select"></ul>
+				<label class="add-item__label" for="add-colour-input">Colour</label>
+				<ul class="add-item__tag-display" id="add-colour-display"></ul>
+				<input class="add-item__input" id="add-colour-input" type="text">
+				<ul class="add-item__tag-select" id="add-colour-select"></ul>
 				
-				<label class="add-item__label" for="add-highlight-colours-input">Highlight Colours</label>
-				<ul class="add-item__tag-display" id="add-highlight-colours-display"></ul>
-				<input class="add-item__input" id="add-highlight-colours-input" type="text">
-				<ul class="add-item__tag-select" id="add-highlight-colours-select"></ul>
+				<label class="add-item__label" for="add-general-input">General</label>
+				<ul class="add-item__tag-display" id="add-general-display"></ul>
+				<input class="add-item__input" id="add-general-input" type="text">
+				<ul class="add-item__tag-select" id="add-general-select"></ul>
 				
-				<label class="add-item__label" for="add-item-quantity">Quantity (m)</label>
-				<input class="add-item__input" id="add-item-quantity" type="number">
+				<label class="add-item__label hidden" for="add-item-quantity">Quantity (m)</label>
+				<input class="add-item__input hidden" id="add-item-quantity" type="number">
 			</section>
 	
 			<section class="add-item__form-buttons">
@@ -169,12 +164,9 @@
 	<!-- Template for Stock Item Preview (Stock List Page)-->
 	<template id="item-preview-template">
 		<li class="item-preview">
-			<img class="item-preview__image" src="img/aa-logo-stamp.png" alt="Stock Item Preview">
+			<img class="item-preview__image" src="img/placeholder.png" alt="Stock Item Preview">
 			<h2 class="item-preview__name"></h2>
-			<div class="item-preview__quantity">
-				<p class="item-preview__quantity-label">Quantity:</p>
-				<p class="item-preview__quantity-data"></p>
-			</div>
+			<ul class="item-preview__tag-list"></ul>
 		</li>
 	</template>
 

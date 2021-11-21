@@ -11,22 +11,44 @@ export const getStockItem = async (id) => {
 	return data;
 };
 
-export const addStockItem = async (data) => {
-	const res = await fetch("/stock", {
+export const addStockItem = async (data, imageFiles) => {
+	// POST data to server
+	const response1 = await fetch("/stock", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	});
-	return res.ok;
+
+	if (!response1.ok) return false;
+	if (!imageFiles) return true;
+	
+	// POST image files to server
+	const response2 = await fetch("/stock/image", {
+		method: "POST",
+		body: imageFiles,
+	});
+
+	return response2.ok;
 };
 
-export const updateStockItem = async (id, data) => {
-	const res = await fetch(`/stock/${id}`, {
-		method: "PATCH",
+export const updateStockItem = async (id, data, imageFiles) => {
+	// PUT data to server with item id
+	const response1 = await fetch(`/stock/${id}`, {
+		method: "PUT",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
 	});
-	return res.ok;
+
+	if (!response1.ok) return false;
+	if (!imageFiles) return true;
+
+	// POST image files to server
+	const response2 = await fetch(`/stock/image`, {
+		method: "POST",
+		body: imageFiles,
+	});
+
+	return response2.ok;
 };
 
 export const deleteStockItem = async (id) => {
@@ -35,15 +57,14 @@ export const deleteStockItem = async (id) => {
 };
 
 // Tags
-export const getMaterialTags = () => {
-	return ["Wool 13oz", "Wool 16oz", "Cotton", "Polyester", "Demin", "Stretch Twill", "Nylon"];
-	// const res = await fetch("/tags/materials");
-	// const data = await res.json();
-	// return data;
+export const getTags = async () => {
+	const res = await fetch("/tags");
+	const data = await res.json();
+	return data;
 };
 
-export const addMaterialTag = async (data) => {
-	const res = await fetch("/tags/materials", {
+export const addTag = async (data) => {
+	const res = await fetch("/tags", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
@@ -51,15 +72,49 @@ export const addMaterialTag = async (data) => {
 	return res.ok;
 };
 
-export const getColourTags = () => {
-	return ["White", "Black", "Red", "Green", "Blue", "Light Blue", "Yellow", "Orange", "Pink", "Purple", "Brown", "Beige"];
-	// const res = await fetch("/tags/colours");
-	// const data = await res.json();
-	// return data;
+export const deleteTag = async (id) => {
+	const res = await fetch(`/tags/${id}`, { method: "DELETE" });
+	return res.ok;
+};
+
+export const getMaterialTags = async () => {
+	const res = await fetch("/tags/material");
+	const data = await res.json();
+	return data;
+};
+
+export const addMaterialTag = async (data) => {
+	const res = await fetch("/tags/material", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(data),
+	});
+	return res.ok;
+};
+
+export const getColourTags = async () => {
+	const res = await fetch("/tags/colour");
+	const data = await res.json();
+	return data;
 };
 
 export const addColourTag = async (data) => {
-	const res = await fetch("/tags/colours", {
+	const res = await fetch("/tags/colour", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(data),
+	});
+	return res.ok;
+};
+
+export const getGeneralTags = async () => {
+	const res = await fetch("/tags/general");
+	const data = await res.json();
+	return data;
+};
+
+export const addGeneralTag = async (data) => {
+	const res = await fetch("/tags/general", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(data),
