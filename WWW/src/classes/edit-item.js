@@ -364,8 +364,13 @@ export default class EditItem extends StockItem {
 		const data = this.getData();
 		console.log("Delete Item");
 		console.log(data);
-		const response = await http.deleteStockItem(data.id);
-		console.log(response);
+		const success = await http.deleteStockItem(data.id);
+		if (success) {
+			location.reload();
+		}
+		else {
+			console.log("Error updating item.");
+		}
 	}
 
 	// Submit Updated Item
@@ -391,6 +396,7 @@ export default class EditItem extends StockItem {
 		if (success) {
 			// Hide Add Item popup
 			console.log("Item updated.");
+			location.reload();
 		}
 		else {
 			// Show error message

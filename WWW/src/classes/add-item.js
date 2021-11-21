@@ -82,6 +82,18 @@ export default class AddItem extends StockItem {
 		this.$submitButton.addEventListener("click", (event) => this.submitData());
 	}
 
+	resetItemData() {
+		this.setData({
+			name: "",
+			quantity: 0,
+			image1: "",
+			image2: "",
+		});
+		this.tagLists.material.clearTags();
+		this.tagLists.colour.clearTags();
+		this.tagLists.general.clearTags();
+	}
+
 	clearForm() {
 		this.$imagePreview.src = "img/placeholder.png";
 		this.$imageInputs.forEach($imageInput => $imageInput.value = null);
@@ -104,6 +116,7 @@ export default class AddItem extends StockItem {
 	}
 
 	show() {
+		this.resetItemData();
 		this.clearForm();
 		this.$header.classList.add("header--hidden");
 		this.$editItem.classList.add("add-item--active");
@@ -379,8 +392,8 @@ export default class AddItem extends StockItem {
 		const success = await http.addStockItem(data, imageFiles);
 		// Hide Loading icon
 		if (success) {
-			// Hide Add Item popup
 			console.log("Item added.");
+			location.reload();
 		}
 		else {
 			// Show error message
